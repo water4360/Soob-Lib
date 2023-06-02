@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../../../../Lecture/web-basic"
+		},
+		{
+			"path": "../example1"
 		}
 	],
 	"settings": {}

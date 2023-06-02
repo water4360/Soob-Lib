@@ -28,15 +28,15 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	
-	
+
+
 	<!-- 	<div id="logo"><img src="./source/forest.png" width="10%"/><br>(로고)도서관, 숲</div> -->
 	<div id="logo">
 		<img src="./source/forest.png" width="10%" /><br>(로고)도서관, 숲
 	</div>
-	
-	
-	
+
+
+
 	<div id="search">
 		전체도서검색 <input id="title" type="radio" name="searchBy" checked>
 		<label for="title"> 제목 </label> <input id="writer" type="radio"

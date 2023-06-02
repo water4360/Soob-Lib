@@ -41,9 +41,26 @@ public class LoginProcess extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//사용자 입력 id, pw
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
 		MemberDAO dao = new MemberDAO();
+		MemberVO vo = new MemberVO();
+		vo.setId(id);
+		vo.setPw(pw);
+		
+		//dao의 메소드에서 id 체크, pw 체크????
+		if(dao.isCorrectInfo(id, pw)) {
+			response.sendRedirect(request.getContextPath() + "index.jsp");
+		} else {
+			
+		}
+		
+		
+		
+		
+		
+		
 	}
 }
