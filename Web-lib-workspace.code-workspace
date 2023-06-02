@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../WebTest"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../../Lecture/web-basic"
+		}
+	],
+	"settings": {}
+}
