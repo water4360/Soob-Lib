@@ -27,22 +27,25 @@
 		let f = document.loginForm
 		let id = f.id
 		let pw = f.pw
-		let idError = f.idError
-		let pwError = f.pwError
+		let idError = document.getElementById("idError")
+		let pwError = document.getElementById("pwError")
 
-		if (id.value == '') {
-			alert('ID를 입력하세요!')
-			idError.innerText = '아이디를 입력하세요!'
-			id.focus()
-			return false
-		}
-		if (pw.value == '') {
-			alert('PW를 입력하세요!!')
-			pwError.innerText = '비밀번호를 입력하세요!'
-			pw.focus()
-			return false
-		}
-		return true
+		if (id.value.trim() === '') {
+// 	        alert('ID를 입력하세요!');
+	        idError.innerText = '아이디를 입력하세요';
+	        id.focus();
+	        return false;
+	    } else if (pw.value.trim() === '') {
+// 	        alert('PW를 입력하세요!');
+			idError.innerText = '';
+	        pwError.innerText = '비밀번호를 입력하세요';
+	        pw.focus();
+	        return false;
+	    } else {
+// 	    	alert('로그인 프로세스로 진입!')
+// 	        f.action = "./jsp/loginProcess.jsp";
+	        return true;
+	    }
 	}
 </script>
 </head>
@@ -55,7 +58,7 @@
 			<!-- 	액션이 갈지 말지 선택하는걸 이 onsubmit 에서 ... -->
 			<div class="card" style="width: 18rem" align="left">
 <!-- 			submit 눌렀을때 어디로 보낼지 여기서 결정!-->
-				<form method="post" action="./jsp/loginProcess.jsp" name="loginForm"
+				<form method="post"  action="./jsp/loginProcess.jsp" name="loginForm"
 					onsubmit="return checkForm()">
 					<div class="form-group">
 						<h3>로그인</h3>

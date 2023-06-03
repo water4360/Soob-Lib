@@ -19,10 +19,7 @@
 	얘가 위치한 순서도 중요하다~~!
 	*/
 	
-	
-	System.out.println("로그인페이지로 이동!");
-// 	request.setCharacterEncoding("UTF-8");
-
+	System.out.println("로긴 프로세스로 이동!");
 
 	//post방식으로 넘어오는 애들은?
 	//request.getParameter("인자")로 받아온다~
@@ -77,6 +74,7 @@
 		} else {
 			msg = "입력하신 ID 또는 PW가 잘못되었습니다.";
 			System.out.println(msg);
+			
 			locUrl="./login.do";
 		}
 		

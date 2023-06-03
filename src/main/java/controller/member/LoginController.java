@@ -25,15 +25,15 @@ public class LoginController implements Controller {
 		// VO에 담아준 걸로 DAO에서 비교해서 일치하는 사용자 정보 가져온게 mem
 		MemberVO mem = dao.getMemberById(id);
 		
-		if(mem != null ) {
+		if(mem != null && mem.getId().equals(id) && mem.getPw().equals(pw)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("mem", mem);
-			System.out.println("회원정보 존재함. by LoginController");
+			System.out.println("회원정보 존재. by LoginController");
 			return "index.jsp";
 		} else {
 			//사용자 정보가 없으면 로그인페이지로 감.
 			//로긴페이지에서 분간해서 loginProcess로 보내줌ㅋㅋ
-			System.out.println("로그인 안됐음. by LoginController");
+			System.out.println("로그인하러 고고씽. by LoginController");
 			return "./jsp/login.jsp";
 		}
 
