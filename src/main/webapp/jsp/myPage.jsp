@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>마이페이지 - 라이브러리, 숲</title>
+<link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 	<header>

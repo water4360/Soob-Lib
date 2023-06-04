@@ -1,21 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <style>
 #container {
 	width: 100%;
-	height: 400px;
-	background-color: forestgreen;
+	height: 80px;
+	background-color: darkseagreen;
 	display: flex;
-	flex-direction: column;
+	justify-content: space-between;
 	align-items: center;
-	position: relative;
+}
+
+#logo {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+}
+
+#menu {
+	display: flex;
+	align-items: center;
+}
+
+#library-name {
+	font-size: xx-large;
+	font-weight: 800;
+	font-style: italic;
+}
+
+a {
+	margin: 5px;
 }
 </style>
 <div id="container">
+	<!-- 	<div id="logo"><img src="./source/forest.png" width="10%"/><br>(로고)도서관, 숲</div> -->
+	<div id="logo">
+		<a href="main.do"> <span id="library-name">라이브러리, 숲</span></a>
+	</div>
+
 	<div id="menu">
 		<c:if test="${ not empty loginUser }">
-		[${ loginUser.userName }(${ loginUser.id })님 접속중!]
+					$ID : ${ loginUser.id }(${ loginUser.userName })
 		</c:if>
 		<c:choose>
 			<c:when test="${ empty loginUser }">
@@ -23,26 +49,16 @@
 				<a href="login.do">로그인</a>
 			</c:when>
 			<c:otherwise>
-				<a href="myPage.do">내정보</a>
+				<!-- 			리디는 회원가입/로그인 외에도 항상 아이콘으로 표시,
+				로그인이 안되어 있어도 클릭 가능하고 로긴중 아니면 로긴창. -->
+				<a href="myPage.do">나의정보</a>
+				<a href="myLibrary.do">나의서재</a>
 				<a href="logout.do" id="userInfo">로그아웃</a>
 			</c:otherwise>
 		</c:choose>
 	</div>
 
 
-	<!-- 	<div id="logo"><img src="./source/forest.png" width="10%"/><br>(로고)도서관, 숲</div> -->
-	<div id="logo">
-		<a href="login.do"><img src="./source/forest.png" width="10%" /><br>도서관, 숲</a>
-	</div>
 
-
-
-	<div id="search">
-		전체도서검색 <input id="title" type="radio" name="searchBy" checked>
-		<label for="title"> 제목 </label> <input id="writer" type="radio"
-			name="searchBy"> <label for="writer"> 저자 </label> <input
-			type="text" id="search" />
-		<button id="searchBtn">검색</button>
-	</div>
 
 </div>

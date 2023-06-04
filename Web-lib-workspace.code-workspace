@@ -1,17 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "../WebTest"
-		},
-		{
 			"path": "."
 		},
 		{
-			"path": "../../../../Lecture/web-basic"
-		},
-		{
-			"path": "../example1"
+			"path": "../../web-basic"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"aws.codeWhisperer.javaCompilationOutput": "C:\\work\\web-library-workspace\\SoobLib"
+	}
 }

@@ -4,22 +4,40 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>:: 도서관 숲 ::</title>
-		<link rel="stylesheet" href="./html/style.css">
+		<link rel="stylesheet" href="./css/style.css">
 	</head>
 
 	<style>
+		#top {
+			position: relative;
+			min-height : 20%;
+			display: block;
+			flex-direction: row;
+		}
+
+
 		#center-main {
 			width: 100%;
-			height: 100%;
+			/* min-height : 100%; */
+/* 			min-height: 300px; */
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
 			align-items: center;
 		}
 
+		section {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			background-color : gray;
+		}
+		
 		#notice {
 			width: 50%;
-			height: 50vh;
+			height: 300px;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -29,7 +47,7 @@
 
 		#list {
 			width: 50%;
-			height: 50vh;
+			height: 300px;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -40,7 +58,11 @@
 
 	<body>
 		<header>
-			<jsp:include page="./jsp/topMenu.jsp"></jsp:include>
+			<div id="top">
+				<jsp:include page="./jsp/topMenu.jsp"></jsp:include>
+				<hr>
+				<jsp:include page="./jsp/topContents.jsp"></jsp:include>
+			</div>
 		</header>
 		<section>
 			<div id="center-main">

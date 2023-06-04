@@ -6,7 +6,6 @@ public class MemberService {
 
 	/*
 	 * 기존 memDao 정보를 유지하기 위해서 서비스 생성.
-	 * 각각의 컨트롤러?의 기본 생성자에서
 	 * mem서비스 = mem서비스팩토리.newInstance로 부르면
 	 * mem서비스.메소드명으로 사용가능!
 	 */

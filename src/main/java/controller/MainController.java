@@ -1,4 +1,4 @@
-package controller.member;
+package controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,14 +9,14 @@ import controller.BaseController;
 import member.MemberDAO;
 import member.MemberVO;
 
-public class LoginController extends BaseController {
+public class MainController extends BaseController {
 	
 	
-	public LoginController() {
+	public MainController() {
 	}
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-			return "./jsp/login.jsp";
+			return "index.jsp";
 	}
 }

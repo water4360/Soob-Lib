@@ -19,7 +19,7 @@ public class HandlerMapping {
 		mappings = new HashMap<String, Controller>();
 		
 		//xxx.do가 들어오면 xxxControlloer()로 안내!
-//		mappings.put("/main.do", new MainController());
+		mappings.put("/main.do", new MainController());
 		
 		mappings.put("/join.do", new JoinController());
 		
