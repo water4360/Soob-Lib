@@ -32,7 +32,7 @@
 
 	<!-- 	<div id="logo"><img src="./source/forest.png" width="10%"/><br>(로고)도서관, 숲</div> -->
 	<div id="logo">
-		<img src="./source/forest.png" width="10%" /><br>(로고)도서관, 숲
+		<a href="login.do"><img src="./source/forest.png" width="10%" /><br>도서관, 숲</a>
 	</div>
 
 

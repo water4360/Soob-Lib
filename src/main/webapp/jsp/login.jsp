@@ -31,21 +31,23 @@
 		let pwError = document.getElementById("pwError")
 
 		if (id.value.trim() === '') {
-// 	        alert('ID를 입력하세요!');
-	        idError.innerText = '아이디를 입력하세요';
-	        id.focus();
-	        return false;
-	    } else if (pw.value.trim() === '') {
-// 	        alert('PW를 입력하세요!');
+			// 	        alert('ID를 입력하세요!');
+			idError.innerText = '아이디를 입력하세요';
+			pwError.innerText = ''
+			id.focus();
+			return false;
+		} else if (pw.value.trim() === '') {
+			// 	        alert('PW를 입력하세요!');
 			idError.innerText = '';
-	        pwError.innerText = '비밀번호를 입력하세요';
-	        pw.focus();
-	        return false;
-	    } else {
-// 	    	alert('로그인 프로세스로 진입!')
-// 	        f.action = "./jsp/loginProcess.jsp";
-	        return true;
-	    }
+			pwError.innerText = '비밀번호를 입력하세요';
+			pw.focus();
+			return false;
+		} else {
+			// 			비밀번호와 아이디가 모두 입력되었을 때에만 로그인 요청
+			// 	    	alert('로그인 프로세스로 진입!')
+			// 	        f.action = "./jsp/loginProcess.jsp";
+			return true;
+		}
 	}
 </script>
 </head>
@@ -57,24 +59,26 @@
 		<div align="center">
 			<!-- 	액션이 갈지 말지 선택하는걸 이 onsubmit 에서 ... -->
 			<div class="card" style="width: 18rem" align="left">
-<!-- 			submit 눌렀을때 어디로 보낼지 여기서 결정!-->
-				<form method="post"  action="./jsp/loginProcess.jsp" name="loginForm"
+				<!-- 	submit 눌렀을때 어디로 보낼지 여기서 결정!-->
+				<!-- 	<form method="post" action="login.do" name="loginForm" -->
+				<form method="post" action="./jsp/lee-loginProcess.jsp" name="loginForm"
 					onsubmit="return checkForm()">
 					<div class="form-group">
 						<h3>로그인</h3>
-						<label for="id">아이디</label>
-						<input type="text" class="form-control" id="id" name="id">
-<!-- 						아이디틀리면 안내메세지 -->
-						<div id="idError" style="color:red;"></div>
+						<label for="id">아이디</label> <input type="text"
+							class="form-control" id="id" name="id">
+						<!-- 						아이디 미입력시 안내메세지 -->
+						<div id="idError" style="color: red;"></div>
 					</div>
 					<div class="form-group">
-						<label for="pw">비밀번호</label>
-						<input type="password" class="form-control" id="pw" name="pw">
-<!-- 						비번틀리면 안내메세지 -->
-						<div id="pwError" style="color:red;"></div>
+						<label for="pw">비밀번호</label> <input type="password"
+							class="form-control" id="pw" name="pw">
+						<!-- 						비번 미입력시 안내메세지 -->
+						<div id="pwError" style="color: red;"></div>
 					</div>
 					<button type="submit" class="btn btn-primary">로그인</button>
 				</form>
+
 			</div>
 		</div>
 	</section>

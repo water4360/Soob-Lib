@@ -4,11 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import controller.BaseController;
 import controller.Controller;
 import member.MemberDAO;
 import member.MemberVO;
 
-public class LoginProcessController implements Controller {
+public class LoginProcessController extends BaseController {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		// 사용자 입력 id, pw
