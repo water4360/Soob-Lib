@@ -32,14 +32,12 @@
 
 		if (id.value.trim() === '') {
 			// 	        alert('ID를 입력하세요!');
-			idError.innerText = '아이디를 입력하세요';
-			pwError.innerText = ''
+			loginError.innerText = '아이디를 입력하세요';
 			id.focus();
 			return false;
 		} else if (pw.value.trim() === '') {
 			// 	        alert('PW를 입력하세요!');
-			idError.innerText = '';
-			pwError.innerText = '비밀번호를 입력하세요';
+			loginError.innerText = '비밀번호를 입력하세요';
 			pw.focus();
 			return false;
 		} else {
@@ -58,25 +56,33 @@
 	<section>
 		<div align="center">
 			<!-- 	액션이 갈지 말지 선택하는걸 이 onsubmit 에서 ... -->
-			<div class="card" style="width: 18rem" align="left">
+			<div class="card" style="width: 20rem" align="center">
 				<!-- 	submit 눌렀을때 어디로 보낼지 여기서 결정!-->
 				<!-- 	<form method="post" action="login.do" name="loginForm" -->
-				<form method="post" action="./jsp/lee-loginProcess.jsp" name="loginForm"
+				<form method="post" action="./jsp/lee-loginProcess.jsp"
+					name="loginForm" style="height: 400px"
 					onsubmit="return checkForm()">
 					<div class="form-group">
 						<h3>로그인</h3>
-						<label for="id">아이디</label> <input type="text"
-							class="form-control" id="id" name="id">
-						<!-- 						아이디 미입력시 안내메세지 -->
-						<div id="idError" style="color: red;"></div>
+						<label for="id"> <input type="text" class="form-control"
+							placeholder="아이디" id="id" name="id">
+						</label> <label for="pw"> <input type="password"
+							class="form-control" placeholder="비밀번호" id="pw" name="pw">
+						</label>
+						<div class="checkbox mb-3">
+							<label for="saveId"> <input type="checkbox" name="saveId"
+								value="save"> 아이디기억 아직못해
+							</label>
+						</div>
+						<div id="loginError" style="color: red;"></div>
+						<button type="submit" class="btn btn-success">로그인</button>
+						<div>
+							<a href="findId.do">아이디 찾기</a> |
+							<a href="findPw.do">비밀번호 찾기</a> |
+							<a href="signup.do">회원가입</a>
+							
+						</div>
 					</div>
-					<div class="form-group">
-						<label for="pw">비밀번호</label> <input type="password"
-							class="form-control" id="pw" name="pw">
-						<!-- 						비번 미입력시 안내메세지 -->
-						<div id="pwError" style="color: red;"></div>
-					</div>
-					<button type="submit" class="btn btn-primary">로그인</button>
 				</form>
 
 			</div>

@@ -1,6 +1,7 @@
 package common;
 
 import member.MemberDAO;
+import member.MemberVO;
 
 public class MemberService {
 
@@ -14,6 +15,14 @@ public class MemberService {
 	public MemberService() {
 		memDao = new MemberDAO();
 	}
+	
+	//회원가입
+	public void addMember(MemberVO vo) {
+		memDao.addMember(vo);
+	}
+	
+	
+	
 
 	// 0. ID 중복 체크 메소드
 	public boolean isDuplicated(String id) {

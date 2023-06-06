@@ -3,7 +3,8 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import controller.member.JoinController;
+import controller.member.SignUpController;
+import controller.member.SignUpProcessController;
 import controller.member.LoginController;
 import controller.member.LoginProcessController;
 import controller.member.LogoutController;
@@ -20,8 +21,8 @@ public class HandlerMapping {
 		
 		//xxx.do가 들어오면 xxxControlloer()로 안내!
 		mappings.put("/main.do", new MainController());
-		
-		mappings.put("/join.do", new JoinController());
+		mappings.put("/signup.do", new SignUpController());
+		mappings.put("/signupProcess.do", new SignUpProcessController());
 		
 		//login 안된 사용자는 login.jsp로 보내서 입력받게 하고.
 		mappings.put("/login.do", new LoginController());

@@ -56,23 +56,23 @@
 		String locUrl="";
 		
 		if(rs.next()){
-			MemberVO loginUser = new MemberVO();
-			loginUser.setId(rs.getString("ID"));
-			loginUser.setPw(rs.getString("PW"));
-			loginUser.setUserName(rs.getString("NAME"));
-			loginUser.setUserPhone(rs.getString("PHONE"));
-			loginUser.setMemCode(rs.getInt("MEM_CODE"));
-// 			loginUser.setType(rs.getString("type"));
+			MemberVO loginMember = new MemberVO();
+			loginMember.setMemCode(rs.getInt("MEM_CODE"));
+			loginMember.setId(rs.getString("ID"));
+			loginMember.setPw(rs.getString("PW"));
+			loginMember.setName(rs.getString("NAME"));
+			loginMember.setPhone(rs.getString("PHONE"));
+			loginMember.setEmail(rs.getString("EMAIL"));
 			
-			msg = loginUser.getUserName()+"님, 환영합니다!";
+			msg = loginMember.getName()+"님, 환영합니다!";
 			System.out.println(msg);
 			locUrl="/SoobLib";
 			
 			//이 정보는 브라우저가 종료되더라도 남아있어야겠지??
 			//공유영역에 등록해줘야겠지.
-			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("loginMember", loginMember);
 		} else {
-			msg = "입력하신 ID 또는 PW가 잘못되었습니다.";
+			msg = "[lee-로긴프로세스.jsp]입력하신 ID 또는 PW가 잘못되었습니다.";
 			System.out.println(msg);
 			
 			locUrl="./login.do";

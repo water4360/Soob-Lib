@@ -40,24 +40,32 @@ a {
 	</div>
 
 	<div id="menu">
-		<c:if test="${ not empty loginUser }">
-					$ID : ${ loginUser.id }(${ loginUser.userName })
+		<c:if test="${ not empty loginMember }">
+					ID : ${ loginMember.id }(${ loginMember.name })
 		</c:if>
 		<c:choose>
-			<c:when test="${ empty loginUser }">
-				<a href="join.do">회원가입</a>
+			<c:when test="${ empty loginMember }">
+				<a href="signup.do">회원가입</a>
 				<a href="login.do">로그인</a>
 			</c:when>
 			<c:otherwise>
-				<!-- 			리디는 회원가입/로그인 외에도 항상 아이콘으로 표시,
+				<!-- 리디는 회원가입/로그인 외에도 항상 아이콘으로 표시,
 				로그인이 안되어 있어도 클릭 가능하고 로긴중 아니면 로긴창. -->
-				<a href="myPage.do">나의정보</a>
-				<a href="myLibrary.do">나의서재</a>
+				<!-- 관리자메뉴 -->
+				<c:if test="${loginMember.memCode == '9'}">
+					<a href="">회원관리</a>
+					<a href="${ pageContext.request.contextPath }/bookManagement.do">도서관리</a>
+					<a href="">게시판관리</a>
+				</c:if>
+				<!-- 회원메뉴 -->
+				<c:if test="${loginMember.memCode == '1'}">
+					<a href="myPage.do">나의정보</a>
+					<a href="myLibrary.do">나의서재</a>
+				</c:if>
 				<a href="logout.do" id="userInfo">로그아웃</a>
 			</c:otherwise>
 		</c:choose>
 	</div>
-
 
 
 

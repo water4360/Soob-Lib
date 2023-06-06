@@ -8,38 +8,26 @@ public class MemberVO {
 	private int memCode;
 	private String id;
 	private String pw;
-	private String userName;
-	private String userPhone;
+	private String name;
+	private String phone;
+	private String email;
+
 	
 	public MemberVO() {
 		super();
 	}
 	
-	//멤버코드
-	public int getMemCode() {
-		return memCode;
-	}
-	public void setMemCode(int memCode) {
-		this.memCode = memCode;
-	}
-
-	
-	//멤버코드 추가된 생성자
-	public MemberVO(int memberNo, int memCode, String id, String pw, String userName, String userPhone) {
-		super();
-		this.memberNo = memberNo;
-		this.memCode = memCode;
-		this.id = id;
-		this.pw = pw;
-		this.userName = userName;
-		this.userPhone = userPhone;
-	}
-
 	public int getMemberNo() {
 		return memberNo;
 	}
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+	public int getMemCode() {
+		return memCode;
+	}
+	public void setMemCode(int memCode) {
+		this.memCode = memCode;
 	}
 	public String getId() {
 		return id;
@@ -53,36 +41,48 @@ public class MemberVO {
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getUserPhone() {
-		return userPhone;
+	public String getPhone() {
+		return phone;
 	}
-	public void setUserPhone(String userPhone) {
-		this.userPhone = userPhone;
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	//DB생성용
-	public MemberVO(int memberNo, String id, String pw, String userName, String userPhone) {
+
+
+
+	//멤버코드 추가된 DB생성용
+	public MemberVO(int no, int code, String id, String pw, String name, String phone, String email) {
 		super();
-		this.memberNo = memberNo;
+		this.memberNo = no;
+		this.memCode = code;
 		this.id = id;
 		this.pw = pw;
-		this.userName = userName;
-		this.userPhone = userPhone;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
 	}
 	
-	//가입용
-	public MemberVO(String id, String pw, String userName, String userPhone) {
+	//회원가입용
+	public MemberVO(String id, String pw, String name, String phone, String email) {
 		super();
 		this.id = id;
 		this.pw = pw;
-		this.userName = userName;
-		this.userPhone = userPhone;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
 	}
 
 
@@ -91,7 +91,7 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		System.out.printf("%-10s\t\t%-10s\t\t%s\t\t%s\n",
-							id, pw, userName, userPhone);
+							id, pw, name, phone);
 		return "";
 	}
 }

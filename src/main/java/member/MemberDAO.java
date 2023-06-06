@@ -15,23 +15,21 @@ import common.ConnectionFactory;
 		
 		
 		
-		
-		
-		
 		//1. DB에 회원정보 추가하는 메소드
-		public void addMember(MemberVO mem) {
+		public void addMember(MemberVO vo) {
 			StringBuilder sql = new StringBuilder();
-			sql.append("INSERT INTO MEMBER(MEM_NO, ID, PW, NAME, PHONE) ");
-			sql.append("			VALUES(SEQ_MEMBER_NO.NEXTVAL, ?, ?, ?, ?) ");
+			sql.append("INSERT INTO MEMBER(MEM_NO, ID, PW, NAME, PHONE, EMAIL) ");
+			sql.append("			VALUES(SEQ_MEMBER_NO.NEXTVAL, ?, ?, ?, ?, ?) ");
 
 			try(
 					Connection conn = new ConnectionFactory().getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 			) {
-				pstmt.setString(1, mem.getId());
-				pstmt.setString(2, mem.getPw());
-				pstmt.setString(3, mem.getUserName());
-				pstmt.setString(4, mem.getUserPhone());
+				pstmt.setString(1, vo.getId());
+				pstmt.setString(2, vo.getPw());
+				pstmt.setString(3, vo.getName());
+				pstmt.setString(4, vo.getPhone());
+				pstmt.setString(5, vo.getEmail());
 				pstmt.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -96,7 +94,7 @@ import common.ConnectionFactory;
 			return false;
 		}
 		
-		//0. 로그인2단계-ID&PW 둘다일치 확인하는 메소드.
+		//0. 아이디, 비밀번호로 회원번호 찾기.
 		public int getMemberCode(String id, String pw) {
 			
 			StringBuilder sql = new StringBuilder();
@@ -131,7 +129,7 @@ import common.ConnectionFactory;
 			StringBuilder sql = new StringBuilder();
 			MemberVO mem = null;
 			
-			sql.append("SELECT ID, PW, NAME, PHONE FROM MEMBER WHERE ID = ? ");
+			sql.append("SELECT ID, PW, NAME, PHONE, EMAIL FROM MEMBER WHERE ID = ? ");
 			try(
 					Connection conn = new ConnectionFactory().getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql.toString());
@@ -146,13 +144,15 @@ import common.ConnectionFactory;
 						String pw 	 = rs.getString("PW");
 						String name  = rs.getString("NAME");
 						String phone = rs.getString("PHONE");
+						String email = rs.getString("EMAIL");
 						
-						mem = new MemberVO(id, pw, name, phone);
+						mem = new MemberVO(id, pw, name, phone, email);
 						
 						mem.setId(id);
 						mem.setPw(pw);
-						mem.setUserName(name);
-						mem.setUserPhone(phone);
+						mem.setName(name);
+						mem.setPhone(phone);
+						mem.setEmail(email);
 					}
 					
 				} catch (Exception e) {
@@ -184,8 +184,9 @@ import common.ConnectionFactory;
 					String pw	 = rs.getString("PW");
 					String name	 = rs.getString("NAME");
 					String phone = rs.getString("PHONE");
+					String email = rs.getString("EMAIL");
 					
-					MemberVO mem = new MemberVO(memNo, id, pw, name, phone);
+					MemberVO mem = new MemberVO(memNo, memCode, id, pw, name, phone, email);
 
 					memList.add(mem);
 				}
