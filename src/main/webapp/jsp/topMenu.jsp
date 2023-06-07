@@ -52,13 +52,13 @@ a {
 				<!-- 리디는 회원가입/로그인 외에도 항상 아이콘으로 표시,
 				로그인이 안되어 있어도 클릭 가능하고 로긴중 아니면 로긴창. -->
 				<!-- 관리자메뉴 -->
-				<c:if test="${loginMember.memCode == '9'}">
-					<a href="">회원관리</a>
-					<a href="${ pageContext.request.contextPath }/bookManagement.do">도서관리</a>
-					<a href="">게시판관리</a>
+				<c:if test="${loginMember.memberCode == '9'}">
+					<a href="admin-member.do">회원관리</a>
+					<a href="admin-book.do">도서관리</a>
+					<a href="admin-board.do">게시판관리</a>
 				</c:if>
 				<!-- 회원메뉴 -->
-				<c:if test="${loginMember.memCode == '1'}">
+				<c:if test="${loginMember.memberCode == '1'}">
 					<a href="myPage.do">나의정보</a>
 					<a href="myLibrary.do">나의서재</a>
 				</c:if>

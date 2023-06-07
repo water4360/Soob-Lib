@@ -57,7 +57,7 @@
 		
 		if(rs.next()){
 			MemberVO loginMember = new MemberVO();
-			loginMember.setMemCode(rs.getInt("MEM_CODE"));
+			loginMember.setMemberCode(rs.getInt("MEM_CODE"));
 			loginMember.setId(rs.getString("ID"));
 			loginMember.setPw(rs.getString("PW"));
 			loginMember.setName(rs.getString("NAME"));

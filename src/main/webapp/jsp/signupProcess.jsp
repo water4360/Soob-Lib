@@ -13,9 +13,9 @@
 		<a href="main.do"> 라이브러리, 숲 </a>
 		<hr>
 	</header>
-	<h3>라이브러리 숲에 가입하신 것을 환영합니다!</h3>
-	아이디 ${loginMember.id }님
-	<a href="login.do">로그인하러 가기</a>
+	<h3>${signInMember.id }님, 라이브러리 숲에 가입하신 것을 환영합니다!</h3>
+	
+	<a href="login.do">로그인하러 가기</a> / 
 	<a href="main.do">메인으로 가기</a>
 </body>
 </html>

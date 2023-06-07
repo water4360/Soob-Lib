@@ -5,6 +5,11 @@ import java.util.Map;
 
 import controller.member.SignUpController;
 import controller.member.SignUpProcessController;
+import controller.admin.BoardManageController;
+import controller.admin.BookManageController;
+import controller.admin.MemberManageController;
+import controller.book.BookAddController;
+import controller.book.BookAddProcessController;
 import controller.member.LoginController;
 import controller.member.LoginProcessController;
 import controller.member.LogoutController;
@@ -24,14 +29,23 @@ public class HandlerMapping {
 		mappings.put("/signup.do", new SignUpController());
 		mappings.put("/signupProcess.do", new SignUpProcessController());
 		
-		//login 안된 사용자는 login.jsp로 보내서 입력받게 하고.
+		//공용로긴
 		mappings.put("/login.do", new LoginController());
 		mappings.put("/loginProcess.do", new LoginProcessController());
+		
+		//관리자 메뉴용
+		mappings.put("/admin-member.do", new MemberManageController());
+		mappings.put("/admin-book.do", new BookManageController());
+//		mappings.put("/add-book.do", new BookAddController());
+		mappings.put("/add-book-process.do", new BookAddProcessController());
+		
+		
+		mappings.put("/admin-board.do", new BoardManageController());
+		
 		
 		//이거 memberService 팩토리 어쩌구 있어야
 		//자꾸 새로 mem객체 생성안하고 유지될듯!
 		mappings.put("/myPage.do", new MyPageController());
-		
 		mappings.put("/logout.do", new LogoutController());
 	}
 	public Controller getController(String path) {

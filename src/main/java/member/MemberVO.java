@@ -5,7 +5,7 @@ public class MemberVO {
 	//회원번호(자동생성), 멤버코드(회원1, 관리자9) ID, PW, 이름, 폰번호
 	//CREATE SEQUENCE SEQ_MEMBER_NO START WITH 000001 NOCACHE;
 	private int memberNo;
-	private int memCode;
+	private int memberCode;
 	private String id;
 	private String pw;
 	private String name;
@@ -23,11 +23,11 @@ public class MemberVO {
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
-	public int getMemCode() {
-		return memCode;
+	public int getMemberCode() {
+		return memberCode;
 	}
-	public void setMemCode(int memCode) {
-		this.memCode = memCode;
+	public void setMemberCode(int MemberCode) {
+		this.memberCode = MemberCode;
 	}
 	public String getId() {
 		return id;
@@ -67,7 +67,7 @@ public class MemberVO {
 	public MemberVO(int no, int code, String id, String pw, String name, String phone, String email) {
 		super();
 		this.memberNo = no;
-		this.memCode = code;
+		this.memberCode = code;
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
