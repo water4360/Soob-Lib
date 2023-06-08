@@ -23,17 +23,24 @@
 </head>
 
 <style>
-#top {
+
+
+
+#main-top {
 	height: 120px;
 	display: flex;
 	position: relative;
 	flex-direction: row;
 }
 
-#center-main {
+#main-center {
+	min-height: 300px;
+}
+
+#main-bottom {
 	width: 100%;
 	/* min-height : 100%; */
-	/* 			min-height: 300px; */
+	/* min-height: 300px; */
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -72,19 +79,22 @@ section {
 
 <body>
 	<header>
-		<div id="top">
+		<div id="main-top">
 			<jsp:include page="./jsp/topMenu.jsp"></jsp:include>
 		</div>
 	</header>
 	<section>
-		<div id="center-main">
+		<div id="main-center">
+		메인의 메인
+		</div>
+		<div id="main-bottom">
 			<div id="notice">
 				<!-- 		하나는 공지사항 -->
 				공지사항
 				<jsp:include page="./jsp/notice.jsp"></jsp:include>
 			</div>
 			<div id="list">
-				리스트
+				자유게시판
 				<!-- 		하나는 도서목록 -->
 				<jsp:include page="./jsp/list.jsp"></jsp:include>
 			</div>

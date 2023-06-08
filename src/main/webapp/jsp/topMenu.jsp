@@ -21,12 +21,13 @@
 	width: 100%;
 	height: 120px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	height: 100%;
 }
 
 #logo {
+	width: 80px;
 	display: flex;
 	align-items: center;
 	flex-direction: row;
@@ -48,8 +49,10 @@ a {
 }
 </style>
 	<div id="container">
-	<div id="logo">
-		<a href="main.do"> <span id="library-name">라이브러리, 숲</span></a>
+	<div id="topMenu-logo">
+		<a href="main.do">
+		<img alt="logo" id="logo" src="./source/src-img/gr-books2.png">
+		</a>
 	</div>
 
 
@@ -65,9 +68,8 @@ a {
 			<button type="submit" id="search" class="btn btn-success" disabled>검색</button>
 			<div id="search-feedback"></div>
 		</form>
-		<div> </div>
 		<button type="button" class="btn btn-success"
-			onclick="refreshBookList()">전체도서목록 조회</button>
+			onclick="refreshBookList()">전체도서목록</button>
 	</div>
 	<script>
 		//목록 새로고침
@@ -92,14 +94,15 @@ a {
 		});
 	</script>
 
-	<div id="menu">
+	<div id="firstMenu">
 		<c:if test="${ not empty loginMember }">
 					ID : ${ loginMember.id }(${ loginMember.name })
 		</c:if>
 		<c:choose>
 			<c:when test="${ empty loginMember }">
-				<a href="signup.do">회원가입</a>
 				<a href="login.do">로그인</a>
+				<a href="login.do">나의정보</a>
+				<a href="login.do">나의서재</a>
 			</c:when>
 			<c:otherwise>
 				<!-- 리디는 회원가입/로그인 외에도 항상 아이콘으로 표시,
@@ -111,7 +114,7 @@ a {
 					<a href="admin-board.do">게시판관리</a>
 				</c:if>
 				<!-- 회원메뉴 -->
-				<c:if test="${loginMember.memberCode == '1'}">
+				<c:if test="${loginMember.memberCode != '9'}">
 					<a href="myPage.do">나의정보</a>
 					<a href="myLibrary.do">나의서재</a>
 				</c:if>
@@ -119,5 +122,4 @@ a {
 			</c:otherwise>
 		</c:choose>
 	</div>
-
 </div>

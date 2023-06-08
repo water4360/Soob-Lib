@@ -8,7 +8,7 @@ import controller.Controller;
 public class BoardManageController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		return "./jsp/mng-board.jsp";
+		return "./jsp/admin-board.jsp";
 	}
 
 }

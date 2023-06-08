@@ -1,4 +1,4 @@
-package controller;
+package controller.book;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import book.BookDAO;
 import book.BookVO;
+import controller.BaseController;
 
 public class SearchBookController extends BaseController {
 
