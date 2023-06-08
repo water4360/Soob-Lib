@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.BaseController;
-import controller.Controller;
 
 public class LogoutController extends BaseController {
 	@Override

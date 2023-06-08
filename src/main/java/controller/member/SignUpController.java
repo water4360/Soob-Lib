@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.BaseController;
-import controller.Controller;
-import member.MemberVO;
 
 public class SignUpController extends BaseController {
 

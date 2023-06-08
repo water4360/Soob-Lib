@@ -9,7 +9,6 @@ import book.BookVO;
 import controller.BaseController;
 
 public class BookAddProcessController extends BaseController {
-	@SuppressWarnings("finally")
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		int no = Integer.parseInt(request.getParameter("isbn"));
@@ -34,12 +33,12 @@ public class BookAddProcessController extends BaseController {
 			System.out.println("신규도서등록 완료. by BookAddCtrl");
 			vo = null;
 			return "admin-book.do";
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			// 다시 관리자 책관리 페이지로.
-			return "admin-book.do";
 		}
+		System.out.println("도서등록실패. by BookAddCtrl");
+		return "admin-book.do";
 	}
 
 }

@@ -1,5 +1,7 @@
 package member;
 
+import java.util.Date;
+
 public class MemberVO {
 	
 	//회원번호(자동생성), 멤버코드(회원1, 관리자9) ID, PW, 이름, 폰번호
@@ -11,6 +13,7 @@ public class MemberVO {
 	private String name;
 	private String phone;
 	private String email;
+	private Date regDate;
 
 	
 	public MemberVO() {
@@ -59,10 +62,28 @@ public class MemberVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
 
 
 
-
+	//회원조회용
+	public MemberVO(int no, int code, String id, String pw, String name, String phone, String email, Date regDate) {
+		super();
+		this.memberNo = no;
+		this.memberCode = code;
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.regDate = regDate;
+	}
+	
 	//멤버코드 추가된 DB생성용
 	public MemberVO(int no, int code, String id, String pw, String name, String phone, String email) {
 		super();

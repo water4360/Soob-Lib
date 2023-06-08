@@ -1,15 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="./css/style.css">
+
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+	crossorigin="anonymous"></script>
 
 <style>
 #container {
 	width: 100%;
-	height: 80px;
-	background-color: darkseagreen;
+	height: 120px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	height: 100%;
 }
 
 #logo {
@@ -33,11 +47,50 @@ a {
 	margin: 5px;
 }
 </style>
-<div id="container">
-	<!-- 	<div id="logo"><img src="./source/forest.png" width="10%"/><br>(로고)도서관, 숲</div> -->
+	<div id="container">
 	<div id="logo">
 		<a href="main.do"> <span id="library-name">라이브러리, 숲</span></a>
 	</div>
+
+
+	<div class="btn-group">
+		<form action="searchBook.do">
+			<select name="searchBy">
+				<option id="all" value="all" selected>통합검색</option>
+				<option id="title" value="title">도서명</option>
+				<option id="author" value="author">저자</option>
+				<option id="publisher" value="publisher">출판사</option>
+			</select> <input type="search" id="searchKeyword" name="searchKeyword"
+				placeholder="검색어를 입력하세요">
+			<button type="submit" id="search" class="btn btn-success" disabled>검색</button>
+			<div id="search-feedback"></div>
+		</form>
+		<div> </div>
+		<button type="button" class="btn btn-success"
+			onclick="refreshBookList()">전체도서목록 조회</button>
+	</div>
+	<script>
+		//목록 새로고침
+		function refreshBookList() {
+			window.location.href="allBooks.do";
+		}
+	</script>
+
+	<script>
+		//검색어 미입력시 검색버튼 비활성화
+		const searchKeyword = document.getElementById("searchKeyword");
+		const searchButton = document.getElementById("search");
+		
+		searchButton.disabled = true;
+		
+		searchKeyword.addEventListener("input", () => {
+		  if (searchKeyword.value.trim() !== "") {
+		    searchButton.disabled = false;
+		  } else {
+		    searchButton.disabled = true;
+		  }
+		});
+	</script>
 
 	<div id="menu">
 		<c:if test="${ not empty loginMember }">
@@ -66,7 +119,5 @@ a {
 			</c:otherwise>
 		</c:choose>
 	</div>
-
-
 
 </div>

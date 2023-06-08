@@ -5,10 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.BaseController;
 
-public class BookAddController extends BaseController {
+public class GetBookDetailController extends BaseController {
+	
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		return "add-book.do";
+		int no = Integer.parseInt(request.getParameter("))
+		return null;
 	}
 
 }

@@ -8,7 +8,6 @@ import controller.member.SignUpProcessController;
 import controller.admin.BoardManageController;
 import controller.admin.BookManageController;
 import controller.admin.MemberManageController;
-import controller.book.BookAddController;
 import controller.book.BookAddProcessController;
 import controller.member.LoginController;
 import controller.member.LoginProcessController;
@@ -29,14 +28,17 @@ public class HandlerMapping {
 		mappings.put("/signup.do", new SignUpController());
 		mappings.put("/signupProcess.do", new SignUpProcessController());
 		
-		//공용로긴
+		//공용
 		mappings.put("/login.do", new LoginController());
 		mappings.put("/loginProcess.do", new LoginProcessController());
+		
+		mappings.put("/allBooks.do", new AllBooksController());
+		mappings.put("/searchBook.do", new SearchBookController());
+		
 		
 		//관리자 메뉴용
 		mappings.put("/admin-member.do", new MemberManageController());
 		mappings.put("/admin-book.do", new BookManageController());
-//		mappings.put("/add-book.do", new BookAddController());
 		mappings.put("/add-book-process.do", new BookAddProcessController());
 		
 		

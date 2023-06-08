@@ -59,7 +59,7 @@
 			<div class="card" style="width: 20rem" align="center">
 				<!-- 	submit 눌렀을때 어디로 보낼지 여기서 결정!-->
 				<!-- 	<form method="post" action="login.do" name="loginForm" -->
-				<form method="post" action="./jsp/lee-loginProcess.jsp"
+				<form method="post" action="loginProcess.do"
 					name="loginForm" style="height: 400px"
 					onsubmit="return checkForm()">
 					<div class="form-group">

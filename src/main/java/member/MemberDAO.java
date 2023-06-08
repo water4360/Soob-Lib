@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import common.ConnectionFactory;
@@ -129,7 +130,7 @@ import common.ConnectionFactory;
 			StringBuilder sql = new StringBuilder();
 			MemberVO mem = null;
 			
-			sql.append("SELECT ID, PW, NAME, PHONE, EMAIL FROM MEMBER WHERE ID = ? ");
+			sql.append("SELECT * FROM MEMBER WHERE ID = ? ");
 			try(
 					Connection conn = new ConnectionFactory().getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql.toString());
@@ -140,19 +141,16 @@ import common.ConnectionFactory;
 					
 					//ID가 존재하면 쿼리를 실행하고
 					if(rs.next()) {
-						String id    = rs.getString("ID");
-						String pw 	 = rs.getString("PW");
-						String name  = rs.getString("NAME");
+						int memNo 	 = rs.getInt("MEM_NO");
+						int memCode	 = rs.getInt("MEM_CODE");
+						String id	 = rs.getString("ID");
+						String pw	 = rs.getString("PW");
+						String name	 = rs.getString("NAME");
 						String phone = rs.getString("PHONE");
 						String email = rs.getString("EMAIL");
+						Date date = rs.getDate("REG_DATE");
 						
-						mem = new MemberVO(id, pw, name, phone, email);
-						
-						mem.setId(id);
-						mem.setPw(pw);
-						mem.setName(name);
-						mem.setPhone(phone);
-						mem.setEmail(email);
+						mem = new MemberVO(memNo, memCode, id, pw, name, phone, email, date);
 					}
 					
 				} catch (Exception e) {
@@ -185,8 +183,9 @@ import common.ConnectionFactory;
 					String name	 = rs.getString("NAME");
 					String phone = rs.getString("PHONE");
 					String email = rs.getString("EMAIL");
+					Date date = rs.getDate("REG_DATE");
 					
-					MemberVO mem = new MemberVO(memNo, memCode, id, pw, name, phone, email);
+					MemberVO mem = new MemberVO(memNo, memCode, id, pw, name, phone, email, date);
 
 					memList.add(mem);
 				}

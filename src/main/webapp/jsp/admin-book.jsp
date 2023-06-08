@@ -22,6 +22,8 @@
 	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
 	crossorigin="anonymous"></script>
 
+
+
 <script>
 	//선택된 도서
 	var selectedBook = {};
@@ -56,27 +58,55 @@
 
 
 </head>
+<div id="top">
+	<jsp:include page="topMenu.jsp"></jsp:include>
+</div>
 <body>
-	<h1>
-		<a href="admin-book.do">전체 도서관리</a>
-	</h1>
+	<h1>전체 도서관리</h1>
 	<hr>
+<script>
+	//목록 새로고침
+	function refreshBookList() {
+		window.location.href="allBooks.do";
+	}
+	</script>
 	<div class="btn-group">
 		<button type="button" class="btn btn-success"
-			onclick="refreshBookList()">목록 새로고침</button>
+			onclick="refreshBookList()">전체도서목록 조회</button>
 	</div>
 	<div class="btn-group">
 		<button type="button" class="btn btn-success" data-toggle="modal"
 			data-target="#addNewBook" aria-expanded="false">신규등록</button>
 	</div>
 	<div class="btn-group">
-		<button type="button" class="btn btn-success" data-toggle="modal"
-			data-target="#searchBook" aria-expanded="false">검색</button>
+		<form action="searchBook.do">
+			<select name="searchBy">
+				<option id="all" value="all" selected>통합검색</option>
+				<option id="title" value="title">도서명</option>
+				<option id="author" value="author">저자</option>
+				<option id="publisher" value="publisher">출판사</option>
+			</select> <input type="search" id="searchKeyword" name="searchKeyword"
+				placeholder="검색어를 입력하세요">
+			<button type="submit" id="search" class="btn btn-success" disabled>검색</button>
+			<div id="search-feedback"></div>
+		</form>
 	</div>
 
-
-
-
+	<script>
+		//검색어 미입력시 검색버튼 비활성화
+		const searchKeyword = document.getElementById("searchKeyword");
+		const searchButton = document.getElementById("search");
+		
+		searchButton.disabled = true;
+		
+		searchKeyword.addEventListener("input", () => {
+		  if (searchKeyword.value.trim() !== "") {
+		    searchButton.disabled = false;
+		  } else {
+		    searchButton.disabled = true;
+		  }
+		});
+	</script>
 
 
 
@@ -146,10 +176,12 @@
 						<div class="invalid-feedback">출판사를 입력해주세요</div>
 						<div id="valid-feedback" style="color: green;"></div>
 
-						<label for="status">기본 대여상태</label>
+
 						<div id="rentStatus">
-							<input type="radio" id="status1" name="status" value="1" checked>대출가능
-							<input type="radio" id="status0" name="status" value="0">대출불가능
+							<label for="status1"><input type="radio" id="status1"
+								name="status" value="1" checked>대출가능</label> <label
+								for="status0"><input type="radio" id="status0"
+								name="status" value="0">대출불가능</label>
 						</div>
 						<div id="valid-feedback" style="color: green;"></div>
 						<div class="modal-footer">
@@ -177,40 +209,6 @@
 	  }
 	}
 </script>
-
-
-
-	<!-- 검색 모달-->
-	<div class="modal fade" id="searchBook" tabindex="-1"
-		aria-labelledby="searchBookModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-
-					<!-- 모달 내용 -->
-					<div class="modal-body">
-						<h5 class="modal-title" id="searchBook">도서검색</h5>
-						<form action="searchBook.do" method="post">
-							<input type="search"> <input type="submit" value="검색">
-						</form>
-					</div>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-
-
-
-
-
-
 
 
 	<!-- 전체 도서목록 테이블 -->

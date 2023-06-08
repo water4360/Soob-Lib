@@ -73,9 +73,6 @@ $(function(){
 
 
 
-
-
-
 //비밀번호 & 비밀번호 확인 일치 체크
 function checkPw() {
 	let f = document.joinForm
@@ -95,22 +92,6 @@ function checkPw() {
 		return true;
 	}
 }
-
-////모든 필드가 입력되어야 회원가입 버튼 활성화
-// function checkForm() {
-// 	let f = document.joinForm;
-//     let requiredFields = Array.from(f.querySelectorAll('[required]'));
-//     let isFormValid = requiredFields.every((field) => field.value.trim() !== '');
-
-//     if (isFormValid) {
-//         document.getElementById('signup-btn').disabled = false;
-//         return true;
-//     } else {
-//         document.getElementById('signup-btn').disabled = true;
-//         return false;
-//     }
-// }
-
 
 </script>
 
@@ -178,7 +159,7 @@ body {
 						<div class="invalid-feedback">이름을 입력해주세요</div>
 					</div>
 					<div class="col-12 mb-3">
-						<label for="phone">연락처</label> <input type="" class="form-control"
+						<label for="phone">연락처</label> <input type="number" class="form-control"
 							id="phone"  name="phone" placeholder="예)01023456789" value=""
 							pattern="([0-9]{3})([0-9]{3,4})([0-9]{4})$" required>
 						<div class="invalid-feedback">연락처 형식이 올바르지 않아요</div>

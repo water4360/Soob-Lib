@@ -22,6 +22,9 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
+	<div id="top">
+		<jsp:include page="topMenu.jsp"></jsp:include>
+	</div>
 	<h1>전체 회원목록</h1>
 	<hr>
 	<div class="btn-group">
@@ -36,12 +39,12 @@
 		<button type="button" class="btn btn-success" data-toggle="modal"
 			data-target="#searchMember" aria-expanded="false">검색</button>
 	</div>
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	<!-- 전체 도서목록 테이블 -->
 	<table class="table table-hover">
 		<thead>
@@ -54,6 +57,7 @@
 				<th scope="col">이름</th>
 				<th scope="col">연락처</th>
 				<th scope="col">이메일</th>
+				<th scope="col">가입일</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -64,17 +68,18 @@
 
 					<td><a href="memberDetail.do?no=${member.memberNo}">${member.memberNo}</a></td>
 					<td><c:choose>
-						<c:when test="${member.memberCode == 1}">
+							<c:when test="${member.memberCode == 1}">
 							회원
 						</c:when>
-						<c:otherwise>
-							<span style="color: red;">관리자</span>
-						</c:otherwise>
+							<c:otherwise>
+								<span style="color: red;">관리자</span>
+							</c:otherwise>
 						</c:choose></td>
 					<td>${member.id}</td>
 					<td>${member.name}</td>
 					<td>${member.phone}</td>
 					<td>${member.email}</td>
+					<td>${member.regDate}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

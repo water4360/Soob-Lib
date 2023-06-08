@@ -1,4 +1,4 @@
-package controller.admin;
+package controller;
 
 import java.util.List;
 
@@ -7,18 +7,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import book.BookDAO;
 import book.BookVO;
-import controller.BaseController;
 
-public class BookManageController extends BaseController{
+public class AllBooksController extends BaseController {
+
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("전체 도서 조회");
 		BookDAO dao = new BookDAO();
 		
 		List<BookVO> bookList = dao.showAllBooks();
 		
 		request.setAttribute("bookList", bookList);
 		
-		return "./jsp/admin-book.jsp";
+		return "./jsp/book/allBooks.jsp";
 	}
 
 }
