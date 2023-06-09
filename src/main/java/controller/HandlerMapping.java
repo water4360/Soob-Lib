@@ -40,7 +40,7 @@ public class HandlerMapping {
 		
 		//관리자 메뉴용
 		mappings.put("/admin-member.do", new MemberManageController());
-		mappings.put("/admin-book.do", new BookManageController());
+//		mappings.put("/admin-book.do", new SearchBookController());
 		mappings.put("/add-book-process.do", new BookAddProcessController());
 		
 		

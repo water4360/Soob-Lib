@@ -24,7 +24,7 @@
 <body>
 	<header>
 		<div id="top">
-			<jsp:include page="../topMenu.jsp"></jsp:include>
+			<jsp:include page="./topMenu.jsp"></jsp:include>
 		</div>
 	</header>
 
@@ -63,48 +63,39 @@
 					</h2>
 					<c:set var="books" value="${bookList}" />
 				</c:if>
-				<div id="bookMenu">
-					<!-- 관리자메뉴 -->
-					<c:if test="${loginMember.memberCode =='9'}">
+
+				<!-- 관리자메뉴 -->
+				<c:if test="${loginMember.memberCode =='9'}">
+					<div class="btn-group">
+						<button type="button" class="btn btn-success" data-toggle="modal"
+							data-target="#addNewBook" aria-expanded="false">신규도서 등록</button>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-success" data-toggle="modal"
+							data-target="#deleteBook" aria-expanded="false">삭제</button>
+					</div>
+				</c:if>
+				<!-- 비회원&회원 노출메뉴 -->
+				<c:choose>
+					<c:when test="${empty loginMember}">
 						<div class="btn-group">
 							<button type="button" class="btn btn-success" data-toggle="modal"
-								data-target="#addNewBook" aria-expanded="false">신규도서 등록</button>
+								data-target="#rentBook" aria-expanded="false"
+								onclick="redirectToLogin()">대여</button>
 						</div>
+					</c:when>
+					<c:otherwise>
 						<div class="btn-group">
 							<button type="button" class="btn btn-success" data-toggle="modal"
-								data-target="#deleteBook" aria-expanded="false">삭제</button>
+								data-target="#rentBook" aria-expanded="false">대여</button>
 						</div>
-					</c:if>
-				</div>
+					</c:otherwise>
+				</c:choose>
 				<script>
 					function redirectToLogin() {
 						alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
 						window.location.href = "login.do";
 					}
-					
-					 function updateButtons() {
-					        var buttons = document.getElementsById('btn-rent');
-					        
-					        for (var i = 0; i < buttons.length; i++) {
-					            var status = buttons[i].getAttribute(${book.status});
-					            
-					            if (status === '0' ) {
-					                buttons[i].disabled = false; // 대출 가능일 때 버튼 활성화
-					            } else {
-					                buttons[i].disabled = true; // 대출 불가일 때 버튼 비활성화
-					            }
-					        }
-					    }
-					    
-					    // 페이지 로드 시 버튼 업데이트
-					    window.onload = function() {
-					        updateButtons();
-					    };
-					
-					
-					
-					
-					
 				</script>
 
 
@@ -118,7 +109,7 @@
 							<th scope="col">저자</th>
 							<th scope="col">출판사</th>
 							<th scope="col">대출상태</th>
-							<th scope="col">대출신청</th>
+							<th scope="col">인기도</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -126,37 +117,16 @@
 							<tr>
 								<th scope="row"><input type="checkbox" id="check"
 									name="check" onclick="selectBook('${book.manageNo}')"></th>
-								<td><a href="#" onclick="bookDetails{'$book.manageNo}'">${book.manageNo}</a></td>
+
+								<td><a href="#" onclick="bookDetails{'$book.manageNo}'}">${book.manageNo}</a></td>
 								<td>${book.title}</td>
 								<td>${book.author}</td>
 								<td>${book.publisher}</td>
-								<td><c:choose>
-										<c:when test="${book.status == '1'}">대출가능</c:when>
-										<c:otherwise>
-											<span style="color: coral;">대출불가</span>
-										</c:otherwise>
-									</c:choose></td>
-
-								<td>
-									<!-- 비회원&회원 노출메뉴 --> <c:choose>
-										<c:when test="${empty loginMember}">
-											<div class="btn-group">
-												<button type="button" class="btn btn-success"
-													data-toggle="modal" data-target="#rentBook"
-													aria-expanded="false" id="btn-rent"
-													onclick="redirectToLogin()">대여</button>
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div class="btn-group">
-												<button type="button" class="btn btn-success"
-													data-toggle="modal" data-target="#rentBook"
-													aria-expanded="false" id="btn-rent"
-													${book.status == '0' ? 'disabled' : ''}>대여</button>
-											</div>
-										</c:otherwise>
-									</c:choose>
-								</td>
+								<td><c:if test="${book.status == '1'}"> 대출가능</c:if> <c:if
+										test="${book.status == '0'}">
+										<span style="color: coral;">대출불가</span>
+									</c:if></td>
+								<td>${book.pop}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -194,9 +164,6 @@
 			});
 		}
 	</script>
-
-
-
 
 	<!-- 신규등록 모달 -->
 	<div class="modal fade" id="addNewBook" tabindex="-1"
@@ -262,32 +229,6 @@
 	</div>
 
 	<script>
-	function selectBook(bookNumber) {
-		  // 선택된 도서 번호를 저장하는 코드 또는 필요한 동작 수행
-		  // 예시: 선택된 도서 번호를 배열에 추가하거나 변수에 저장
-
-		  // 대출 가능/불가능 상태를 확인하고 체크박스를 비활성화
-		  var checkbox = document.getElementById('checkbox-' + bookNumber); // 체크박스 요소 선택
-		  var status = getStatus(bookNumber); // 도서의 대출 상태를 가져오는 함수 호출
-
-		  if (status === '0') {
-		    checkbox.disabled = true; // 대출 불가능 상태일 때 체크박스 비활성화
-		  }
-
-		  // 대여 버튼을 클릭할 때 선택된 도서 번호를 handleRequest 함수로 전달
-		  document.getElementById('rentBookButton').addEventListener('click', function() {
-		    handleRequest(bookNumber);
-		  });
-		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 		// 대출상태 서버로 전달
 		function getStatus() {
 			var status1 = document.getElementById("status1");

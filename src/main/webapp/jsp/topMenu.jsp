@@ -110,7 +110,6 @@ a {
 				<!-- 관리자메뉴 -->
 				<c:if test="${loginMember.memberCode == '9'}">
 					<a href="admin-member.do">회원관리</a>
-					<a href="admin-book.do">도서관리</a>
 					<a href="admin-board.do">게시판관리</a>
 				</c:if>
 				<!-- 회원메뉴 -->

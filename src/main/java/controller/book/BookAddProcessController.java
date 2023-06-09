@@ -32,13 +32,13 @@ public class BookAddProcessController extends BaseController {
 			session.setAttribute("newBook", vo);
 			System.out.println("신규도서등록 완료. by BookAddCtrl");
 			vo = null;
-			return "admin-book.do";
+			return "allBooks.do";
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println("도서등록실패. by BookAddCtrl");
-		return "admin-book.do";
+		return "allBooks.do";
 	}
 
 }
