@@ -18,6 +18,6 @@ public class MemberManageController implements Controller {
 		List<MemberVO> memList = dao.getAllMembers();
 		
 		request.setAttribute("memberList", memList);
-		return "./jsp/mng-member.jsp";
+		return "./jsp/admin-member.jsp";
 	}
 }

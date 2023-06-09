@@ -41,7 +41,7 @@ public class SearchBookController extends BaseController {
 		
 		request.setAttribute("bookList", bookList);
 		
-		return "./jsp/searchBook.jsp";
+		return "./jsp/book/searchBook.jsp";
 	}
 
 }

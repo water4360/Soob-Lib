@@ -18,9 +18,9 @@ public class AllBooksController extends BaseController {
 		
 		List<BookVO> bookList = dao.showAllBooks();
 		
-		request.setAttribute("bookList", bookList);
+		request.setAttribute("allBooks", bookList);
 		
-		return "./jsp/book/allBooks.jsp";
+		return "./jsp/book/searchBook.jsp";
 	}
 
 }

@@ -18,7 +18,7 @@ public class BookManageController extends BaseController{
 		
 		request.setAttribute("bookList", bookList);
 		
-		return "./jsp/book/allBooks.jsp";
+		return "./jsp/book/searchBook.jsp";
 	}
 
 }

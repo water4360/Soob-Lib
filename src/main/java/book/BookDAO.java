@@ -40,7 +40,7 @@ public class BookDAO {
 		}
 	}
 
-	// 2. 저장된 모든 VO리스트를 보여주는 메소드
+	// 2. 저장된 모든 BookVO리스트를 보여주는 메소드
 	public List<BookVO> showAllBooks() {
 		List<BookVO> bookList = new ArrayList<>();
 
