@@ -11,7 +11,7 @@ public class GetBookDetailController extends BaseController {
 	
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		int no = Integer.parseInt(request.getParameter("isbn"));
+		String no = request.getParameter("isbn");
 		
 		//사용자 클릭한 vo넘버
 		BookVO vo = new BookVO();

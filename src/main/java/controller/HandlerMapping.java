@@ -36,15 +36,14 @@ public class HandlerMapping {
 		
 		mappings.put("/allBooks.do", new AllBooksController());
 		mappings.put("/searchBook.do", new SearchBookController());
+		mappings.put("/rentBook.do", new RentBookController());
 		
 		
 		//관리자 메뉴용
 		mappings.put("/admin-member.do", new MemberManageController());
 //		mappings.put("/admin-book.do", new SearchBookController());
-		mappings.put("/add-book-process.do", new BookAddProcessController());
-		
-		
 		mappings.put("/admin-board.do", new BoardManageController());
+		mappings.put("/add-book-process.do", new BookAddProcessController());
 		
 		
 		//이거 memberService 팩토리 어쩌구 있어야

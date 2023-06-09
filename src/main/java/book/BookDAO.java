@@ -24,7 +24,7 @@ public class BookDAO {
 
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-			pstmt.setInt(1, book.getManageNo());
+			pstmt.setString(1, book.getManageNo());
 			pstmt.setString(2, book.getTitle());
 			pstmt.setString(3, book.getAuthor());
 			pstmt.setString(4, book.getPublisher());
@@ -53,7 +53,7 @@ public class BookDAO {
 
 			while (rs.next()) {
 
-				int no = rs.getInt("NO");
+				String no = rs.getString("NO");
 				String title = rs.getString("TITLE");
 				String author = rs.getString("AUTHOR");
 				String publisher = rs.getString("PUBLISHER");
@@ -74,7 +74,7 @@ public class BookDAO {
 	}
 
 	// 3. 관리번호로 검색
-	public BookVO searchOneBook(int manageNo) {
+	public BookVO searchOneBook(String manageNo) {
 
 		BookVO book = null;
 
@@ -85,11 +85,11 @@ public class BookDAO {
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
 
-			pstmt.setInt(1, manageNo);
+			pstmt.setString(1, manageNo);
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				int no = rs.getInt("NO");
+				String no = rs.getString("NO");
 				String title = rs.getString("TITLE");
 				String author = rs.getString("AUTHOR");
 				String publisher = rs.getString("PUBLISHER");
@@ -107,7 +107,7 @@ public class BookDAO {
 	}
 
 	// 관리번호로 찾아서 삭제
-	public BookVO deleteBook(int manageNo) {
+	public BookVO deleteBook(String manageNo) {
 
 		BookVO book = null;
 
@@ -118,9 +118,7 @@ public class BookDAO {
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
 			// 물음표 자리에 매개변수로 들어오는 int를 날려~
-			pstmt.setInt(1, manageNo);
-
-			int cnt = pstmt.executeUpdate();
+			pstmt.setString(1, manageNo);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -129,7 +127,7 @@ public class BookDAO {
 	}
 
 	// 4. 다중 수정!!!! 타이틀/저자/출판사
-	public BookVO modifyBook(int menu, int manageNo, String str) {
+	public BookVO modifyBook(int menu, String manageNo, String str) {
 		BookVO book = null;
 		StringBuilder sql = new StringBuilder();
 
@@ -152,7 +150,7 @@ public class BookDAO {
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
 			pstmt.setString(1, str);
-			pstmt.setInt(2, manageNo);
+			pstmt.setString(2, manageNo);
 
 			pstmt.executeUpdate();
 
@@ -201,7 +199,7 @@ public class BookDAO {
 			ResultSet rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				int no = rs.getInt("NO");
+				String no = rs.getString("NO");
 				String title = rs.getString("TITLE");
 				String author = rs.getString("AUTHOR");
 				String publisher = rs.getString("PUBLISHER");
@@ -233,7 +231,7 @@ public class BookDAO {
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				int no = rs.getInt("NO");
+				String no = rs.getString("NO");
 				String title = rs.getString("TITLE");
 				String author = rs.getString("AUTHOR");
 				String publisher = rs.getString("PUBLISHER");
@@ -263,7 +261,7 @@ public class BookDAO {
 			ResultSet rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				int no = rs.getInt("NO");
+				String no = rs.getString("NO");
 				String title = rs.getString("TITLE");
 				String author = rs.getString("AUTHOR");
 				String publisher = rs.getString("PUBLISHER");
@@ -292,7 +290,7 @@ public class BookDAO {
 			ResultSet rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				int no = rs.getInt("NO");
+				String no = rs.getString("NO");
 				String title = rs.getString("TITLE");
 				String author = rs.getString("AUTHOR");
 				String publisher = rs.getString("PUBLISHER");
@@ -319,12 +317,12 @@ public class BookDAO {
 	
 
 	// 도서번호로 도서명 가져오기
-	public String getTitle(int bookNo) {
+	public String getTitle(String bookNo) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT TITLE FROM BOOKLIST WHERE NO = ?");
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-			pstmt.setInt(1, bookNo);
+			pstmt.setString(1, bookNo);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
 				return rs.getString(1);
@@ -335,12 +333,12 @@ public class BookDAO {
 	}
 
 	// 도서번호로 저자명 가져오기
-	public String getAuthor(int bookNo) {
+	public String getAuthor(String bookNo) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT AUTHOR FROM BOOKLIST WHERE NO = ?");
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-			pstmt.setInt(1, bookNo);
+			pstmt.setString(1, bookNo);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
 				return rs.getString(1);
@@ -351,12 +349,12 @@ public class BookDAO {
 	}
 
 	// 도서번호로 출판사 가져오기
-	public String getPublisher(int bookNo) {
+	public String getPublisher(String bookNo) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT PUBLISHER FROM BOOKLIST WHERE NO = ?");
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-			pstmt.setInt(1, bookNo);
+			pstmt.setString(1, bookNo);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
 				return rs.getString(1);
@@ -367,7 +365,7 @@ public class BookDAO {
 	}
 
 	// 대여 또는 반납시 상태코드 변경
-	public void changeStatus(int status, int bookNo) {
+	public void changeStatus(int status, String bookNo) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE BOOKLIST SET STATUS = ? ");
 		sql.append(" WHERE NO = ? ");
@@ -375,7 +373,7 @@ public class BookDAO {
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
 			pstmt.setInt(1, status);
-			pstmt.setInt(2, bookNo);
+			pstmt.setString(2, bookNo);
 
 			if (pstmt.executeUpdate() == 0) {
 				System.out.println("여기는 BookDAO, changeStatus 반영안됨");

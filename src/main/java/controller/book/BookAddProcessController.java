@@ -11,7 +11,7 @@ import controller.BaseController;
 public class BookAddProcessController extends BaseController {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		int no = Integer.parseInt(request.getParameter("isbn"));
+		String no = request.getParameter("isbn");
 		String title = request.getParameter("title");
 		String author = request.getParameter("author");
 		String publisher = request.getParameter("publisher");

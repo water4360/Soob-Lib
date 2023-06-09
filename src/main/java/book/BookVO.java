@@ -3,14 +3,14 @@ package book;
 public class BookVO {
 
 	//관리번호, 도서명, 저자, 출판사, 보유권수, 대여상태
-	private int manageNo;
+	private String manageNo;
 	private String title;
 	private String author;
 	private String publisher;
 	private int status; // 0:대여불가, 1:대여가능
 	private int pop;
 	
-	public BookVO(int manageNo, String title, String author, String publisher, int status, int pop) {
+	public BookVO(String manageNo, String title, String author, String publisher, int status, int pop) {
 		super();
 		this.manageNo 	= manageNo;
 		this.title		= title;
@@ -25,10 +25,10 @@ public class BookVO {
 		super();
 	}
 	
-	public int getManageNo() {
+	public String getManageNo() {
 		return manageNo;
 	}
-	public void setManageNo(int manageNo) {
+	public void setManageNo(String manageNo) {
 		this.manageNo = manageNo;
 	}
 
