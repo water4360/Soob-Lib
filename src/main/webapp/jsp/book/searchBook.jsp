@@ -4,6 +4,7 @@
 
 <!DOCTYPE html>
 <html>
+<title>::${param.searchKeyword}에 대한 검색결과 - 숲::</title>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
@@ -29,14 +30,13 @@
 	</header>
 
 
-	<div class="container">
+	<div class="container"  align="center">
 		<!-- <table class="table table-striped table-hover"> -->
-		<c:choose>
-			<c:when test="${ empty bookList and empty allBooks }">
-				<title>::${param.searchKeyword}에 대한 검색결과 - 숲::</title>
 				<h2>
-					<i>'${ param.searchKeyword }'</i> 검색 결과
+					<b style="color:#28A745">'${ param.searchKeyword }'</b> 검색 결과
 				</h2>
+		<c:choose>
+			<c:when test="${ empty bookList }">
 				<img alt="검색결과 없음" src="./source/src-img/gr-magnifying-glass.png"
 					width="50px">
 				<h4>'${ param.searchKeyword }'에 대한 검색 결과가 없어요</h4>
@@ -49,10 +49,6 @@
 			</c:when>
 
 			<c:otherwise>
-				<title>::${param.searchKeyword}에 대한 검색결과 - 숲::</title>
-				<h2>
-					<b>'${ param.searchKeyword }' 검색 결과</b>
-				</h2>
 				<c:set var="books" value="${bookList}" />
 				<div id="bookMenu">
 					<!-- 관리자메뉴 -->
@@ -105,7 +101,7 @@
 									<th scope="col">도서 관리</th>
 								</c:when>
 								<c:otherwise>
-									<th scope="col">도서 대여</th>
+									<th scope="col" align="center">도서 대여</th>
 								</c:otherwise>
 							</c:choose>
 						</tr>
@@ -117,7 +113,8 @@
 								<th scope="row"><input type="checkbox" id="check"
 									name="check" onclick="selectBook('${book.manageNo}')"
 									data-status="${book.status}"></th>
-								<td class="book-no"><a href="#" onclick="bookDetails{'$book.manageNo}'">${book.manageNo}</a></td>
+								<td class="book-no"><a href="#"
+									onclick="bookDetails{'$book.manageNo}'">${book.manageNo}</a></td>
 								<td class="book-title">${book.title}</td>
 								<td class="book-author">${book.author}</td>
 								<td class="book-publisher">${book.publisher}</td>
@@ -182,11 +179,11 @@
 				<%-- 모달 바디 --%>
 				<div class="modal-body">
 					<form method="post" action="rentBook.do">
-						<input type="hidden" name="userId" value="${loginMember.id}" />
-						<input type="hidden" name="bookNo" value="${book.manageNo}" />
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-success">신청</button>
+						<input type="hidden" name="userId" value="${loginMember.id}" /> <input
+							type="hidden" name="bookNo" value="${book.manageNo}" />
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">취소</button>
+						<button type="submit" class="btn btn-success">신청</button>
 					</form>
 				</div>
 			</div>
