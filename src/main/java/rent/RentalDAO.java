@@ -24,13 +24,13 @@ public class RentalDAO {
 	
 	private BookService service;
 	private RentalVO ren;
+	StringBuilder sql = new StringBuilder();
 	
 	//대여정보 등록
 	public RentalVO addRental(String id, String no) {
 		service = BookServiceFactory.getInstance();
 
 		//여기서는 렌탈 정보 등록해주고
-		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO RENTAL(NO, TITLE, AUTHOR, PUBLISHER, RENT_ID) ");
 		sql.append("            VALUES(?, ?, ?, ?, ?) ");
 	
@@ -47,6 +47,22 @@ public class RentalDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+			
+		//여기서는 북리스트에 데이터 반영해주고. 반납도 역으로 활용할 것.
+		sql = new StringBuilder();
+		sql.append("UPDATE BOOKLIST SET STATUS='0' WHERE NO=? ");
+		
+		try(
+				Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		) {
+			pstmt.setString(1, no);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 //			//여기서는 연체일수 "첫"계산 해주고.
 //			sql = new StringBuilder();
 //			sql.append("UPDATE  SET OVERDUE_STATE = ROUND(DUE_DATE - SYSDATE) ");
