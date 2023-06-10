@@ -1,30 +1,31 @@
 package controller.member;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import controller.BaseController;
+import member.MemberDAO;
+import member.MemberVO;
 
 public class MyPageController extends BaseController {
 
-	@Override
+	@Override  
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		//myPage를 눌렀을 때 뭐가 넘어오지????
-		
-//		사용자 접속정보를 세션에서 가져와서 유지할 수 있나?
-//		HttpSession session = request.getSession();
-//		
-//		if(session.getAttribute("mem") != null) {
-//			System.out.println("세션에 mem 정보? : " + session.getAttribute("mem"));
-//			System.out.println("회원정보 존재. by MyPageC");
-//			return "./jsp/myPage.jsp";
-//		} else {
-//			//사용자 정보가 없으면 잘못된 접근.
-//			System.out.println("세션에 mem 정보? : " + session.getAttribute("mem"));
-//			System.out.println("잘못된 접근, login으로.. by MyPageC");
-//			return "login.do";
-//		}
-			return "./jsp/myPage.jsp";
-		
+		session = request.getSession();
+		if(session.getAttribute("loginMember")!=null) {
+			MemberVO vo = (MemberVO)session.getAttribute("loginMember");
+
+			String id = vo.getId();
+			
+			MemberDAO dao = new MemberDAO();
+			
+			vo = dao.getMemberById(id);
+			
+			session.setAttribute("memInfo", vo);
+			return "/jsp/member/myPage.jsp";
+		}
+		//로그인 정보가 없다면 로그인 먼저!
+		return "login.do";
 	}
 
 }

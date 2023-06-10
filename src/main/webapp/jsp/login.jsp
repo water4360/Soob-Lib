@@ -16,7 +16,7 @@ section {
 	min-height: 600px;
 	position: relative;
 	display: flex;
-	flex-direction : row;
+	flex-direction: row;
 	align-items: center;
 	padding-top: 50px;
 }
@@ -27,7 +27,6 @@ section {
 	align-items: center;
 	flex-direction: row;
 }
-
 </style>
 
 
@@ -82,7 +81,7 @@ section {
 					name="loginForm" style="height: 400px"
 					onsubmit="return checkForm()">
 					<div class="form-group">
-				<h3>로그인</h3>
+						<h3>로그인</h3>
 						<label for="id"> <input type="text" class="form-control"
 							placeholder="아이디" id="id" name="id">
 						</label> <label for="pw"> <input type="password"
@@ -92,11 +91,11 @@ section {
 							<label for="saveId"> <input type="checkbox" name="saveId"
 								value="save"> 아이디기억 아직못해
 							</label>
-						<div id="loginError" style="color: red;">
-						<c:if test="${loginFeedback ne ''}">
+							<div id="loginError" style="color: red;">
+								<c:if test="${loginFeedback ne ''}">
 							${loginFeedback}
 						</c:if>
-						</div>
+							</div>
 						</div>
 						<button type="submit" class="btn btn-success">로그인</button>
 						<div>
@@ -105,10 +104,11 @@ section {
 						</div>
 					</div>
 				</form>
-
 			</div>
 		</div>
 	</section>
+
+
 	<footer>
 		<jsp:include page="/jsp/bottom.jsp"></jsp:include>
 	</footer>

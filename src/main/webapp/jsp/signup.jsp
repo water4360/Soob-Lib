@@ -20,7 +20,7 @@ $(function(){
 	
 	// 버튼 누를 필요 없이 실시간 이벤트
 	$("#id").on("keyup", function(){
-		var $checkID = $(this).val();
+		var $checkID = $("#id").val();
         var $error = $("#invalid-feedback");
         var $msg = $("#valid-feedback");
 
