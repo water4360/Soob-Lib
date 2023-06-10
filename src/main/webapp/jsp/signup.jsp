@@ -105,7 +105,7 @@ body {
 .input-form {
 	min-width: 400px;
 	max-width: 500px;
-	margin-top: 80px;
+	margin-top: 40px;
 	padding: 32px;
 	background: #fff;
 	border-radius: 10px;
@@ -113,13 +113,13 @@ body {
 }
 </style>
 </head>
-
-<body style="background-color: beige">
+	<header>
+		<jsp:include page="/jsp/topMenu.jsp"></jsp:include>
+	</header>
+<body style="background-color: white">
 	<div class="container">
-		<header class="top-banner" style="text-align: center" height="50px">
-			<a href="main.do"> 라이브러리, 숲 </a>
-			<hr>
-		</header>
+	<h3>로그인</h3>
+			
 		<div class="input-form-backgroud row">
 			<div class="input-form mx-auto"
 				style="min-width: 400px; max-width: 500px;">

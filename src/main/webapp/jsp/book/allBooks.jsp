@@ -30,10 +30,10 @@
 	</header>
 
 
-	<div class="container">
+	<div class="container" align="center">
 		<!-- <table class="table table-striped table-hover"> -->
 		<h2>
-			<b>여긴 only 전체 도서목록</b>
+			<b>전체 도서목록</b>
 		</h2>
 		<c:set var="books" value="${bookList}" />
 		<div id="bookMenu">
@@ -96,7 +96,52 @@
 						<th scope="row"><input type="checkbox" id="check"
 							name="check" onclick="selectBook('${book.manageNo}')"
 							data-status="${book.status}"></th>
-						<td><a href="#" onclick="bookDetails{'$book.manageNo}'">${book.manageNo}</a></td>
+						<td><a href="#" onclick="bookDetails{'$book.manageNo}'">${book.manageNo}</a>
+						
+						
+						
+						
+						<%-- 도서대여 모달 --%>
+	<div class="modal fade" id="rentBook" tabindex="-1"
+								aria-labelledby="newBookModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content input-form mx-auto">
+				<div class="modal-header">
+					<h5 class="modal-title" id="rentBook">도서 대여신청</h5>
+					<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<%-- 모달 내용 --%>
+				<div class="modal-body">
+					<form method="post" action="rentBook.do" name="rentBookForm"
+												class="validation-form" novalidate>
+						<input type="hidden" name="memberId" value="${loginMember.id}" />
+						<input type="hidden" name="bookNo" value="${book.manageNo}" />
+						<div id="rentMsg">
+							<h5>대여기간은 3일이예요.</h5>
+							<h5>대여한 도서는 <span style="color:green">
+							<b><a href="myLibrary.do">[나의서재]</a></b>
+														</span>에서 확인할 수 있어요.</h5>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">취소</button>
+							<button type="submit" class="btn btn-success">신청</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+					
+					
+						
+						
+						
+						
+						</td>
 						<td class="book-title">${book.title}</td>
 						<td class="book-author">${book.author}</td>
 						<td class="book-publisher">${book.publisher}</td>
@@ -110,69 +155,40 @@
 											aria-expanded="false" id="rent-btn"
 											onclick="redirectToLogin()"
 											${book.status == '0' ? 'disabled' : ''}>
-											${book.status == '0' ? '대여중' : '대여신청'}</button>
+											${book.status == '0' ? '대여불가' : '로그인 후 대여'}</button>
 									</div>
 								</c:when>
 								<c:otherwise>
 									<div class="btn-group">
-										<button type="button" class="btn btn-success"
-											data-toggle="modal" data-target="#rentBook"
-											aria-expanded="false" id="btn-rent"
-											${book.status == '0' ? 'disabled' : ''}>
-											${book.status == '0' ? '대여중' : '대여신청'}</button>
+									<form action="rentBook.do">
+									<input type="hidden" name="boook" value="${book.manageNo}">
+									<input type="hidden" name="memberId" value="${loginMember.id}">
+										<button type="submit" class="btn btn-success" id="rent-btn"
+												${book.status == '0' ? 'disabled' : ''}>
+											${book.status == '0' ? '대여불가' : '대여신청'}</button>
+											</form>
 									</div>
 									<c:if test="${loginMember.memberCode == '9' }">
 									<td>
 										<div class="btn-group">
 											<button type="button" class="btn btn-danger"
-												data-toggle="modal" data-target="#deleteBook"
-												aria-expanded="false" id="btn-rent"
-												${book.status == '0' ? 'disabled' : ''}>
+													data-toggle="modal" data-target="#deleteBook"
+													aria-expanded="false" id="btn-delete"
+													${book.status == '0' ? 'disabled' : ''}>
 												${book.status == '0' ? '삭제불가' : '삭제'}</button>
 										</div>
 									</td>
 									</c:if>
 								</c:otherwise>
 							</c:choose>
+							
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
-
-	<%-- 도서대여 모달 --%>
-	<div class="modal fade" id="rentBook" tabindex="-1"
-		aria-labelledby="newBookModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content input-form mx-auto">
-				<div class="modal-header">
-					<h5 class="modal-title" id="rentBook">도서 대여신청</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<%-- 모달 내용 --%>
-				<div class="modal-body">
-					<form method="post" action="rentBook.do" name="rentBookForm"
-						class="validation-form" novalidate>
-						<input type="hidden" name="userId" value="${loginMember.id}" />
-						<input type="hidden" name="bookNo" value="${book.manageNo}" />
-						<div id="rentMsg">
-							<h5>대여기간은 3일이예요.</h5>
-							<h5>대여한 도서는 [나의서재]에서 확인할 수 있어요.</h5>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-success">신청</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 
 	<%-- 대여버튼 클릭시 도서 정보가져오기 --%>
 	<script>

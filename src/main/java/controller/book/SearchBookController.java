@@ -27,19 +27,23 @@ public class SearchBookController extends BaseController {
 		switch(option) {
 		case "all" :
 			bookList = dao.searchBooks(1, keyword);
+			option = "통합";
 			break;
 		case "title" :
 			bookList = dao.searchBooks(2, keyword);
+			option = "도서명";
 			break;
 		case "author" :
 			bookList = dao.searchBooks(3, keyword);
+			option = "저자";
 			break;
 		case "publisher" :
 			bookList = dao.searchBooks(4, keyword);
+			option = "출판사";
 			break;
 		}
-		
 		request.setAttribute("bookList", bookList);
+		request.setAttribute("searchOption", option);
 		
 		return "./jsp/book/searchBook.jsp";
 	}

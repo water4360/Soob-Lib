@@ -27,12 +27,11 @@ public class RentalDAO {
 	
 	//대여정보 등록
 	public RentalVO addRental(String id, String no) {
-//		service = BookServiceFactory.getInstance();
-//		service.searchOneByNo(no);
+		service = BookServiceFactory.getInstance();
 
 		//여기서는 렌탈 정보 등록해주고
 		StringBuilder sql = new StringBuilder();
-		sql.append("INSERT INTO T_RENTAL(NO, TITLE, AUTHOR, PUBLISHER, RENT_ID) ");
+		sql.append("INSERT INTO RENTAL(NO, TITLE, AUTHOR, PUBLISHER, RENT_ID) ");
 		sql.append("            VALUES(?, ?, ?, ?, ?) ");
 	
 		try(
@@ -48,21 +47,21 @@ public class RentalDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			//여기서는 연체일수 "첫"계산 해주고.
-			sql = new StringBuilder();
-			sql.append("UPDATE T_RENTAL SET OVERDUE_STATE = ROUND(DUE_DATE - SYSDATE) ");
-			sql.append(" WHERE RENT_ID = ? ");
-			
-			try(
-					Connection conn = new ConnectionFactory().getConnection();
-					PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-			) {
-				pstmt.setString(1, id);
-//				pstmt.setInt(2, bookNo);
-				pstmt.executeUpdate();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//			//여기서는 연체일수 "첫"계산 해주고.
+//			sql = new StringBuilder();
+//			sql.append("UPDATE  SET OVERDUE_STATE = ROUND(DUE_DATE - SYSDATE) ");
+//			sql.append(" WHERE RENT_ID = ? ");
+//			
+//			try(
+//					Connection conn = new ConnectionFactory().getConnection();
+//					PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+//			) {
+//				pstmt.setString(1, id);
+////				pstmt.setInt(2, bookNo);
+//				pstmt.executeUpdate();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 		return ren;
 	}
 		
@@ -91,26 +90,26 @@ public class RentalDAO {
 //	}
 	
 	
-	//연체일수 계산
-	public void calOverdue(String id) {
-		StringBuilder sql = new StringBuilder();
-		//연체현황 업데이트 먼저 해주고
-		sql.append("UPDATE T_RENTAL SET OVERDUE_STATE = ROUND(DUE_DATE - SYSDATE) ");
-		sql.append(" WHERE RENT_ID = ? ");
-		try(
-				Connection conn = new ConnectionFactory().getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-		) {
-			pstmt.setString(1, id);
-			pstmt.executeUpdate();
-//			if(cnt == 0) {
-//				System.out.println("여기는 RentalDAO, 업뎃된게 없음");
-//			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	//연체일수 계산
+//	public void calOverdue(String id) {
+//		StringBuilder sql = new StringBuilder();
+//		//연체현황 업데이트 먼저 해주고
+//		sql.append("UPDATE RENTAL SET OVERDUE_STATE = ROUND(DUE_DATE - SYSDATE) ");
+//		sql.append(" WHERE RENT_ID = ? ");
+//		try(
+//				Connection conn = new ConnectionFactory().getConnection();
+//				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+//		) {
+//			pstmt.setString(1, id);
+//			pstmt.executeUpdate();
+////			if(cnt == 0) {
+////				System.out.println("여기는 RentalDAO, 업뎃된게 없음");
+////			}
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	
 	
@@ -121,7 +120,7 @@ public class RentalDAO {
 			
 			StringBuilder sql = new StringBuilder();
 			//그리고 나서 회원대여 리스트 보여주기
-			sql.append("SELECT * FROM T_RENTAL WHERE RENT_ID = ? ");
+			sql.append("SELECT * FROM RENTAL WHERE RENT_ID = ? ");
 			sql.append("ORDER BY OVERDUE_STATE ");
 			try(
 					Connection conn = new ConnectionFactory().getConnection();
@@ -156,7 +155,7 @@ public class RentalDAO {
 		StringBuilder sql = new StringBuilder();
 		//책넘버, ID에 따라 OVERDUE STATE만 NULL로 바꿀까?
 		//OVERDUE_STATE가 만약 NOT NULL로 돼있으면 빼줄것.
-		sql.append("DELETE FROM T_RENTAL WHERE NO = ? AND RENT_ID = ? ");
+		sql.append("DELETE FROM RENTAL WHERE NO = ? AND RENT_ID = ? ");
 	
 		try(
 				Connection conn = new ConnectionFactory().getConnection();
@@ -179,7 +178,7 @@ public class RentalDAO {
 	public String getDueDate(String bookNo) {
 		SimpleDateFormat sdf = new SimpleDateFormat("YY-MM-dd");
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT DUE_DATE FROM T_RENTAL WHERE NO = ? AND RENT_ID = ? ");
+		sql.append("SELECT DUE_DATE FROM RENTAL WHERE NO = ? AND RENT_ID = ? ");
 	try(
 			Connection conn = new ConnectionFactory().getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
@@ -199,14 +198,14 @@ public class RentalDAO {
 	
 	
 	//도서번호로 연체(일수) 가져오기
-	public int getOverDue(int bookNo) {
+	public int getOverDue(String bookNo) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT OVERDUE_STATE FROM T_RENTAL WHERE NO = ? AND ID = ? ");
+		sql.append("SELECT OVERDUE_STATE FROM RENTAL WHERE NO = ? AND ID = ? ");
 	try(
 			Connection conn = new ConnectionFactory().getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		) {
-			pstmt.setInt(1, bookNo);
+			pstmt.setString(1, bookNo);
 			pstmt.setString(2, new MemberVO().getId());
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next())
@@ -217,22 +216,22 @@ public class RentalDAO {
 		return -99;
 	}
 
-	//기존테이블에서 조인해서 가져오는 경우에는...
-	public void updateBook(int menu, int bookNo, String str) throws Exception{
+	//???도서 정보 수정이 왜 여기에,,,?
+	public void updateBook(int menu, String bookNo, String str) throws Exception{
 		StringBuilder sql = new StringBuilder();
 		//연체현황 업데이트 먼저 해주고
 		
 		switch(menu) {
 			//도서명
 			case 1 :
-				sql.append("UPDATE T_RENTAL SET TITLE = ? ");
+				sql.append("UPDATE RENTAL SET TITLE = ? ");
 				sql.append(" WHERE NO = ? ");
 				try(
 						Connection conn = new ConnectionFactory().getConnection();
 						PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 				) {
 					pstmt.setString(1, str);
-					pstmt.setInt(2, bookNo);
+					pstmt.setString(2, bookNo);
 					pstmt.executeUpdate();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -240,14 +239,14 @@ public class RentalDAO {
 				break;
 			//저자명
 			case 2 : 
-				sql.append("UPDATE T_RENTAL SET AUTHOR = ? ");
+				sql.append("UPDATE RENTAL SET AUTHOR = ? ");
 				sql.append(" WHERE NO = ? ");
 				try(
 						Connection conn = new ConnectionFactory().getConnection();
 						PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 				) {
 					pstmt.setString(1, str);
-					pstmt.setInt(2, bookNo);
+					pstmt.setString(2, bookNo);
 					pstmt.executeUpdate();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -255,14 +254,14 @@ public class RentalDAO {
 				break;
 			//출판사명
 			case 3 :
-				sql.append("UPDATE T_RENTAL SET PUBLISHER = ? ");
+				sql.append("UPDATE RENTAL SET PUBLISHER = ? ");
 				sql.append(" WHERE NO = ? ");
 				try(
 						Connection conn = new ConnectionFactory().getConnection();
 						PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 				) {
 					pstmt.setString(1, str);
-					pstmt.setInt(2, bookNo);
+					pstmt.setString(2, bookNo);
 					pstmt.executeUpdate();
 				} catch (Exception e) {
 					e.printStackTrace();

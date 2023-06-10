@@ -6,6 +6,8 @@ CREATE TABLE MEMBER (
           , PW              VARCHAR(20) NOT NULL
           , NAME            VARCHAR(10)  NOT NULL
           , PHONE           VARCHAR(11) NOT NULL
+          , EMAIL           VARCHAR(100) NOT NULL
+          , REG_DATE        DATE DEFAULT SYSDATE NOT NULL
 );
 
 --조심
@@ -31,17 +33,14 @@ DELETE MEMBER WHERE NAME = '이조아';
 
 UPDATE MEMBER SET ID = 'admin' WHERE NAME = '관리자';
 
-INSERT INTO MEMBER(MEM_NO, ID, PW, NAME, PHONE)
-            VALUES(999999, 'test', '1111', 't_admin', '0319999999');
-INSERT INTO MEMBER(MEM_NO, ID, PW, NAME, PHONE)
-            VALUES(999998, 'test2', '2222', 't_user', '0319999999');
+INSERT INTO MEMBER(MEM_NO, MEM_CODE, ID, PW, NAME, PHONE, EMAIL)
+            VALUES(999999, 9, 'test', '1111', '관리자', '0319996666', 'admin@library-soob.com');
+INSERT INTO MEMBER(MEM_NO, ID, PW, NAME, PHONE, EMAIL)
+            VALUES(SEQ_MEMBER_NO.NEXTVAL, 'test2', '2222', '회원', '01044445555', 'user@library-soob.com');
 
 
 INSERT INTO MEMBER(MEM_NO, ID, PW, NAME, PHONE, RENTAL_STATUS, RENTAL_NO)
             VALUES(SEQ_MEMBER_NO.NEXTVAL, ?, ?, ?, ?) ;
-
-INSERT INTO MEMBER(MEM_NO, ID, PW, NAME, PHONE)
-            VALUES(999999, 'ADMIN', '9999', '관리자', '0319999999');
             
 INSERT INTO MEMBER(MEM_NO, ID, PW, NAME, PHONE)
             VALUES(SEQ_MEMBER_NO.NEXTVAL, 'hari1004', '1004', '이하리', '01010041004') ;

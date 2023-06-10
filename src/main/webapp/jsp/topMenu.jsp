@@ -122,3 +122,4 @@ a {
 		</c:choose>
 	</div>
 </div>
+<hr>
