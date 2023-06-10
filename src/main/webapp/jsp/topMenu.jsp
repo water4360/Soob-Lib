@@ -52,6 +52,7 @@ a {
 	<div id="topMenu-logo">
 		<a href="main.do">
 		<img alt="logo" id="logo" src="./source/src-img/gr-books2.png">
+<!-- 		<img alt="logo" id="logo" src="./source/logo.gif"> -->
 		</a>
 	</div>
 

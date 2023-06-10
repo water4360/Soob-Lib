@@ -29,6 +29,7 @@ public class RentalDAO {
 	//대여정보 등록
 	public RentalVO addRental(String id, String no) {
 		service = BookServiceFactory.getInstance();
+		int result = 0;
 
 		//여기서는 렌탈 정보 등록해주고
 		sql.append("INSERT INTO RENTAL(NO, TITLE, AUTHOR, PUBLISHER, RENT_ID) ");
@@ -43,24 +44,25 @@ public class RentalDAO {
 			pstmt.setString(3, service.getAuthor(no));
 			pstmt.setString(4, service.getPublisher(no));
 			pstmt.setString(5, id);
-			pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			
-		//여기서는 북리스트에 데이터 반영해주고. 반납도 역으로 활용할 것.
-		sql = new StringBuilder();
-		sql.append("UPDATE BOOKLIST SET STATUS='0' WHERE NO=? ");
-		
-		try(
-				Connection conn = new ConnectionFactory().getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-		) {
-			pstmt.setString(1, no);
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			//정상적으로 대여가 등록되면
+			if(result!=0) {
+				//여기서는 북리스트에 데이터 반영해주고. 반납도 역으로 활용할 것.
+				sql = new StringBuilder();
+				sql.append("UPDATE BOOKLIST SET STATUS='0' WHERE NO=? ");
+				try(
+						Connection conn = new ConnectionFactory().getConnection();
+						PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+					) {
+					pstmt.setString(1, no);
+					pstmt.executeUpdate();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		
 		
 //			//여기서는 연체일수 "첫"계산 해주고.
