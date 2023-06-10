@@ -27,15 +27,24 @@ public class LoginProcessController extends BaseController {
 			mem = dao.getMemberById(id);
 			
 			// 그리고 이 mem을 session에 MemberVO형태 고대로 넘겨줌.
-			HttpSession session = request.getSession();
+			session = request.getSession();
 			session.setAttribute("loginMember", mem);
 			System.out.println("회원정보 존재. by LoginController");
 			return "main.do";
+		} else if(dao.isDuplicatedId(id)){
+			//아이디는 존재, 비밀번호가 틀린 경우.
+			if(!dao.isCorrectInfo(id, pw)) {
+				session = request.getSession();
+				session.setAttribute("loginFeedback", "비밀번호가 일치하지 않아요");
+				System.out.println("재로그인. by LoginController");
+				return "login.do";
+			}
 		} else {
-			// 사용자 정보가 없으면 로그인페이지로 감.
-			// 로긴페이지에서 분간해서 loginProcess로 보내줌ㅋㅋ
-			System.out.println("로그인하러 고고씽. by LoginController");
-			return "login.do";
+			//아이디없고, 비번도 안맞겠지...
+			session = request.getSession();
+			session.setAttribute("loginFeedback", "일치하는 회원이 없어요");
+			System.out.println("재로그인. by LoginController");
 		}
+		return "login.do";
 	}
 }

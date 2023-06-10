@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,8 +92,12 @@ section {
 							<label for="saveId"> <input type="checkbox" name="saveId"
 								value="save"> 아이디기억 아직못해
 							</label>
+						<div id="loginError" style="color: red;">
+						<c:if test="${loginFeedback ne ''}">
+							${loginFeedback}
+						</c:if>
 						</div>
-						<div id="loginError" style="color: red;"></div>
+						</div>
 						<button type="submit" class="btn btn-success">로그인</button>
 						<div>
 							<a href="findId.do">아이디 찾기</a> | <a href="findPw.do">비밀번호 찾기</a>

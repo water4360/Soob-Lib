@@ -25,15 +25,11 @@ public class SignUpProcessController extends BaseController {
 		memService.addMember(vo);
 
 		// 그리고 이 mem을 session에 MemberVO형태 고대로 넘겨줌.
-		if (vo != null) {
-			HttpSession session = request.getSession();
+//			session = request.getSession();
 			session.setAttribute("signInMember", vo);
 			System.out.println("회원가입 완료. by SignUpProcessCtrl");
 			
 			// 회원가입 완료, [메인으로][로그인으로] 보여주기
 			return "./jsp/signupProcess.jsp";
-		}
-		System.out.println("에러방지용");
-		return "login.do";
 	}
 }
