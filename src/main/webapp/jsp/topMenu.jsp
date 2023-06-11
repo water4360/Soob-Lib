@@ -27,8 +27,9 @@
 	font-size: larger;
 }
 
+
 #logo {
-	width: 80px;
+	width: 100px;
 	display: flex;
 	align-items: center;
 	flex-direction: row;
@@ -45,6 +46,12 @@
 	font-style: italic;
 }
 
+#searchKeyword {
+	border : none;
+	border-bottom : 3px solid #28A745;
+	width : 300px;
+	}
+
 a {
 	margin: 5px;
 }
@@ -52,22 +59,22 @@ a {
 	<div id="container">
 	<div id="topMenu-logo">
 		<a href="main.do">
-		<img alt="logo" id="logo" src="./source/src-img/gr-books2.png">
-<!-- 		<img alt="logo" id="logo" src="./source/logo.gif"> -->
+		<img alt="logo" id="logo" src="./source/logo.gif">
 		</a>
 	</div>
 
 
 	<div class="btn-group">
-		<form action="searchBook.do">
-			<select name="searchBy">
+		<form action="searchBook.do" style="box-shadow: none">
+			<select name="searchBy" class="form-select">
 				<option id="all" value="all" selected>통합검색</option>
 				<option id="title" value="title">도서명</option>
 				<option id="author" value="author">저자</option>
 				<option id="publisher" value="publisher">출판사</option>
-			</select> <input type="search" id="searchKeyword" name="searchKeyword"
-				placeholder="검색어를 입력하세요">
-			<button type="submit" id="search" class="btn btn-success" disabled>검색</button>
+			</select>
+			<input type="search" id="searchKeyword" name="searchKeyword"
+				placeholder="검색어를 입력하세요" required>
+			<button type="submit" id="search" class="btn btn-success">검색</button>
 		</form>
 		<div>
 		<button type="button" class="btn btn-outline-success"
@@ -76,19 +83,19 @@ a {
 	</div>
 
 	<script>
-		//검색어 미입력시 검색버튼 비활성화
-		const searchKeyword = document.getElementById("searchKeyword");
-		const searchButton = document.getElementById("search");
+// 		//검색어 미입력시 검색버튼 비활성화
+// 		const searchKeyword = document.getElementById("searchKeyword");
+// 		const searchButton = document.getElementById("search");
 		
-		searchButton.disabled = true;
+// 		searchButton.disabled = true;
 		
-		searchKeyword.addEventListener("input", () => {
-		  if (searchKeyword.value.trim() !== "") {
-		    searchButton.disabled = false;
-		  } else {
-		    searchButton.disabled = true;
-		  }
-		});
+// 		searchKeyword.addEventListener("input", () => {
+// 		  if (searchKeyword.value.trim() !== "") {
+// 		    searchButton.disabled = false;
+// 		  } else {
+// 		    searchButton.disabled = true;
+// 		  }
+// 		});
 	</script>
 
 	<div id="firstMenu">

@@ -410,5 +410,8 @@ function rentBook(button) {
 		    }, false);
 		
 	</script>
+		<footer>
+		<jsp:include page="/jsp/bottom.jsp"></jsp:include>
+	</footer>
 </body>
 </html>

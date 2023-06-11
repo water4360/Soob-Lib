@@ -70,7 +70,7 @@
 									<td>${rentBook.overdueDay}일</td>
 									<td>
 										<div class="btn-group">
-											<button type="button" class="btn btn-warning"
+											<button type="button" class="btn btn-success"
 												aria-expanded="false" data-toggle="modal"
 												data-target="#returnBook"
 												data-bookNo="${rentBook.bookNo}" 
@@ -118,7 +118,8 @@ function returnBook(button) {
 		<div class="modal-dialog">
 			<div class="modal-content input-form mx-auto">
 				<div class="modal-header">
-					<h5 class="modal-title" id="returnBook">도서 반납</h5>
+					<h2 class="modal-title" id="returnBook" style="color: #FFC107">
+					도서 반납</h2>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
