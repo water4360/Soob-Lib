@@ -70,14 +70,18 @@
 					    
 					    
 					    
-					    
+					    // 페이지 로드 시 버튼 업데이트
+					    window.onload = function() {
+					        confirmButton();
+					    };
 					    function confirmButton(button) {
-					        console.log("테스트버튼 눌림");
+					        console.log("여기는 테스트버튼 원본");
 					        // data-bookNo의 속성 값을 가지고 옴.
 					        var book = button.getAttribute("data-book");
 					        var bookNo = button.getAttribute("data-bookNo");
 					        var bookTitle = button.getAttribute("data-bookTitle");
 					        var bookAuthor = button.getAttribute("data-bookAuthor");
+
 					        console.log("도서: ", book);
 					        console.log("도서번호: ", bookNo);
 					        console.log("도서명: ", bookTitle);
@@ -106,6 +110,45 @@
 					    
 					    
 				</script>
+				
+				
+				
+				<script>
+					    function confirmButton(button) {
+					        console.log("테스트버튼 눌림");
+					        // data-bookNo의 속성 값을 가지고 옴.
+					        var book = button.getAttribute("data-book");
+					        var bookNo = button.getAttribute("data-bookNo");
+					        var bookTitle = button.getAttribute("data-bookTitle");
+					        var bookAuthor = button.getAttribute("data-bookAuthor");
+
+							document.getElementById("bookNo").innerText = bookNo;
+							document.getElementById("bookTitle").innerText = bookTitle;
+							document.getElementById("bookAuthor").innerText = bookAuthor;
+
+
+					        console.log("도서: ", book);
+					        console.log("도서번호: ", bookNo);
+					        console.log("도서명: ", bookTitle);
+					        console.log("저자: ", bookAuthor);
+					        var msg = "도서번호 : " + bookNo + ", 도서명 : " + bookTitle + "를 대여"
+					        let select = window.confirm(msg + "할까요?");
+					        
+					        // 도서 관리번호를 사용하여 필요한 작업 수행
+					        
+					        
+					        if(select) {
+					        	alert(msg + "했습니다!");
+					        	window.location.href="myLibrary.do"
+					        } else {
+					        	alert(msg + "하지 않습니다");
+					        }
+					    }
+						</script>	
+				
+				
+				
+				
 		<%-- 테이블 시작 --%>
 		<table class="table table-hover">
 			<thead>
@@ -155,6 +198,11 @@
 				<div class="modal-body">
 					<form method="post" action="rentBook.do" name="rentBookForm"
 												class="validation-form" novalidate>
+												<h5>도서번호: <span id="bookNo"></span></h5>
+												<h5>도서명: <span id="bookTitle"></span></h5>
+												<h5>저자: <span id="bookAuthor"></span></h5>
+
+
 						<input type="hidden" name="memberId" value="${loginMember.id}" />
 						<input type="hidden" name="bookNo" value="${book.manageNo}" />
 						<div id="rentMsg">
