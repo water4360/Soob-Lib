@@ -15,7 +15,6 @@ public class LoginProcessController extends BaseController {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 
-		System.out.println("id : " + id + " pw : " + pw);
 		// 사용자가 로그인할때 입력한 값을 VO에 담아주기
 		MemberVO vo = new MemberVO();
 		vo.setId(id);

@@ -4,9 +4,8 @@
 
 <!DOCTYPE html>
 <html>
-<title>::전체 도서목록 - 숲::</title>
-
 <head>
+<title>::전체 도서목록 - 숲::</title>
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"

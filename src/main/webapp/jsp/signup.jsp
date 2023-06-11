@@ -138,7 +138,6 @@ body {
 						<label for="pw">비밀번호</label> <input type="password"
 							class="form-control" id="pw" name="pw"
 							placeholder="4~12자 영문+숫자+특수문자" value=""
-							pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*\W).{4,12}"
 							onchange="checkPw()" required>
 						<div class="invalid-feedback">비밀번호를 입력해주세요</div>
 					</div>

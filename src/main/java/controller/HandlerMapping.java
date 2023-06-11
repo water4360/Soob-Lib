@@ -3,14 +3,17 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import controller.admin.ManageBoardController;
 import controller.admin.DeleteBookController;
+import controller.admin.ManageBoardController;
 import controller.admin.ManageMemberController;
-import controller.book.AllBooksController;
 import controller.book.AddBookProcessController;
+import controller.book.AllBooksController;
 import controller.book.RentBookController;
 import controller.book.ReturnBookController;
 import controller.book.SearchBookController;
+import controller.member.FindIdController;
+import controller.member.FindInfoProcessController;
+import controller.member.FindPwController;
 import controller.member.LoginController;
 import controller.member.LoginProcessController;
 import controller.member.LogoutController;
@@ -36,6 +39,14 @@ public class HandlerMapping {
 		//공용
 		mappings.put("/login.do", new LoginController());
 		mappings.put("/loginProcess.do", new LoginProcessController());
+		
+		//이름은 이렇게 만들지만 결과물들은 모두 findInfoResult.jsp에 모이도록 하기
+		mappings.put("/findId.do", new FindIdController());
+		mappings.put("/findIdResult.do", new FindInfoProcessController());
+		mappings.put("/findPw.do", new FindPwController());
+		mappings.put("/findPwResult.do", new FindInfoProcessController());
+//		mappings.put("/changePw.do", new changePwController());
+//		mappings.put("/changePwResult.do", new changePwProcessController());
 		
 		mappings.put("/allBooks.do", new AllBooksController());
 		mappings.put("/searchBook.do", new SearchBookController());

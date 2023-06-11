@@ -21,10 +21,13 @@ public class RentBookController extends BaseController {
 		//dao통해서 책등록
 		if(id!=null && no!=null) {
 			dao.addRental(id, no);
-			System.out.println("대출 완료 by RentBookCtrl");
 			msg = "대출이 완료되었습니다.";
+			System.out.println(msg);
+
 		} else {
 			msg = "대출에 실패했어요. 관리자에게 문의하세요.";
+			System.out.println(msg);
+
 		}
 		//확인용
 		System.out.println("넘어온 id : " + id);
