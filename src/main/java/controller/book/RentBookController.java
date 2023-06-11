@@ -13,7 +13,7 @@ public class RentBookController extends BaseController {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		//넘겨받는 값. 여전히 테스트중
 		String id = request.getParameter("memberId");
-		String no = request.getParameter("boook");
+		String no = request.getParameter("bookNo");
 		
 		RentalDAO dao = new RentalDAO();
 		
@@ -22,7 +22,7 @@ public class RentBookController extends BaseController {
 		System.out.println("대여 완료 by RentBookCtrl");
 		//확인용
 		System.out.println("넘어온 id : " + id);
-		System.out.println("걍 버튼으로 받는 북넘버 : " + no);
+		System.out.println("넘어온 북넘버 : " + no);
 	
 		return "allBooks.do";
 	}

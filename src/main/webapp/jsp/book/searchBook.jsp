@@ -68,23 +68,38 @@
 						window.location.href = "login.do";
 					}
 					
-// 					 function updateButtons() {
-// 					        var buttons = document.getElementsById('btn-rent');
-					        
-// 					        for (var i = 0; i < buttons.length; i++) {
-// 					            var status = buttons[i].getAttribute(${book.status});
-					            
-// 					            if (status === '0' ) {
-// 					                buttons[i].disabled = false; // 대출 가능일 때 버튼 활성화
-// 					            } else {
-// 					                buttons[i].disabled = true; // 대출 불가일 때 버튼 비활성화
-// 					            }
-// 					        }
-// 					    }
-// 					    // 페이지 로드 시 버튼 업데이트
-// 					    window.onload = function() {
-// 					        updateButtons();
-// 					    };
+
+					function confirmButton(button) {
+						console.log("여기는 테스트버튼 원본");
+						// data-bookNo의 속성 값을 가지고 옴.
+						var book = button.getAttribute("data-book");
+						var bookNo = button.getAttribute("data-bookNo");
+						var bookTitle = button.getAttribute("data-bookTitle");
+						var bookAuthor = button.getAttribute("data-bookAuthor");
+
+						console.log("도서: ", book);
+						console.log("도서번호: ", bookNo);
+						console.log("도서명: ", bookTitle);
+						console.log("저자: ", bookAuthor);
+						var msg = "도서번호 : " + bookNo + ", 도서명 : " + bookTitle + "를 대여"
+						let select = window.confirm(msg + "할까요?");
+
+						// 도서 관리번호를 사용하여 필요한 작업 수행
+
+
+						if (select) {
+							alert(msg + "했습니다!");
+							window.location.href = "myLibrary.do"
+						} else {
+							alert(msg + "하지 않습니다");
+						}
+
+					}
+					// 페이지 로드 시 버튼 업데이트
+					window.onload = function () {
+						confirmButton();
+					};
+
 					
 				</script>
 

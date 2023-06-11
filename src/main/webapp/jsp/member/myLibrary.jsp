@@ -37,7 +37,7 @@
 				<c:when test="${ empty rentalList }">
 					<img alt="검색결과 없음" src="./source/src-img/gr-magnifying-glass.png"
 						width="50px">
-					<h4>${ loginMember.id}님이대여중인 도서가 없어요</h4>
+					<h4>${ loginMember.name}님이 대여중인 도서가 없어요</h4>
 						<li>지금 바로 도서를 대여해보세요!</li>
 						<button type="button" class="btn btn-success"
 			onclick="location.href='allBooks.do'">어떤 책이 있나 보러가기</button>
