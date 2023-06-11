@@ -23,22 +23,23 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	height: 100%;
+	height: 150px;
 	font-size: larger;
 }
 
 
 #logo {
-	width: 100px;
+	width: 130px;
 	display: flex;
 	align-items: center;
-	flex-direction: row;
+	/* flex-direction: row; */
 }
 
 #menu {
 	display: flex;
 	align-items: center;
 }
+
 
 #library-name {
 	font-size: xx-large;
@@ -49,11 +50,25 @@
 #searchKeyword {
 	border : none;
 	border-bottom : 3px solid #28A745;
-	width : 300px;
+	width : 200px;
 	}
+
+#searchKeyword:focus {
+	border-color: #28A745;
+	outline: none;
+}
+
+select {
+	border: none;
+}
+select:focus {
+	border-color: #28A745;
+	outline: none;
+}
 
 a {
 	margin: 5px;
+	text-decoration-color: #28A745;
 }
 </style>
 	<div id="container">
@@ -64,7 +79,7 @@ a {
 	</div>
 
 
-	<div class="btn-group">
+	<div class="btn-group" id="searchMenu">
 		<form action="searchBook.do" style="box-shadow: none">
 			<select name="searchBy" class="form-select">
 				<option id="all" value="all" selected>통합검색</option>
@@ -73,7 +88,7 @@ a {
 				<option id="publisher" value="publisher">출판사</option>
 			</select>
 			<input type="search" id="searchKeyword" name="searchKeyword"
-				placeholder="검색어를 입력하세요" required>
+				placeholder="검색어를 입력하세요 예)우리가">
 			<button type="submit" id="search" class="btn btn-success">검색</button>
 		</form>
 		<div>
@@ -83,22 +98,22 @@ a {
 	</div>
 
 	<script>
-// 		//검색어 미입력시 검색버튼 비활성화
-// 		const searchKeyword = document.getElementById("searchKeyword");
-// 		const searchButton = document.getElementById("search");
+		//검색어 미입력시 검색버튼 비활성화
+		const searchKeyword = document.getElementById("searchKeyword");
+		const searchButton = document.getElementById("search");
 		
-// 		searchButton.disabled = true;
+		searchButton.disabled = true;
 		
-// 		searchKeyword.addEventListener("input", () => {
-// 		  if (searchKeyword.value.trim() !== "") {
-// 		    searchButton.disabled = false;
-// 		  } else {
-// 		    searchButton.disabled = true;
-// 		  }
-// 		});
+		searchKeyword.addEventListener("input", () => {
+		  if (searchKeyword.value.trim() !== "") {
+		    searchButton.disabled = false;
+		  } else {
+		    searchButton.disabled = true;
+		  }
+		});
 	</script>
 
-	<div id="firstMenu">
+	<div id="myMenu">
 		<c:if test="${ not empty loginMember }">
 					ID : ${ loginMember.id }(${ loginMember.name })
 		</c:if>

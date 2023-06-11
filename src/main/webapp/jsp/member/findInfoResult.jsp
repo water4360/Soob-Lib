@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>:: ¾ÆÀÌµð/ºñ¹Ð¹øÈ£ Ã£±â°á°ú - ½£ ::</title>
+<meta charset="UTF-8">
+<title>:: ì•„ì´ë””/ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°ê²°ê³¼ - ìˆ² ::</title>
 </head>
 <style>
 section {
@@ -36,46 +36,41 @@ section {
 
 	<section>
 		<div align="center">
-			<!-- 	¾×¼ÇÀÌ °¥Áö ¸»Áö ¼±ÅÃÇÏ´Â°É ÀÌ onsubmit ¿¡¼­ ... -->
+			<!-- 	ì•¡ì…˜ì´ ê°ˆì§€ ë§ì§€ ì„ íƒí•˜ëŠ”ê±¸ ì´ onsubmit ì—ì„œ ... -->
 			<div class="card" style="width: 400px" align="center">
-				<!-- 	submit ´­·¶À»¶§ ¾îµð·Î º¸³¾Áö ¿©±â¼­ °áÁ¤!-->
+				<!-- 	submit ëˆŒë €ì„ë•Œ ì–´ë””ë¡œ ë³´ë‚¼ì§€ ì—¬ê¸°ì„œ ê²°ì •!-->
 				<form id="findInfoBox" method="post" action="" name="findInfoForm"
 					style="height: 300px; width: 400px;" onsubmit="return checkForm()">
 					<div class="form-group" id="result-box" align="center">
 						<h3>
-							<b>${findInfo}</b>Ã£±â °á°ú
+							<b>${findInfo}</b>ì°¾ê¸° ê²°ê³¼
 						</h3>
 						<div id="findInfoResult">
 							<h5>
 								<span>${findInfoResult}</span>
 								<c:choose>
-									<c:when test="${findInfo eq '¾ÆÀÌµð'}">
-									<div>
-										<p>È¸¿ø´ÔÀÇ ¾ÆÀÌµð´Â [<b style="color: #28A745">${findIdResult}</b>]ÀÌ¿¹¿ä.
-										</p>
-										</div>
+									<c:when test="${findInfo eq 'ì•„ì´ë””'}">
+										<span>íšŒì›ë‹˜ì˜ ì•„ì´ë””ëŠ” [<b style="color: #28A745">${findIdResult}</b>]ì´ì˜ˆìš”.
+										</span>
 										<div>
 											<button type="submit" class="btn btn-outline-success"
-												formaction="findPw.do">ºñ¹Ð¹øÈ£ Ã£±â</button>
-											<button type="submit" class="btn btn-success"
-												formaction="login.do">·Î±×ÀÎÇÏ·¯ °¡±â</button>
+												formaction="findPw.do">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</button>
 										</div>
 									</c:when>
-									<c:when test="${findInfo eq 'ºñ¹Ð¹øÈ£'}">
-									<div>
-										<p>È¸¿ø´ÔÀÇ ºñ¹Ð¹øÈ£´Â [<b style="color: #28A745">${findPwResult}</b>]ÀÌ¿¹¿ä.
-										</p>
-										</div>
+									<c:when test="${findInfo eq 'ë¹„ë°€ë²ˆí˜¸'}">
+										<span>íšŒì›ë‹˜ì˜ ë¹„ë°€ë²ˆí˜¸ëŠ” [<b style="color: #28A745">${findPwResult}</b>]ì´ì˜ˆìš”.
+										</span>
 										<div>
 											<button type="submit" class="btn btn-outline-success"
-												formaction="findId.do">¾ÆÀÌµð Ã£±â</button>
-											<button type="submit" class="btn btn-success"
-												formaction="login.do">·Î±×ÀÎÇÏ·¯ °¡±â</button>
+												formaction="findId.do">ì•„ì´ë”” ì°¾ê¸°</button>
 										</div>
 									</c:when>
 								</c:choose>
 							</h5>
+							<button type="submit" class="btn btn-success"
+								formaction="login.do">ë¡œê·¸ì¸í•˜ëŸ¬ ê°€ê¸°</button>
 						</div>
+					</div>
 				</form>
 			</div>
 		</div>

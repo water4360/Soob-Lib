@@ -24,7 +24,7 @@
 
 
 #main-top {
-	height: 120px;
+	height: 100%;
 	display: flex;
 	position: relative;
 	flex-direction: row;
@@ -73,6 +73,7 @@ section {
 	align-items: center;
 	background-color: aquamarine;
 }
+
 </style>
 
 <body>
@@ -96,22 +97,22 @@ section {
     <div class="carousel-item active">
       <img src="./source/src-img/img/library8.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
+        <h5>책 속에는 과거의 모든 영혼이 가로누워 있다</h5>
+        <p>- 칼라일 -</p>
       </div>
     </div>
     <div class="carousel-item">
       <img src="./source/src-img/img/library10.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Some representative placeholder content for the second slide.</p>
+        <h5>한 권의 책은 세계에 대한 하나의 버전이다</h5>
+        <p>- 살만 루시디 -</p>
       </div>
     </div>
     <div class="carousel-item">
       <img src="./source/src-img/img/library7.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Third slide label</h5>
-        <p>Some representative placeholder content for the third slide.</p>
+        <h5>닫혀있기만 한 책은 블록일 뿐이다</h5>
+        <p>- 토마스 풀러 - </p>
       </div>
     </div>
   </div>
