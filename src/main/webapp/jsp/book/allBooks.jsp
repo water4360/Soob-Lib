@@ -50,23 +50,61 @@
 						alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
 						window.location.href = "login.do";
 					}
-					 function updateButtons() {
-					        var buttons = document.getElementsById('btn-rent');
+// 					 function updateButtons() {
+// 					        var buttons = document.getElementsById('btn-rent');
 					        
-					        for (var i = 0; i < buttons.length; i++) {
-					            var status = buttons[i].getAttribute(${book.status});
+// 					        for (var i = 0; i < buttons.length; i++) {
+// 					            var status = buttons[i].getAttribute(${book.status});
 					            
-					            if (status === '0' ) {
-					                buttons[i].disabled = false; // 대출 가능일 때 버튼 활성화
-					            } else {
-					                buttons[i].disabled = true; // 대출 불가일 때 버튼 비활성화
-					            }
+// 					            if (status === '0' ) {
+// 					                buttons[i].disabled = false; // 대출 가능일 때 버튼 활성화
+// 					            } else {
+// 					                buttons[i].disabled = true; // 대출 불가일 때 버튼 비활성화
+// 					            }
+// 					        }
+// 					    }
+// 					    // 페이지 로드 시 버튼 업데이트
+// 					    window.onload = function() {
+// 					        updateButtons();
+// 					    };
+					    
+					    
+					    
+					    
+					    function confirmButton(button) {
+					        console.log("테스트버튼 눌림");
+					        // data-bookNo의 속성 값을 가지고 옴.
+					        var book = button.getAttribute("data-book");
+					        var bookNo = button.getAttribute("data-bookNo");
+					        var bookTitle = button.getAttribute("data-bookTitle");
+					        var bookAuthor = button.getAttribute("data-bookAuthor");
+					        console.log("도서: ", book);
+					        console.log("도서번호: ", bookNo);
+					        console.log("도서명: ", bookTitle);
+					        console.log("저자: ", bookAuthor);
+					        var msg = "도서번호 : " + bookNo + ", 도서명 : " + bookTitle + "를 대여"
+					        let select = window.confirm(msg + "할까요?");
+					        
+					        // 도서 관리번호를 사용하여 필요한 작업 수행
+					        
+					        
+					        if(select) {
+					        	alert(msg + "했습니다!");
+					        	window.location.href="myLibrary.do"
+					        } else {
+					        	alert(msg + "하지 않습니다");
 					        }
+					        
 					    }
 					    // 페이지 로드 시 버튼 업데이트
 					    window.onload = function() {
-					        updateButtons();
+					        confirmButton();
 					    };
+					    
+					    
+					    
+					    
+					    
 				</script>
 		<%-- 테이블 시작 --%>
 		<table class="table table-hover">
@@ -156,6 +194,17 @@
 											onclick="redirectToLogin()"
 											${book.status == '0' ? 'disabled' : ''}>
 											${book.status == '0' ? '대여불가' : '로그인 후 대여'}</button>
+											<button type="button" class="btn btn-warning"
+											data-toggle="modal" data-target="#rentBook"
+											aria-expanded="false"
+											data-book="${book}"
+											data-bookNo="${book.manageNo}"
+											data-bookTitle="${book.title}"
+											data-bookAuthor="${book.author}"
+											id="rent-btn" onclick="confirmButton(this)">
+<!-- 											id="rent-btn" onclick="forwardInfoToModal(this)"> -->
+											테스트
+											</button>
 									</div>
 								</c:when>
 								<c:otherwise>
@@ -164,6 +213,7 @@
 									<input type="hidden" name="boook" value="${book.manageNo}">
 									<input type="hidden" name="memberId" value="${loginMember.id}">
 										<button type="submit" class="btn btn-success" id="rent-btn"
+										onclick="confirmButton()"
 												${book.status == '0' ? 'disabled' : ''}>
 											${book.status == '0' ? '대여불가' : '대여신청'}</button>
 											</form>
@@ -190,14 +240,14 @@
 	</div>
 	
 
-	<%-- 대여버튼 클릭시 도서 정보가져오기 --%>
+	<%-- 대여버튼 클릭시 도서 정보가져오기
 	<script>
     $(document).on("click", ".rent-btn", function() {
         var bookTitle = $(this).closest("tr").find(".book-title").text();
         $("#bookTitle").text(bookTitle);
         $("#rentBook").modal("show");
     });
-</script>
+</script> --%>
 
 
 
@@ -228,7 +278,7 @@
 
 						<label for="isbn">ISBN</label> <input type="number"
 							class="form-control" id="isbn" name="isbn" autocorrect="off"
-							autocapitalize="none" placeholder="공백이나 하이픈없이 10~13자리" value=""
+							autocapitalize="none" placeholder="공백이나 -없이 10~13자리" value=""
 							onchange="checkIsbn()" required>
 						<div class="invalid-feedback">도서관리번호를 입력해주세요</div>
 						<div id="invalid-feedback" style="color: red;"></div>
