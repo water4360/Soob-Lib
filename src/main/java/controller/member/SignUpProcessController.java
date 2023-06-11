@@ -10,7 +10,7 @@ import member.MemberVO;
 public class SignUpProcessController extends BaseController {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-
+		HttpSession session = request.getSession();
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		String name = request.getParameter("name");
