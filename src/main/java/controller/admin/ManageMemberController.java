@@ -9,7 +9,7 @@ import controller.Controller;
 import member.MemberDAO;
 import member.MemberVO;
 
-public class MemberManageController implements Controller {
+public class ManageMemberController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		MemberVO vo = new MemberVO();
@@ -18,6 +18,6 @@ public class MemberManageController implements Controller {
 		List<MemberVO> memList = dao.getAllMembers();
 		
 		request.setAttribute("memberList", memList);
-		return "./jsp/admin-member.jsp";
+		return "./jsp/admin/admin-member.jsp";
 	}
 }

@@ -3,11 +3,13 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import controller.admin.BoardManageController;
-import controller.admin.MemberManageController;
+import controller.admin.ManageBoardController;
+import controller.admin.DeleteBookController;
+import controller.admin.ManageMemberController;
 import controller.book.AllBooksController;
-import controller.book.BookAddProcessController;
+import controller.book.AddBookProcessController;
 import controller.book.RentBookController;
+import controller.book.ReturnBookController;
 import controller.book.SearchBookController;
 import controller.member.LoginController;
 import controller.member.LoginProcessController;
@@ -38,13 +40,15 @@ public class HandlerMapping {
 		mappings.put("/allBooks.do", new AllBooksController());
 		mappings.put("/searchBook.do", new SearchBookController());
 		mappings.put("/rentBook.do", new RentBookController());
+		mappings.put("/returnBook.do", new ReturnBookController());
 		
 		
 		//관리자 메뉴용
-		mappings.put("/admin-member.do", new MemberManageController());
+		mappings.put("/admin-member.do", new ManageMemberController());
 //		mappings.put("/admin-book.do", new SearchBookController());
-		mappings.put("/admin-board.do", new BoardManageController());
-		mappings.put("/add-book-process.do", new BookAddProcessController());
+		mappings.put("/admin-board.do", new ManageBoardController());
+		mappings.put("/addBook.do", new AddBookProcessController());
+		mappings.put("/deleteBook.do", new DeleteBookController());
 		
 		
 		//이거 memberService 팩토리 어쩌구 있어야 자꾸 새로 mem객체 생성안하고 유지될듯!

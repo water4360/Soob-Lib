@@ -64,71 +64,8 @@ public class RentalDAO {
 				}
 			}
 		
-		
-//			//여기서는 연체일수 "첫"계산 해주고.
-//			sql = new StringBuilder();
-//			sql.append("UPDATE  SET OVERDUE_STATE = ROUND(DUE_DATE - SYSDATE) ");
-//			sql.append(" WHERE RENT_ID = ? ");
-//			
-//			try(
-//					Connection conn = new ConnectionFactory().getConnection();
-//					PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-//			) {
-//				pstmt.setString(1, id);
-////				pstmt.setInt(2, bookNo);
-//				pstmt.executeUpdate();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
 		return ren;
 	}
-		
-		
-//	//연체일자 계산한 대여상태 반환
-//	public RentalVO checkRental(String id, int bookNo) {
-//		service.searchOneByNo(bookNo);
-//		// 날짜 업뎃기능 대출조회시에 넣기 !!!!!!!!!!!!!!!!!!!
-//		//Overdue 날짜 업뎃!!!
-//		StringBuilder sql = new StringBuilder();
-//		sql.append("UPDATE T_RENTAL SET OVERDUE_STATE = ROUND(DUE_DATE - SYSDATE) ");
-//		sql.append(" WHERE NO = ? ");
-//		
-//		try(
-//				Connection conn = new ConnectionFactory().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-//		) {
-//			pstmt.setString(1, id);
-//			pstmt.setInt(2, bookNo);
-//			pstmt.executeUpdate();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return ren;
-//	}
-	
-	
-//	//연체일수 계산
-//	public void calOverdue(String id) {
-//		StringBuilder sql = new StringBuilder();
-//		//연체현황 업데이트 먼저 해주고
-//		sql.append("UPDATE RENTAL SET OVERDUE_STATE = ROUND(DUE_DATE - SYSDATE) ");
-//		sql.append(" WHERE RENT_ID = ? ");
-//		try(
-//				Connection conn = new ConnectionFactory().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-//		) {
-//			pstmt.setString(1, id);
-//			pstmt.executeUpdate();
-////			if(cnt == 0) {
-////				System.out.println("여기는 RentalDAO, 업뎃된게 없음");
-////			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
 	
 	
 	//ID에 따른 대여목록
@@ -171,9 +108,10 @@ public class RentalDAO {
 	//도서반납(대여정보 수정)
 	public void returnBook(String id, String bookNo) {
 		StringBuilder sql = new StringBuilder();
+		int result = 0;
 		//책넘버, ID에 따라 OVERDUE STATE만 NULL로 바꿀까?
 		//OVERDUE_STATE가 만약 NOT NULL로 돼있으면 빼줄것.
-		sql.append("DELETE FROM RENTAL WHERE NO = ? AND RENT_ID = ? ");
+		sql.append("DELETE RENTAL WHERE NO = ? AND RENT_ID = ? ");
 	
 		try(
 				Connection conn = new ConnectionFactory().getConnection();
@@ -182,11 +120,27 @@ public class RentalDAO {
 			pstmt.setString(1, bookNo);
 			pstmt.setString(2, id);
 			
-			if(pstmt.executeUpdate()==0) {
+			result = pstmt.executeUpdate();
+			if(result==0) {
 				System.out.println("여기는 RentalDAO, 업데이트 에러");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		//정상적으로 반납리스트에서 삭제되면
+		if(result!=0) {
+			//여기서는 북리스트에 데이터 반영해줄것.
+			sql = new StringBuilder();
+			sql.append("UPDATE BOOKLIST SET STATUS='1' WHERE NO=? ");
+			try(
+					Connection conn = new ConnectionFactory().getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+				) {
+				pstmt.setString(1, bookNo);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

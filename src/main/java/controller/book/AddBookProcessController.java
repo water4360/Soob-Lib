@@ -8,7 +8,7 @@ import book.BookDAO;
 import book.BookVO;
 import controller.BaseController;
 
-public class BookAddProcessController extends BaseController {
+public class AddBookProcessController extends BaseController {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		String no = request.getParameter("isbn");
@@ -18,7 +18,7 @@ public class BookAddProcessController extends BaseController {
 		int status = request.getParameter("status").equals("1") ? 1 : 0;
 
 		// 데이터 전달 확인용
-		System.out.printf("사용자입력 : %d, %s, %s, %s, %d\n", no, title, author, publisher, status);
+		System.out.printf("사용자입력 : %s, %s, %s, %s, %d\n", no, title, author, publisher, status);
 
 		try {
 			// 책 추가, 일단 인기도는 기본 0으로.

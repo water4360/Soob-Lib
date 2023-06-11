@@ -4,27 +4,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입 - 숲</title>
+<title>:: 회원가입 - 숲 ::</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="./css/style.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 <script>
 //아이디 중복검사 체크
 $(function(){
 	
 	// 버튼 누를 필요 없이 실시간 이벤트
 	$("#id").on("keyup", function(){
-		var $checkID = $("#id").val();
+		var $checkID = $(this).val();
         var $error = $("#invalid-feedback");
         var $msg = $("#valid-feedback");
 
-		//console.log($checkID);
+		console.log("keyup: " + $checkID);
 
 		if($checkID === ""){
 			$error.html("");
@@ -69,10 +70,6 @@ $(function(){
 
 
 
-
-
-
-
 //비밀번호 & 비밀번호 확인 일치 체크
 function checkPw() {
 	let f = document.joinForm
@@ -105,7 +102,7 @@ body {
 .input-form {
 	min-width: 400px;
 	max-width: 500px;
-	margin-top: 40px;
+	margin-top: 20px;
 	padding: 32px;
 	background: #fff;
 	border-radius: 10px;
@@ -113,13 +110,13 @@ body {
 }
 </style>
 </head>
-	<header>
-		<jsp:include page="/jsp/topMenu.jsp"></jsp:include>
-	</header>
+<header>
+	<jsp:include page="/jsp/topMenu.jsp"></jsp:include>
+</header>
 <body style="background-color: white">
 	<div class="container">
-	<h3>로그인</h3>
-			
+		<h3 align="center">회원가입</h3>
+
 		<div class="input-form-backgroud row">
 			<div class="input-form mx-auto"
 				style="min-width: 400px; max-width: 500px;">
@@ -130,7 +127,7 @@ body {
 						<label for="id">아이디</label> <input type="text"
 							class="form-control" id="id" name="id" autocorrect="off"
 							autocapitalize="none" placeholder="4~20자 영문, 숫자 입력" value=""
-							required>
+							pattern="[a-zA-Z0-9]{4,20}" required>
 						<div class="invalid-feedback">아이디를 입력해주세요</div>
 						<div id="invalid-feedback" style="color: red;"></div>
 						<div id="valid-feedback" style="color: green;"></div>
@@ -140,8 +137,9 @@ body {
 					<div class="col-12 mb-3">
 						<label for="pw">비밀번호</label> <input type="password"
 							class="form-control" id="pw" name="pw"
-							placeholder="4~12자 영문+숫자+특수문자" value="" onchange="checkPw()"
-							required>
+							placeholder="4~12자 영문+숫자+특수문자" value=""
+							pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*\W).{4,12}"
+							onchange="checkPw()" required>
 						<div class="invalid-feedback">비밀번호를 입력해주세요</div>
 					</div>
 					<div class="col-12 mb-3">
@@ -154,20 +152,21 @@ body {
 
 					<div class="col-12 mb-3">
 						<label for="name">이름</label> <input type="text"
-							class="form-control" id="name" name="name" placeholder="이름 입력" value=""
-							required>
+							class="form-control" id="name" name="name" placeholder="이름 입력"
+							value="" pattern="[가-힣a-zA-Z]{1,20}" required>
 						<div class="invalid-feedback">이름을 입력해주세요</div>
 					</div>
 					<div class="col-12 mb-3">
-						<label for="phone">연락처</label> <input type="number" class="form-control"
-							id="phone"  name="phone" placeholder="예)01023456789" value=""
-							pattern="([0-9]{3})([0-9]{3,4})([0-9]{4})$" required>
+						<label for="phone">연락처</label> <input type="number"
+							class="form-control" id="phone" name="phone"
+							placeholder="예)01023456789" value=""
+							pattern="[0-9]{10,11}" required>
 						<div class="invalid-feedback">연락처 형식이 올바르지 않아요</div>
 					</div>
 					<div class="col-12 mb-3">
 						<label for="email">이메일</label> <input type="email"
-							class="form-control" id="email"  name="email" placeholder="예)soob@library.com"
-							required>
+							class="form-control" id="email" name="email"
+							placeholder="예)soob@library.com" required>
 						<div class="invalid-feedback">이메일 주소가 올바르지 않아요</div>
 					</div>
 					<div class="custom-control custom-checkbox">

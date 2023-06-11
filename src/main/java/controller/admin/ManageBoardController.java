@@ -5,10 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
 
-public class BoardManageController implements Controller {
+public class ManageBoardController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		return "./jsp/admin-board.jsp";
+		return "./jsp/admin/admin-board.jsp";
 	}
 
 }

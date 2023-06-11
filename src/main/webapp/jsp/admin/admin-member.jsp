@@ -12,10 +12,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="./css/style.css">
 
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
@@ -23,37 +20,36 @@
 </head>
 <body>
 	<div id="top">
-		<jsp:include page="topMenu.jsp"></jsp:include>
+		<jsp:include page="../topMenu.jsp"></jsp:include>
 	</div>
-	<h1>전체 회원목록</h1>
-	<hr>
+	<div class="container" align="center">
+			<h2>
+				<b>회원 조회</b>
+			</h2>
 	<div class="btn-group">
 		<button type="button" class="btn btn-success"
-			onclick="refreshBookList()">목록 새로고침</button>
+			onclick="refreshPage()">목록 새로고침</button>
 	</div>
-	<div class="btn-group">
-		<button type="button" class="btn btn-success" data-toggle="modal"
-			data-target="#addNewMember" aria-expanded="false">신규등록</button>
-	</div>
-	<div class="btn-group">
-		<button type="button" class="btn btn-success" data-toggle="modal"
-			data-target="#searchMember" aria-expanded="false">검색</button>
-	</div>
-
-
+<!-- 	<div class="btn-group"> -->
+<!-- 		<button type="button" class="btn btn-success" data-toggle="modal" -->
+<!-- 			data-target="#searchMember" aria-expanded="false">검색</button> -->
+<!-- 	</div> -->
+<script>
+	function refreshPage() {
+		window.location.href="admin-member.do";
+	}
+	</script>
 
 
 
 
 	<!-- 전체 도서목록 테이블 -->
-	<table class="table table-hover">
+	<table class="table table-striped table-hover">
 		<thead>
 			<tr>
-				<th scope="col"><input type="checkbox" name="checkAll"
-					onclick="toggleCheckAll()">
 				<th scope="col">회원번호</th>
-				<th scope="col">회원코드</th>
-				<th scope="col">아이디</th>
+				<th scope="col">분류</th>
+				<th scope="col">아이디(ID)</th>
 				<th scope="col">이름</th>
 				<th scope="col">연락처</th>
 				<th scope="col">이메일</th>
@@ -63,10 +59,7 @@
 		<tbody>
 			<c:forEach var="member" items="${memberList}">
 				<tr>
-					<th scope="row"><input type="checkbox" id="check" name="check"
-						onclick="selectMember('${member.memberNo}')"></th>
-
-					<td><a href="memberDetail.do?no=${member.memberNo}">${member.memberNo}</a></td>
+					<td>${member.memberNo}</td>
 					<td><c:choose>
 							<c:when test="${member.memberCode == 1}">
 							회원
@@ -84,5 +77,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	</div>
 </body>
 </html>

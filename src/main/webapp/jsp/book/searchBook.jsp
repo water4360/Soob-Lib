@@ -13,10 +13,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="./css/style.css">
 
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
@@ -132,47 +129,7 @@
 									name="check" onclick="selectBook('${book.manageNo}')"
 									data-status="${book.status}"></th>
 								<td><a href="#" onclick="bookDetails{'$book.manageNo}'">${book.manageNo}</a>
-
-
-
-
-
-									<%-- 도서대여 모달 --%>
-									<div class="modal fade" id="rentBook" tabindex="-1"
-										aria-labelledby="newBookModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content input-form mx-auto">
-												<div class="modal-header">
-													<h5 class="modal-title" id="rentBook">도서 대여신청</h5>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<%-- 모달 내용 --%>
-												<div class="modal-body">
-													<form method="post" action="rentBook.do"
-														name="rentBookForm" class="validation-form" novalidate>
-														<input type="hidden" name="memberId"
-															value="${loginMember.id}" /> <input type="hidden"
-															name="bookNo" value="${book.manageNo}" />
-														<div id="rentMsg">
-															<h5>대여기간은 3일이예요.</h5>
-															<h5>
-																대여한 도서는 <span style="color: green"> <b><a
-																		href="myLibrary.do">[나의서재]</a></b></span>에서 확인할 수 있어요.
-															</h5>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary"
-																data-dismiss="modal">취소</button>
-															<button type="submit" class="btn btn-success">신청</button>
-														</div>
-													</form>
-												</div>
-											</div>
-										</div>
-									</div></td>
+								</td>
 								<td class="book-title">${book.title}</td>
 								<td class="book-author">${book.author}</td>
 								<td class="book-publisher">${book.publisher}</td>
@@ -190,14 +147,15 @@
 										</c:when>
 										<c:otherwise>
 											<div class="btn-group">
-												<form action="rentBook.do">
-													<input type="hidden" name="boook" value="${book.manageNo}">
-													<input type="hidden" name="memberId"
-														value="${loginMember.id}">
-													<button type="submit" class="btn btn-success" id="rent-btn"
-														${book.status == '0' ? 'disabled' : ''}>
-														${book.status == '0' ? '대여불가' : '대여신청'}</button>
-												</form>
+												<button type="submit" class="btn btn-success"
+													data-toggle="modal" data-target="#rentBook"
+													aria-expanded="false" data-book="${book}"
+													data-bookNo="${book.manageNo}"
+													data-bookTitle="${book.title}"
+													data-bookAuthor="${book.author}" id="rent-btn"
+													onclick="rentBook(this)"
+													${book.status == '0' ? 'disabled' : ''}>
+													${book.status == '0' ? '대여불가' : '대여신청'}</button>
 											</div>
 											<c:if test="${loginMember.memberCode == '9' }">
 												<td>
@@ -205,7 +163,7 @@
 														<button type="button" class="btn btn-danger"
 															data-toggle="modal" data-target="#deleteBook"
 															aria-expanded="false" id="btn-delete"
-															${book.status == '0' ? 'disabled' : ''}>
+															${book.status=='0' ? 'disabled' : '' }>
 															${book.status == '0' ? '삭제불가' : '삭제'}</button>
 													</div>
 												</td>
@@ -227,10 +185,93 @@
 	</div>
 
 
+<%-- 도서대여 모달 --%>
+	<div class="modal fade" id="rentBook" tabindex="-1"
+		aria-labelledby="newBookModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content input-form mx-auto">
+				<div class="modal-header">
+					<h5 class="modal-title" id="rentBook">도서 대여신청</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<%-- 모달 내용 --%>
+				<div class="modal-body">
+					<form method="post" action="rentBook.do" name="rentBookForm"
+						class="validation-form" novalidate>
+						<input type="hidden" name="memberId" id="memberId"
+							value="${loginMember.id}" /> <input type="hidden" name="bookNo"
+							id="bookNoInput" value="" />
+						<h5>
+							<b>도서번호 </b><span id="bookNo"></span>
+						</h5>
+						<h5>
+							<b>도서명 </b><<span id="bookTitle"></span>>
+						</h5>
+						<h5>
+							<b>저자 </b><span id="bookAuthor"></span>
+						</h5>
+						<hr>
+						<div id="rentMsg">
+						<ul>
+							<li><h6>대여기간은 3일이예요.</h6></li>
+							<li><h6>
+								대여한 도서는<span style="color: #28A745"><a
+										href="myLibrary.do">[나의서재]</a></span>에서 확인할 수 있어요.
+							</h6></li>
+						</ul>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">취소</button>
+							<button type="submit" class="btn btn-success">신청</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+function rentBook(button) {
+	console.log("테스트버튼 눌림");
+	// data-bookNo의 속성 값을 가지고 옴.
+	var book = button.getAttribute("data-book");
+	var bookNo = button.getAttribute("data-bookNo");
+	var bookTitle = button.getAttribute("data-bookTitle");
+	var bookAuthor = button.getAttribute("data-bookAuthor");
 
-	<%-- 대여버튼 클릭시 정보 가져오기 --%>
+	document.getElementById("bookNo").innerText = bookNo;
+	document.getElementById("bookTitle").innerText = bookTitle;
+	document.getElementById("bookAuthor").innerText = bookAuthor;
+	
+	document.getElementById("bookNoInput").value = bookNo;
+
+	console.log("도서: ", book);
+	console.log("도서번호: ", bookNo);
+	console.log("도서명: ", bookTitle);
+	console.log("저자: ", bookAuthor);
+	var msg = "도서번호 : " + bookNo + ", 도서명 : " + bookTitle + "를 대여"
+	//let select = window.confirm(msg + "할까요?");
+
+	// 도서 관리번호를 사용하여 필요한 작업 수행
 
 
+	if (select) {
+		alert(msg + "했습니다!");
+		window.location.href = "myLibrary.do"
+	} else {
+		alert(msg + "하지 않습니다");
+	}
+}
+</script>
+	
+	
+	
+	
+	
+	
 
 
 

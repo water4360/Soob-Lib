@@ -119,13 +119,53 @@ public class BookDAO {
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
 			// 물음표 자리에 매개변수로 들어오는 int를 날려~
 			pstmt.setString(1, manageNo);
+			pstmt.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return book;
 	}
+	
+	
+	
+	//혹시 대여중인지 확인
+	public boolean isRented(String no) {
+		int result = 0;
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT 1 FROM RENTAL WHERE NO=? ");
 
+		try (Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
+			// 물음표 자리에 매개변수로 들어오는 int를 날려~
+			pstmt.setString(1, no);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt("1");
+			}
+			
+			//대여중이라는 뜻
+			if(result==1) {
+				return true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+		
+				
+	}
+
+	
+	
+	
+	
+	
+	
+	
 	// 4. 다중 수정!!!! 타이틀/저자/출판사
 	public BookVO modifyBook(int menu, String manageNo, String str) {
 		BookVO book = null;

@@ -12,10 +12,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="./css/style.css">
 
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
@@ -31,7 +28,7 @@
 
 	<div class="container" align="center">
 			<h2>
-				<b style="color: #28A745">${loginMember.name}</b>의 서재
+				<b style="color: #28A745">${loginMember.name}</b><b>님의 서재</b>
 			</h2>
 			<c:choose>
 				<c:when test="${ empty rentalList }">
@@ -73,11 +70,13 @@
 									<td>${rentBook.overdueDay}일</td>
 									<td>
 										<div class="btn-group">
-											<button type="button" class="btn btn-warning" id="return-btn"
-												onclick="returnBook()">반납</button>
-										</div> <!-- 									<button type="button" class="btn btn-warning" -->
-										<!-- 										data-toggle="modal" data-target="#returnBook" -->
-										<!-- 										aria-expanded="false">반납</button> -->
+											<button type="button" class="btn btn-warning"
+												aria-expanded="false" data-toggle="modal"
+												data-target="#returnBook"
+												data-bookNo="${rentBook.bookNo}" 
+												data-bookTitle="${rentBook.title}"
+												id="return-btn" onclick="returnBook(this)">반납</button>
+										</div>
 									</td>
 								</tr>
 							</c:forEach>
@@ -88,6 +87,70 @@
 
 			<div id="infoMenu"></div>
 		</div>
+
+
+<script>
+function returnBook(button) {
+	console.log("반납버튼 클릭");
+	// data-bookNo의 속성 값을 가지고 옴.
+	var bookNo = button.getAttribute("data-bookNo");
+	var bookTitle = button.getAttribute("data-bookTitle");
+
+// 	document.getElementById("bookNo").innerText = bookNo;
+	document.getElementById("bookTitle").innerText = bookTitle;
+
+	document.getElementById("bookNoInput").value = bookNo;
+
+	console.log("도서번호: ", bookNo);
+	console.log("도서명: ", bookTitle);
+}
+</script>
+
+
+
+
+
+
+
+	<%-- 도서반납 모달 --%>
+	<div class="modal fade" id="returnBook" tabindex="-1"
+		aria-labelledby="newBookModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content input-form mx-auto">
+				<div class="modal-header">
+					<h5 class="modal-title" id="returnBook">도서 반납</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<%-- 모달 내용 --%>
+				<div class="modal-body">
+					<form method="post" action="returnBook.do" name="renturnBookForm"
+						class="validation-form" novalidate>
+						<input type="hidden" name="memberId" id="memberId" value="${loginMember.id}" />
+						<input type="hidden" name="bookNo" id="bookNoInput" value="" />
+						<div id="returnMsg">
+							<h5>
+								<b><<span id="bookTitle"></span>></b><br>도서를 반납할까요?
+							</h5>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">취소</button>
+							<button type="submit" class="btn btn-success">반납</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
 
 
 	</section>

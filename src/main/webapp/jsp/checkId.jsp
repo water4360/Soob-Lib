@@ -10,4 +10,4 @@ if (id != null) {
 	result = dao.isDuplicatedId(id);
 }
 %>
-<%=result%>
+<%=result %>
