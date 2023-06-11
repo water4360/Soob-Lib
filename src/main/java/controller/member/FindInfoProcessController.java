@@ -47,9 +47,8 @@ public class FindInfoProcessController extends BaseController {
 				System.out.println("msg : " + msg);
 				return "./jsp/member/findInfoResult.jsp";
 			}
-		}
-		//비번찾기(아이디/폰번호)
-		if(searchPw!=null && searchId!=null && phone!=null) {
+			//비번찾기(아이디/폰번호)
+		} else if(searchPw!=null && id!=null && phone!=null) {
 			msg = dao.findPwByPhone(id, phone);
 			System.out.println("pw검색결과 : " + msg);
 			request.setAttribute("findInfo", "비밀번호");
