@@ -2,12 +2,12 @@ package book;
 
 public class BookVO {
 
-	//관리번호, 도서명, 저자, 출판사, 보유권수, 대여상태
+	//관리번호, 도서명, 저자, 출판사, 보유권수, 대출상태
 	private String manageNo;
 	private String title;
 	private String author;
 	private String publisher;
-	private int status; // 0:대여불가, 1:대여가능
+	private int status; // 0:대출불가, 1:대출가능
 	private int pop;
 	
 	public BookVO(String manageNo, String title, String author, String publisher, int status, int pop) {

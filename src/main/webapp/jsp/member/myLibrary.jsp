@@ -34,8 +34,8 @@
 				<c:when test="${ empty rentalList }">
 					<img alt="검색결과 없음" src="./source/src-img/gr-magnifying-glass.png"
 						width="50px">
-					<h4>${ loginMember.name}님이 대여중인 도서가 없어요</h4>
-						<li>지금 바로 도서를 대여해보세요!</li>
+					<h4>${ loginMember.name}님이 대출중인 도서가 없어요</h4>
+						<li>지금 바로 도서를 대출해보세요!</li>
 						<button type="button" class="btn btn-success"
 			onclick="location.href='allBooks.do'">어떤 책이 있나 보러가기</button>
 				</c:when>
@@ -50,7 +50,7 @@
 								<th scope="col">도서명</th>
 								<th scope="col">저자명</th>
 								<th scope="col">출판사</th>
-								<th scope="col">대여일</th>
+								<th scope="col">대출일</th>
 								<th scope="col">반납예정일</th>
 								<th scope="col">잔여일</th>
 								<th scope="col">반납신청</th>

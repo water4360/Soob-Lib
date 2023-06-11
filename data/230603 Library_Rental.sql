@@ -56,21 +56,21 @@ DROP TABLE RENTAL;
 
 --데이터 삽입
 INSERT INTO RENTAL(NO, TITLE, AUTHOR, PUBLISHER, RENT_ID)
-            VALUES(230001, '제목', '작가', '출판사', '대여자ID');
+            VALUES(230001, '제목', '작가', '출판사', '대출자ID');
 
  
  
 
 
 INSERT INTO RENTAL(NO, TITLE, AUTHOR, PUBLISHER, RENT_ID, REN_DATE, DUE_DATE)
-            VALUES(230001, '제목', '작가', '출판사', '대여자ID', SYSDATE, SYSDATE + 3 );
+            VALUES(230001, '제목', '작가', '출판사', '대출자ID', SYSDATE, SYSDATE + 3 );
             
            
 INSERT INTO RENTAL(NO, TITLE, AUTHOR, PUBLISHER, RENT_ID, OVERDUE_STATE)
-            VALUES(230999, '제목', '작가', '출판사', '대여자ID', (TO_DATE('20230415', 'YYYY-MM-DD')-TO_DATE('20230410', 'YYYY-MM-DD')));
+            VALUES(230999, '제목', '작가', '출판사', '대출자ID', (TO_DATE('20230415', 'YYYY-MM-DD')-TO_DATE('20230410', 'YYYY-MM-DD')));
 
 INSERT INTO RENTAL(NO, TITLE, AUTHOR, PUBLISHER, RENT_ID)
-            VALUES(230997, '제목', '작가', '출판사', '대여자ID');
+            VALUES(230997, '제목', '작가', '출판사', '대출자ID');
             
 
 

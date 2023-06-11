@@ -70,7 +70,7 @@ a {
 			<button type="submit" id="search" class="btn btn-success" disabled>검색</button>
 		</form>
 		<div>
-		<button type="button" class="btn btn-success"
+		<button type="button" class="btn btn-outline-success"
 			onclick="location.href='allBooks.do'">전체도서목록</button>
 			</div>
 	</div>
@@ -107,7 +107,7 @@ a {
 				<!-- 관리자메뉴 -->
 				<c:if test="${loginMember.memberCode == '9'}">
 					<a href="admin-member.do">회원관리</a>
-					<a href="admin-board.do">게시판관리</a>
+<!-- 					<a href="admin-board.do">게시판관리</a> -->
 				</c:if>
 				<!-- 회원메뉴 -->
 				<c:if test="${loginMember.memberCode != '9'}">

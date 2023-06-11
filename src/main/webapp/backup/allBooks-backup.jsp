@@ -90,7 +90,7 @@
 						console.log("도서번호: ", bookNo);
 						console.log("도서명: ", bookTitle);
 						console.log("저자: ", bookAuthor);
-						var msg = "도서번호 : " + bookNo + ", 도서명 : " + bookTitle + "를 대여"
+						var msg = "도서번호 : " + bookNo + ", 도서명 : " + bookTitle + "를 대출"
 // 						let select = window.confirm(msg + "할까요?");
 
 						// 도서 관리번호를 사용하여 필요한 작업 수행
@@ -124,7 +124,7 @@
 							<th scope="col">도서 관리</th>
 						</c:when>
 						<c:otherwise>
-							<th scope="col">도서 대여</th>
+							<th scope="col">도서 대출</th>
 						</c:otherwise>
 					</c:choose>
 				</tr>
@@ -151,7 +151,7 @@
 											onclick="redirectToLogin()"
 											${book.status=='0'
 																? 'disabled' : '' }>
-											${book.status == '0' ? '대여불가' : '로그인 후 대여'}</button>
+											${book.status == '0' ? '대출불가' : '로그인 후 대출'}</button>
 									</div>
 								</c:when>
 								<c:otherwise>
@@ -163,7 +163,7 @@
 											data-bookAuthor="${book.author}" id="rent-btn"
 											onclick="rentBook(this)"
 											${book.status == '0' ? 'disabled' : ''}>
-											${book.status == '0' ? '대여불가' : '대여신청'}</button>
+											${book.status == '0' ? '대출불가' : '대출신청'}</button>
 									</div>
 									<c:if test="${loginMember.memberCode == '9' }">
 										<td>
@@ -187,13 +187,13 @@
 	</div>
 
 
-	<%-- 도서대여 모달 --%>
+	<%-- 도서대출 모달 --%>
 	<div class="modal fade" id="rentBook" tabindex="-1"
 		aria-labelledby="newBookModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content input-form mx-auto">
 				<div class="modal-header">
-					<h5 class="modal-title" id="rentBook">도서 대여신청</h5>
+					<h5 class="modal-title" id="rentBook">도서 대출신청</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -216,9 +216,9 @@
 							저자 : <span id="bookAuthor"></span>
 						</h5>
 						<div id="rentMsg">
-							<h5>대여기간은 3일이예요.</h5>
+							<h5>대출기간은 3일이예요.</h5>
 							<h5>
-								대여한 도서는 <span style="color: #28A745"> <b><a
+								대출한 도서는 <span style="color: #28A745"> <b><a
 										href="myLibrary.do">[나의서재]</a></b>
 								</span>에서 확인할 수 있어요.
 							</h5>
@@ -252,7 +252,7 @@
 
 
 
-	<%-- 대여버튼 클릭시 도서 정보가져오기 <script>
+	<%-- 대출버튼 클릭시 도서 정보가져오기 <script>
 					$(document).on("click", ".rent-btn", function() {
 					var bookTitle = $(this).closest("tr").find(".book-title").text();
 					$("#bookTitle").text(bookTitle);

@@ -32,6 +32,7 @@
 
 #main-center {
 	min-height: 300px;
+	width:500px;
 }
 
 #main-bottom {
@@ -81,21 +82,58 @@ section {
 		</div>
 	</header>
 	<section>
-		<div id="main-center">
-		메인의 메인
-		</div>
-		<div id="main-bottom">
-			<div id="notice">
-				<!-- 		하나는 공지사항 -->
-				공지사항
-				<jsp:include page="./jsp/notice.jsp"></jsp:include>
-			</div>
-			<div id="list">
-				자유게시판
-				<!-- 		하나는 도서목록 -->
-				<jsp:include page="./jsp/list.jsp"></jsp:include>
-			</div>
-		</div>
+<!-- 		<div id="main-center"> -->
+<!-- 		<img src="./source/src-img/img/library8.jpg"> -->
+<!-- 		</div> -->
+
+	<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="./source/src-img/img/library8.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>First slide label</h5>
+        <p>Some representative placeholder content for the first slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="./source/src-img/img/library10.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Second slide label</h5>
+        <p>Some representative placeholder content for the second slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="./source/src-img/img/library7.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Third slide label</h5>
+        <p>Some representative placeholder content for the third slide.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </button>
+</div>
+
+
+
+
+
+
+
+
+
+
 	</section>
 	<footer>
 		<jsp:include page="./jsp/bottom.jsp"></jsp:include>

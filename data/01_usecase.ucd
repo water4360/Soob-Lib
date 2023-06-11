@@ -897,7 +897,7 @@
                         </targetConnections>
                         <children/>
                         <filterProperty/>
-                        <name>도서대여</name>
+                        <name>도서대출</name>
                       </source>
                       <target class="net.java.amateras.uml.usecasediagram.model.UsecaseModel" reference="../../.."/>
                       <bendpoints/>

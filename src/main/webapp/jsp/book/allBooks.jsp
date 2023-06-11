@@ -76,8 +76,6 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th scope="col"><input type="checkbox" name="checkAll"
-						onclick="toggleCheckAll()">
 					<th scope="col">도서번호</th>
 					<th scope="col">도서명</th>
 					<th scope="col">저자</th>
@@ -88,7 +86,7 @@
 							<th scope="col">도서 관리</th>
 						</c:when>
 						<c:otherwise>
-							<th scope="col">도서 대여</th>
+							<th scope="col">도서 대출</th>
 						</c:otherwise>
 					</c:choose>
 				</tr>
@@ -97,16 +95,14 @@
 			<tbody>
 				<c:forEach var="book" items="${books}">
 					<tr>
-						<th scope="row"><input type="checkbox" id="check"
-							name="check" onclick="selectBook('${book.manageNo}')"
-							data-status="${book.status}"></th>
 						<td><a href="#" onclick="bookDetails{'$book.manageNo}'">${book.manageNo}</a>
 						</td>
 						<td class="book-title">${book.title}</td>
 						<td class="book-author">${book.author}</td>
 						<td class="book-publisher">${book.publisher}</td>
 						<td>
-							<%-- 로그인정보가 없을때에도 보이도록. --%> <c:choose>
+							<%-- 로그인정보가 없을때에도 보이도록. --%>
+							<c:choose>
 								<c:when test="${empty loginMember}">
 									<div class="btn-group">
 										<button type="button" class="btn btn-success"
@@ -115,10 +111,14 @@
 											onclick="redirectToLogin()"
 											${book.status=='0'
 																? 'disabled' : '' }>
-											${book.status == '0' ? '대여불가' : '로그인 후 대여'}</button>
+											${book.status == '0' ? '대출불가' : '로그인 후 대출'}</button>
 									</div>
 								</c:when>
 								<c:otherwise>
+									<c:if test="${loginMember.memberCode == '9' }">
+										<span style="color:red">${book.status == '0' ? '대출중' : ''}</span>
+									</c:if>
+									<c:if test="${loginMember.memberCode == '1' }">
 									<div class="btn-group">
 										<button type="submit" class="btn btn-success"
 											data-toggle="modal" data-target="#rentBook"
@@ -127,8 +127,9 @@
 											data-bookAuthor="${book.author}" id="rent-btn"
 											onclick="rentBook(this)"
 											${book.status == '0' ? 'disabled' : ''}>
-											${book.status == '0' ? '대여불가' : '대여신청'}</button>
+											${book.status == '0' ? '대출불가' : '대출가능'}</button>
 									</div>
+									</c:if>
 									<c:if test="${loginMember.memberCode == '9' }">
 										<td>
 											<div class="btn-group">
@@ -139,7 +140,7 @@
 													data-bookAuthor="${book.author}" aria-expanded="false"
 													id="delete-btn" onclick="deleteBook(this)"
 													${book.status=='0' ? 'disabled' : '' }>
-													${book.status == '0' ? '삭제불가' : '삭제'}</button>
+													${book.status == '0' ? '삭제' : '삭제'}</button>
 											</div>
 										</td>
 									</c:if>
@@ -155,7 +156,7 @@
 
 	<script>
 	
-	<%-- 도서 대여 --%>
+	<%-- 도서 대출 --%>
 function rentBook(button) {
 	//data-bookNo의 속성을 가져옴
 	var book = button.getAttribute("data-book");
@@ -203,14 +204,14 @@ function deleteBook(button) {
 
 
 
-	<%-- 도서대여 모달 --%>
+	<%-- 도서대출 모달 --%>
 	<div class="modal fade" id="rentBook" tabindex="-1"
 		aria-labelledby="newBookModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content input-form mx-auto">
 				<div class="modal-header">
 					<h2 class="modal-title" id="rentBook" style="color: #28A745">
-						<b>도서 대여신청</b>
+						<b>도서 대출신청</b>
 					</h2>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
@@ -236,9 +237,9 @@ function deleteBook(button) {
 						<hr>
 						<div id="rentMsg">
 							<ul>
-								<li><h6>대여기간은 3일이예요.</h6></li>
+								<li><h6>대출기간은 3일이예요.</h6></li>
 								<li><h6>
-										대여한 도서는<span style="color: #28A745"><a
+										대출한 도서는<span style="color: #28A745"><a
 											href="myLibrary.do">[나의서재]</a></span>에서 확인할 수 있어요.
 									</h6></li>
 							</ul>
@@ -313,7 +314,7 @@ function deleteBook(button) {
 
 
 
-	<%-- 대여버튼 클릭시 도서 정보가져오기 <script>
+	<%-- 대출버튼 클릭시 도서 정보가져오기 <script>
 					$(document).on("click", ".rent-btn", function() {
 					var bookTitle = $(this).closest("tr").find(".book-title").text();
 					$("#bookTitle").text(bookTitle);
@@ -322,7 +323,7 @@ function deleteBook(button) {
 					</script> --%>
 
 
-<script>
+	<script>
 //ISBN 중복검사 체크
 $(function(){
 	

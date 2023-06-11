@@ -68,7 +68,7 @@ CREATE SEQUENCE SEQ_BOOKLIST_NO START WITH 230001 NOCACHE;
 DROP SEQUENCE SEQ_BOOKLIST_NO;
 
 --외래키 특강
---특정 회원이 도서를 대여했는지 알려면?
+--특정 회원이 도서를 대출했는지 알려면?
 --CREATE TABLE T_차량등록 (
 --    NO NUMBER(5) PRIMARY KEY
 --    , CAR_ID

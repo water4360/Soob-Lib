@@ -26,7 +26,7 @@ public class RentalDAO {
 	private RentalVO ren;
 	StringBuilder sql = new StringBuilder();
 	
-	//대여정보 등록
+	//대출정보 등록
 	public RentalVO addRental(String id, String no) {
 		service = BookServiceFactory.getInstance();
 		int result = 0;
@@ -48,7 +48,7 @@ public class RentalDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			//정상적으로 대여가 등록되면
+			//정상적으로 대출가 등록되면
 			if(result!=0) {
 				//여기서는 북리스트에 데이터 반영해주고. 반납도 역으로 활용할 것.
 				sql = new StringBuilder();
@@ -68,13 +68,13 @@ public class RentalDAO {
 	}
 	
 	
-	//ID에 따른 대여목록
+	//ID에 따른 대출목록
 		public List<RentalVO> getRentalList(String id) {
 			List<RentalVO> rentalList= new ArrayList<>();
 			SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 			
 			StringBuilder sql = new StringBuilder();
-			//그리고 나서 회원대여 리스트 보여주기
+			//그리고 나서 회원대출 리스트 보여주기
 			sql.append("SELECT * FROM RENTAL WHERE RENT_ID = ? ");
 			sql.append("ORDER BY OVERDUE_STATE ");
 			try(
@@ -105,7 +105,7 @@ public class RentalDAO {
 			return rentalList;
 		}
 	
-	//도서반납(대여정보 수정)
+	//도서반납(대출정보 수정)
 	public void returnBook(String id, String bookNo) {
 		StringBuilder sql = new StringBuilder();
 		int result = 0;
@@ -250,7 +250,7 @@ public class RentalDAO {
 	
 	
 
-//	//대여중인 도서 목록
+//	//대출중인 도서 목록
 //	public List<RentalVO> getRentalBookList(String id) {
 //		renService = new RentalService();
 //		RentalVO ren = new RentalVO();

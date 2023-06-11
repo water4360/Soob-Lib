@@ -19,7 +19,7 @@ public class DeleteBookController extends BaseController {
 		
 		BookDAO dao = new BookDAO();
 		
-		//대여중이 아닐때
+		//대출중이 아닐때
 		if(no!=null && !dao.isRented(no)) {
 			dao.deleteBook(no);
 			System.out.println("삭제 완료 by DeleteBookCtrl");

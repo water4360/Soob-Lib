@@ -23,7 +23,7 @@ public class PrintService {
 	
 	public void rentalTop() {
 		System.out.println("―".repeat(130));
-		System.out.println("도서번호\t\t\t도 서 명\t\t저  자\t\t\t출판사\t\t대여일자    반납기한    남은일수");
+		System.out.println("도서번호\t\t\t도 서 명\t\t저  자\t\t\t출판사\t\t대출일자    반납기한    남은일수");
 		System.out.println("―".repeat(130));
 	}
 	

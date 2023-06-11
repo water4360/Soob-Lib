@@ -129,7 +129,7 @@ public class BookDAO {
 	
 	
 	
-	//혹시 대여중인지 확인
+	//혹시 대출중인지 확인
 	public boolean isRented(String no) {
 		int result = 0;
 		
@@ -146,7 +146,7 @@ public class BookDAO {
 				result = rs.getInt("1");
 			}
 			
-			//대여중이라는 뜻
+			//대출중이라는 뜻
 			if(result==1) {
 				return true;
 			}
@@ -404,7 +404,7 @@ public class BookDAO {
 		return "";
 	}
 
-	// 대여 또는 반납시 상태코드 변경
+	// 대출 또는 반납시 상태코드 변경
 	public void changeStatus(int status, String bookNo) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE BOOKLIST SET STATUS = ? ");

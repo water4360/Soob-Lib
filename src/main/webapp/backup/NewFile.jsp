@@ -81,13 +81,13 @@
 						<div class="btn-group">
 							<button type="button" class="btn btn-success" data-toggle="modal"
 								data-target="#rentBook" aria-expanded="false"
-								onclick="redirectToLogin()">대여</button>
+								onclick="redirectToLogin()">대출</button>
 						</div>
 					</c:when>
 					<c:otherwise>
 						<div class="btn-group">
 							<button type="button" class="btn btn-success" data-toggle="modal"
-								data-target="#rentBook" aria-expanded="false">대여</button>
+								data-target="#rentBook" aria-expanded="false">대출</button>
 						</div>
 					</c:otherwise>
 				</c:choose>

@@ -78,7 +78,7 @@
 						console.log("도서번호: ", bookNo);
 						console.log("도서명: ", bookTitle);
 						console.log("저자: ", bookAuthor);
-						var msg = "도서번호 : " + bookNo + ", 도서명 : " + bookTitle + "를 대여"
+						var msg = "도서번호 : " + bookNo + ", 도서명 : " + bookTitle + "를 대출"
 						let select = window.confirm(msg + "할까요?");
 
 						// 도서 관리번호를 사용하여 필요한 작업 수행
@@ -104,8 +104,6 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th scope="col"><input type="checkbox" name="checkAll"
-								onclick="toggleCheckAll()">
 							<th scope="col">도서번호</th>
 							<th scope="col">도서명</th>
 							<th scope="col">저자</th>
@@ -116,7 +114,7 @@
 									<th scope="col">도서 관리</th>
 								</c:when>
 								<c:otherwise>
-									<th scope="col">도서 대여</th>
+									<th scope="col">도서 대출</th>
 								</c:otherwise>
 							</c:choose>
 						</tr>
@@ -125,51 +123,57 @@
 					<tbody>
 						<c:forEach var="book" items="${books}">
 							<tr>
-								<th scope="row"><input type="checkbox" id="check"
-									name="check" onclick="selectBook('${book.manageNo}')"
-									data-status="${book.status}"></th>
 								<td><a href="#" onclick="bookDetails{'$book.manageNo}'">${book.manageNo}</a>
 								</td>
 								<td class="book-title">${book.title}</td>
 								<td class="book-author">${book.author}</td>
 								<td class="book-publisher">${book.publisher}</td>
 								<td>
-									<%-- 로그인정보가 없을때에도 보이도록. --%> <c:choose>
-										<c:when test="${empty loginMember}">
+									<%-- 로그인정보가 없을때에도 보이도록. --%>
+									<c:choose>
+								<c:when test="${empty loginMember}">
+									<div class="btn-group">
+										<button type="button" class="btn btn-success"
+											data-toggle="modal" data-target="#rentBook"
+											aria-expanded="false" id="rent-btn"
+											onclick="redirectToLogin()"
+											${book.status=='0'
+																? 'disabled' : '' }>
+											${book.status == '0' ? '대출불가' : '로그인 후 대출'}</button>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<c:if test="${loginMember.memberCode == '9' }">
+										<span style="color:red">${book.status == '0' ? '대출중' : ''}</span>
+									</c:if>
+									<c:if test="${loginMember.memberCode == '1' }">
+									<div class="btn-group">
+										<button type="submit" class="btn btn-success"
+											data-toggle="modal" data-target="#rentBook"
+											aria-expanded="false" data-book="${book}"
+											data-bookNo="${book.manageNo}" data-bookTitle="${book.title}"
+											data-bookAuthor="${book.author}" id="rent-btn"
+											onclick="rentBook(this)"
+											${book.status == '0' ? 'disabled' : ''}>
+											${book.status == '0' ? '대출불가' : '대출가능'}</button>
+									</div>
+									</c:if>
+									<c:if test="${loginMember.memberCode == '9' }">
+										<td>
 											<div class="btn-group">
-												<button type="button" class="btn btn-success"
-													data-toggle="modal" data-target="#rentBook"
-													aria-expanded="false" id="rent-btn"
-													onclick="redirectToLogin()"
-													${book.status == '0' ? 'disabled' : ''}>
-													${book.status == '0' ? '대여불가' : '로그인 후 대여'}</button>
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div class="btn-group">
-												<button type="submit" class="btn btn-success"
-													data-toggle="modal" data-target="#rentBook"
-													aria-expanded="false" data-book="${book}"
+												<button type="button" class="btn btn-danger"
+													data-toggle="modal" data-target="#deleteBook"
 													data-bookNo="${book.manageNo}"
 													data-bookTitle="${book.title}"
-													data-bookAuthor="${book.author}" id="rent-btn"
-													onclick="rentBook(this)"
-													${book.status == '0' ? 'disabled' : ''}>
-													${book.status == '0' ? '대여불가' : '대여신청'}</button>
+													data-bookAuthor="${book.author}" aria-expanded="false"
+													id="delete-btn" onclick="deleteBook(this)"
+													${book.status=='0' ? 'disabled' : '' }>
+													${book.status == '0' ? '삭제' : '삭제'}</button>
 											</div>
-											<c:if test="${loginMember.memberCode == '9' }">
-												<td>
-													<div class="btn-group">
-														<button type="button" class="btn btn-danger"
-															data-toggle="modal" data-target="#deleteBook"
-															aria-expanded="false" id="btn-delete"
-															${book.status=='0' ? 'disabled' : '' }>
-															${book.status == '0' ? '삭제불가' : '삭제'}</button>
-													</div>
-												</td>
-											</c:if>
-										</c:otherwise>
-									</c:choose>
+										</td>
+									</c:if>
+								</c:otherwise>
+							</c:choose>
 
 
 
@@ -185,13 +189,13 @@
 	</div>
 
 
-<%-- 도서대여 모달 --%>
+<%-- 도서대출 모달 --%>
 	<div class="modal fade" id="rentBook" tabindex="-1"
 		aria-labelledby="newBookModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content input-form mx-auto">
 				<div class="modal-header">
-					<h5 class="modal-title" id="rentBook">도서 대여신청</h5>
+					<h5 class="modal-title" id="rentBook">도서 대출신청</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -216,9 +220,9 @@
 						<hr>
 						<div id="rentMsg">
 						<ul>
-							<li><h6>대여기간은 3일이예요.</h6></li>
+							<li><h6>대출기간은 3일이예요.</h6></li>
 							<li><h6>
-								대여한 도서는<span style="color: #28A745"><a
+								대출한 도서는<span style="color: #28A745"><a
 										href="myLibrary.do">[나의서재]</a></span>에서 확인할 수 있어요.
 							</h6></li>
 						</ul>
@@ -252,7 +256,7 @@ function rentBook(button) {
 	console.log("도서번호: ", bookNo);
 	console.log("도서명: ", bookTitle);
 	console.log("저자: ", bookAuthor);
-	var msg = "도서번호 : " + bookNo + ", 도서명 : " + bookTitle + "를 대여"
+	var msg = "도서번호 : " + bookNo + ", 도서명 : " + bookTitle + "를 대출"
 	//let select = window.confirm(msg + "할까요?");
 
 	// 도서 관리번호를 사용하여 필요한 작업 수행
