@@ -29,50 +29,62 @@
 
 
 
-		<div class="container">
+	<div class="container" align="center">
 			<h2>
-				<b>나의 서재</b>
+				<b style="color: #28A745">${loginMember.name}</b>의 서재
 			</h2>
+			<c:choose>
+				<c:when test="${ empty rentalList }">
+					<img alt="검색결과 없음" src="./source/src-img/gr-magnifying-glass.png"
+						width="50px">
+					<h4>${ loginMember.id}님이대여중인 도서가 없어요</h4>
+						<li>지금 바로 도서를 대여해보세요!</li>
+						<button type="button" class="btn btn-success"
+			onclick="location.href='allBooks.do'">어떤 책이 있나 보러가기</button>
+				</c:when>
 
-			<%-- 테이블 시작 --%>
-			<table class="table table-hover table-striped">
-				<thead>
-					<tr>
-						<th scope="col">도서번호</th>
-						<th scope="col">도서명</th>
-						<th scope="col">저자명</th>
-						<th scope="col">출판사</th>
-						<th scope="col">대여일</th>
-						<th scope="col">반납예정일</th>
-						<th scope="col">잔여일</th>
-						<th scope="col">반납신청</th>
-					</tr>
-				</thead>
-				<%-- 테이블 내용 --%>
-				<tbody>
-					<c:forEach var="rentBook" items="${rentalList}">
 
-						<tr>
-							<td>${rentBook.bookNo}</td>
-							<td>${rentBook.title}</td>
-							<td>${rentBook.author}</td>
-							<td>${rentBook.publisher}</td>
-							<td>${rentBook.renDate}</td>
-							<td>${rentBook.dueDate}</td>
-							<td>${rentBook.overdueDay}일</td>
-							<td>
-								<div class="btn-group">
-									<button type="button" class="btn btn-warning" id="return-btn"
-										onclick="returnBook()">반납</button>
-								</div>
-<!-- 									<button type="button" class="btn btn-warning" -->
-<!-- 										data-toggle="modal" data-target="#returnBook" -->
-<!-- 										aria-expanded="false">반납</button> -->
-							</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+				<c:otherwise>
+					<%-- 테이블 시작 --%>
+					<table class="table table-hover table-striped">
+						<thead>
+							<tr>
+								<th scope="col">도서번호</th>
+								<th scope="col">도서명</th>
+								<th scope="col">저자명</th>
+								<th scope="col">출판사</th>
+								<th scope="col">대여일</th>
+								<th scope="col">반납예정일</th>
+								<th scope="col">잔여일</th>
+								<th scope="col">반납신청</th>
+							</tr>
+						</thead>
+						<%-- 테이블 내용 --%>
+						<tbody>
+							<c:forEach var="rentBook" items="${rentalList}">
+
+								<tr>
+									<td>${rentBook.bookNo}</td>
+									<td>${rentBook.title}</td>
+									<td>${rentBook.author}</td>
+									<td>${rentBook.publisher}</td>
+									<td>${rentBook.renDate}</td>
+									<td>${rentBook.dueDate}</td>
+									<td>${rentBook.overdueDay}일</td>
+									<td>
+										<div class="btn-group">
+											<button type="button" class="btn btn-warning" id="return-btn"
+												onclick="returnBook()">반납</button>
+										</div> <!-- 									<button type="button" class="btn btn-warning" -->
+										<!-- 										data-toggle="modal" data-target="#returnBook" -->
+										<!-- 										aria-expanded="false">반납</button> -->
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</c:otherwise>
+			</c:choose>
 
 			<div id="infoMenu"></div>
 		</div>

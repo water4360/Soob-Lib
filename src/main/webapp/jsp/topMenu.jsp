@@ -67,17 +67,12 @@ a {
 			</select> <input type="search" id="searchKeyword" name="searchKeyword"
 				placeholder="검색어를 입력하세요">
 			<button type="submit" id="search" class="btn btn-success" disabled>검색</button>
-			<div id="search-feedback"></div>
 		</form>
+		<div>
 		<button type="button" class="btn btn-success"
-			onclick="refreshBookList()">전체도서목록</button>
+			onclick="location.href='allBooks.do'">전체도서목록</button>
+			</div>
 	</div>
-	<script>
-		//목록 새로고침
-		function refreshBookList() {
-			window.location.href="allBooks.do";
-		}
-	</script>
 
 	<script>
 		//검색어 미입력시 검색버튼 비활성화
