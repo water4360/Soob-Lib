@@ -18,6 +18,11 @@
 	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
 	crossorigin="anonymous"></script>
 </head>
+	<style>
+	section {
+		min-height: 600px;
+	}
+	</style>
 <body>
 	<header>
 		<jsp:include page="../topMenu.jsp"></jsp:include>

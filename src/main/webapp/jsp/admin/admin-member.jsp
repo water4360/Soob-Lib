@@ -23,60 +23,68 @@
 		<jsp:include page="../topMenu.jsp"></jsp:include>
 	</div>
 	<div class="container" align="center">
-			<h2>
-				<b>회원 조회</b>
-			</h2>
-	<div class="btn-group">
-		<button type="button" class="btn btn-success"
-			onclick="refreshPage()">목록 새로고침</button>
-	</div>
-<!-- 	<div class="btn-group"> -->
-<!-- 		<button type="button" class="btn btn-success" data-toggle="modal" -->
-<!-- 			data-target="#searchMember" aria-expanded="false">검색</button> -->
-<!-- 	</div> -->
-<script>
-	function refreshPage() {
-		window.location.href="admin-member.do";
-	}
-	</script>
+		<script>
+			function refreshPage() {
+				window.location.href = "admin-member.do";
+			}
+		</script>
+		<c:choose>
+			<c:when test="${loginMember.memberCode == 9 }">
+				<h2>
+					<b>회원 조회</b>
+				</h2>
+				<div class="btn-group">
+					<button type="button" class="btn btn-success"
+						onclick="refreshPage()">목록 새로고침</button>
+				</div>
 
 
 
 
-	<!-- 전체 도서목록 테이블 -->
-	<table class="table table-striped table-hover">
-		<thead>
-			<tr>
-				<th scope="col">회원번호</th>
-				<th scope="col">분류</th>
-				<th scope="col">아이디(ID)</th>
-				<th scope="col">이름</th>
-				<th scope="col">연락처</th>
-				<th scope="col">이메일</th>
-				<th scope="col">가입일</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="member" items="${memberList}">
-				<tr>
-					<td>${member.memberNo}</td>
-					<td><c:choose>
-							<c:when test="${member.memberCode == 1}">
+
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th scope="col">회원번호</th>
+							<th scope="col">분류</th>
+							<th scope="col">아이디(ID)</th>
+							<th scope="col">이름</th>
+							<th scope="col">연락처</th>
+							<th scope="col">이메일</th>
+							<th scope="col">가입일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="member" items="${memberList}">
+							<tr>
+								<td>${member.memberNo}</td>
+								<td><c:choose>
+										<c:when test="${member.memberCode == 1}">
 							회원
 						</c:when>
-							<c:otherwise>
-								<span style="color: red;">관리자</span>
-							</c:otherwise>
-						</c:choose></td>
-					<td>${member.id}</td>
-					<td>${member.name}</td>
-					<td>${member.phone}</td>
-					<td>${member.email}</td>
-					<td>${member.regDate}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+										<c:otherwise>
+											<span style="color: red;">관리자</span>
+										</c:otherwise>
+									</c:choose></td>
+								<td>${member.id}</td>
+								<td>${member.name}</td>
+								<td>${member.phone}</td>
+								<td>${member.email}</td>
+								<td>${member.regDate}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:when>
+			<c:otherwise>
+				<img alt="잘못된 접근" src="./source/src-img/gr-exclamation-mark.png"
+					width="50px">
+				<h4>잘못된 접근입니다</h4>
+				<button type="submit" class="btn btn-outline-success"
+					onclick="location.href='main.do'">메인으로 가기</button>
+			</c:otherwise>
+		</c:choose>
+
 	</div>
 </body>
 </html>

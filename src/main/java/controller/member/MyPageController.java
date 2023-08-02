@@ -12,6 +12,7 @@ public class MyPageController extends BaseController {
 	@Override  
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		session = request.getSession();
+		
 		if(session.getAttribute("loginMember")!=null) {
 			MemberVO vo = (MemberVO)session.getAttribute("loginMember");
 

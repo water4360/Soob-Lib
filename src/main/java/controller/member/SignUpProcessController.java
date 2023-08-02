@@ -25,7 +25,6 @@ public class SignUpProcessController extends BaseController {
 		memService.addMember(vo);
 
 		// 그리고 이 mem을 session에 MemberVO형태 고대로 넘겨줌.
-//			session = request.getSession();
 			session.setAttribute("signInMember", vo);
 			System.out.println("회원가입 완료. by SignUpProcessCtrl");
 			

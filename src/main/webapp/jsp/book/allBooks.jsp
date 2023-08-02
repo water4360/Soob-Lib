@@ -72,7 +72,7 @@
 
 
 		<%-- 테이블 시작 --%>
-		<table class="table table-hover">
+		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
 					<th scope="col">도서번호</th>
@@ -396,7 +396,7 @@ $(function(){
 		<div class="modal-dialog">
 			<div class="modal-content input-form mx-auto">
 				<div class="modal-header">
-					<h5 class="modal-title" id="addNewBook">신규도서 등록</h5>
+					<h2 class="modal-title" id="addNewBook">신규도서 등록</h2>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -415,9 +415,9 @@ $(function(){
 
 						<label for="isbn">ISBN</label> <input type="text"
 							class="form-control" id="isbn" name="isbn" autocorrect="off"
-							autocapitalize="none" placeholder="공백이나 -없이 10~13자리" value=""
-							pattern="([0-9]{13})$" required>
-						<div class="invalid-feedback">10~13자리의 숫자를 입력해주세요</div>
+							autocapitalize="none" placeholder="일단은 DB에서 자동생성 돼요^^;" value=""
+							pattern="([0-9]{13})$" disabled>
+						<div class="invalid-feedback">13자리 숫자를 입력해주세요</div>
 						<div id="invalid-feedback" style="color: red;"></div>
 						<div id="valid-feedback" style="color: green;"></div>
 

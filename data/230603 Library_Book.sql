@@ -46,7 +46,7 @@ DELETE BOOKLIST WHERE NO = '5555';
 
 --데이터 등록
 INSERT INTO BOOKLIST(NO, TITLE, AUTHOR, PUBLISHER)
-            VALUES(230009, '우리가 빛의 속도로 갈 수 없다면', '김초엽', '허블');
+            VALUES(230008, '여기에도 저기에도', '세상의 천재', '그레이출판');
 
 
 UPDATE BOOKLIST SET STATUS = '1';

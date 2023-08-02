@@ -18,6 +18,11 @@
 	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
 	crossorigin="anonymous"></script>
 </head>
+	<style>
+	section {
+		min-height: 600px;
+	}
+	</style>
 <body>
 	<header>
 		<jsp:include page="../topMenu.jsp"></jsp:include>
@@ -68,6 +73,7 @@
 					    
 					    <%-- 정보수정 반영 --%>
 					    function saveChanges() {
+					        var pwInput = document.getElementById('pw');
 					        var phoneInput = document.getElementById('phone');
 					        var emailInput = document.getElementById('email');
 					        var editButton = document.getElementById('edit-btn');
@@ -89,13 +95,15 @@
 					    
 					    
 					    
+					    
 				</script>
 			<%-- 테이블 시작 --%>
 			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
-						<th scope="col">ID</th>
 						<th scope="col">이름</th>
+						<th scope="col">ID</th>
+						<th scope="col">PW</th>
 						<th scope="col">연락처</th>
 						<th scope="col">이메일</th>
 						<th scope="col">가입일</th>
@@ -105,10 +113,12 @@
 				<%-- 테이블 내용 --%>
 				<tbody>
 					<tr>
-						<td class="id">${loginMember.id}</td>
 						<td class="name">${loginMember.name}</td>
+						<td class="id">${loginMember.id}</td>
+						<td class="pw"><input type="password" id="pw" class="editable"
+							value="${loginMember.pw}" style="width:60px" disabled></td>
 						<td class="phone"><input type="text" id="phone" class="editable"
-							value="${loginMember.phone}" disabled></td>
+							value="${loginMember.phone}" style="width:110px" disabled></td>
 						<td class="email"><input type="email" id="email" class="editable"
 							value="${loginMember.email}" disabled></td>
 						<td class="regDate">${loginMember.regDate}</td>
@@ -118,7 +128,7 @@
 							</div>
 							<div class="btn-group">
 								<button type="button" class="btn btn-danger" data-toggle="modal"
-									data-target="#withdrawMem" aria-expanded="false">회원탈퇴</button>
+									data-target="#withdrawMem" aria-expanded="false">탈퇴는 불가</button>
 							</div>
 						</td>
 					</tr>

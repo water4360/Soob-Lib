@@ -151,7 +151,7 @@ public class MemberDAO {
 		List<MemberVO> memList = new ArrayList<>();
 
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM MEMBER ORDER BY MEM_NO");
+		sql.append("SELECT * FROM MEMBER ORDER BY MEM_NO DESC ");
 
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {

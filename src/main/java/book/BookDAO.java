@@ -20,15 +20,16 @@ public class BookDAO {
 	public void addBook(BookVO book) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO BOOKLIST(NO, TITLE, AUTHOR, PUBLISHER, STATUS) ");
-		sql.append(" 		VALUES(?, ?, ?, ?, ?) ");
+		sql.append(" 		VALUES(SEQ_BOOKLIST_NO.NEXTVAL, ?, ?, ?, ?) ");
+//		sql.append(" 		VALUES(?, ?, ?, ?, ?) ");
 
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-			pstmt.setString(1, book.getManageNo());
-			pstmt.setString(2, book.getTitle());
-			pstmt.setString(3, book.getAuthor());
-			pstmt.setString(4, book.getPublisher());
-			pstmt.setInt(5, book.getStatus());
+//			pstmt.setString(1, book.getManageNo());
+			pstmt.setString(1, book.getTitle());
+			pstmt.setString(2, book.getAuthor());
+			pstmt.setString(3, book.getPublisher());
+			pstmt.setInt(4, book.getStatus());
 
 			int cnt = pstmt.executeUpdate();
 			if (cnt == 0) {
@@ -45,7 +46,7 @@ public class BookDAO {
 		List<BookVO> bookList = new ArrayList<>();
 
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM BOOKLIST ORDER BY NO");
+		sql.append("SELECT * FROM BOOKLIST ORDER BY NO DESC");
 
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {

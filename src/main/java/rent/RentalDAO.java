@@ -62,6 +62,22 @@ public class RentalDAO {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+
+				sql = new StringBuilder();
+				//연체현황 업데이트 먼저 해주고
+				sql.append("UPDATE RENTAL SET OVERDUE_STATE = CEIL(DUE_DATE - SYSDATE) ");
+				sql.append(" WHERE RENT_ID = ? ");
+				try(
+						Connection conn = new ConnectionFactory().getConnection();
+						PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+				) {
+					pstmt.setString(1, id);
+					pstmt.executeUpdate();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 			}
 		
 		return ren;
@@ -102,8 +118,37 @@ public class RentalDAO {
 				e.printStackTrace();
 			}
 			
+			sql = new StringBuilder();
+			//연체현황 업데이트 먼저 해주고
+			sql.append("UPDATE RENTAL SET OVERDUE_STATE = CEIL(DUE_DATE - SYSDATE) ");
+			sql.append(" WHERE RENT_ID = ? ");
+			try(
+					Connection conn = new ConnectionFactory().getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+			) {
+				pstmt.setString(1, id);
+				pstmt.executeUpdate();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			return rentalList;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 	//도서반납(대출정보 수정)
 	public void returnBook(String id, String bookNo) {
@@ -185,6 +230,7 @@ public class RentalDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return -99;
 	}
 
@@ -196,14 +242,12 @@ public class RentalDAO {
 		switch(menu) {
 			//도서명
 			case 1 :
-				sql.append("UPDATE RENTAL SET TITLE = ? ");
-				sql.append(" WHERE NO = ? ");
+				sql.append("UPDATE RENTAL WHERE NO = ? ");
 				try(
 						Connection conn = new ConnectionFactory().getConnection();
 						PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 				) {
-					pstmt.setString(1, str);
-					pstmt.setString(2, bookNo);
+					pstmt.setString(1, bookNo);
 					pstmt.executeUpdate();
 				} catch (Exception e) {
 					e.printStackTrace();
