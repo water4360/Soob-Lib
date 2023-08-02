@@ -62,6 +62,8 @@ public class HandlerMapping {
 		mappings.put("/addBook.do", new AddBookProcessController());
 		mappings.put("/deleteBook.do", new DeleteBookController());
 		
+		//공지사항 게시판
+		mappings.put("/board.do", new BoardListController());
 		
 		//이거 memberService 팩토리 어쩌구 있어야 자꾸 새로 mem객체 생성안하고 유지될듯!
 		mappings.put("/myPage.do", new MyPageController());

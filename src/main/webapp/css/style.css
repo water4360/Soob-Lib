@@ -34,18 +34,33 @@ a {
 	color: #28A745;
 }
 
+
+html {
+	height : 100%;
+}
+
+
 body {
+	margin: 0;
+	display : flex;
+	flex-direction : column;
+	justify-content : space-between;
+	
 	min-width: 800px;
 	font-family: "S-CoreDream-5Medium";
-	margin: 0;
 	padding: 0;
 	font-size: 15px;
-	min-height: 300px;
+	min-height: 100%;
 	
 	margin-left: 5%;
 	margin-right: 5%;
 }
 
+.container {
+	display: flex;
+	flex-direction: row;
+	
+}
 
 header {
 	background-color: white;
