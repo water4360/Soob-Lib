@@ -48,6 +48,7 @@ public class HandlerMapping {
 //		mappings.put("/changePw.do", new changePwController());
 //		mappings.put("/changePwResult.do", new changePwProcessController());
 		
+		
 		mappings.put("/allBooks.do", new AllBooksController());
 		mappings.put("/searchBook.do", new SearchBookController());
 		mappings.put("/rentBook.do", new RentBookController());
@@ -66,6 +67,9 @@ public class HandlerMapping {
 		mappings.put("/myPage.do", new MyPageController());
 		mappings.put("/myLibrary.do", new MyLibraryController());
 		mappings.put("/logout.do", new LogoutController());
+		
+		//230802 최신영화 리스트 추가
+		mappings.put("/movie.do", new MovieController());
 	}
 	public Controller getController(String path) {
 		return mappings.get(path);
