@@ -16,63 +16,50 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
+<header>
+	<div id="main-top">
+		<jsp:include page="./jsp/topMenu.jsp"></jsp:include>
+	</div>
+</header>
 <body>
-	<header>
-		<div id="main-top">
-			<jsp:include page="./jsp/topMenu.jsp"></jsp:include>
-		</div>
-	</header>
 	<section>
+		<!-- 	style="background-color:blue;" -->
+		<div class="container">
+			<div class="main-contents">
+				<img alt="main-banner" style="width: 60%"
+					src="source/src-img/img/library8.jpg">
+				<div class="col-md-6">
+					<div class="card column justify-content-center">
+						<div class="card-header">
+							<h2><a href="board.do">자유게시판</a></h2>
+						</div>
+						<div class="col-md-12">
+							<table class="table table-hover">
+								<tbody>
+									<c:choose>
+										<c:when test="${ empty board }">
+											<td colspan="5" align="center" style="padding: 50px 0;">등록된
+												공지사항이 없습니다.</td>
+										</c:when>
 
-		<div class="container mt-5" align="center">
-			<div>
-				<h2>공지사항</h2>
-			</div>
-			<div class="btn-group">
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-11">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th class="col-md-1">번호</th>
-								<th class="col-md-6">제목</th>
-								<th class="col-md-1">글쓴이</th>
-								<th class="col-md-1">작성일</th>
-								<th class="col-md-1">조회</th>
-								<th class="col-md-1"></th>
-							</tr>
-						</thead>
-						<%-- 테이블 내용 --%>
-						<tbody>
-							<c:choose>
-								<c:when test="${ empty board }">
-									<td colspan="5" align="center" style="padding: 50px 0;">등록된
-										공지사항이 없습니다.</td>
-								</c:when>
-
-								<c:otherwise>
-									<c:forEach var="post" items="${board}">
-										<tr>
-											<td>${post.no}</td>
-											<td>
-											<a href="notice-detail?no=${post.no}">${post.title}</a></td>
-											<td>${post.writer}</td>
-											<td>${post.regDate}</td>
-											<td>${post.hit}</td>
-											<td>
-											<a href="delete-news?p_no=${post.no}" class="btn btn-secondary mb-2">삭제</a>
-											</td>
-										</tr>
-									</c:forEach>
-								</c:otherwise>
-							</c:choose>
-						</tbody>
-					</table>
+										<c:otherwise>
+											<c:forEach var="post" items="${board}">
+												<tr>
+													<td>${post.no}</td>
+													<td><a href="post-detail.do?no=${post.no}">${post.title}[${post.replyCnt}]</a></td>
+													<td>${post.writer}</td>
+													<td>${post.regDate}</td>
+												</tr>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
 	</section>
 	<footer>
 		<jsp:include page="./jsp/bottom.jsp"></jsp:include>

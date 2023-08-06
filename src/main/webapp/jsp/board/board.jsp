@@ -5,148 +5,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>::전체 도서목록 - 숲::</title>
+<title>::자유게시판 - 숲::</title>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
-	crossorigin="anonymous">
 <link rel="stylesheet" href="./css/style.css">
 
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-	crossorigin="anonymous"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
 	<header>
-		<div id="top">
-			<jsp:include page="../topMenu.jsp"></jsp:include>
-		</div>
+		<jsp:include page="../topMenu.jsp"></jsp:include>
 	</header>
 
 
 	<div class="container" align="center">
-		<!-- <table class="table table-striped table-hover"> -->
 		<h2>
-			<b>전체 도서목록</b>
+			<b>공지사항</b>
 		</h2>
-		<c:set var="books" value="${bookList}" />
+		<c:set var="post" value="${board}" />
 		<div id="bookMenu">
-			<%-- 관리자메뉴 --%>
-			<c:if test="${loginMember.memberCode =='9'}">
-				<div class="btn-group">
-					<button type="button" class="btn btn-success" data-toggle="modal"
-						data-target="#addNewBook" aria-expanded="false">신규도서 등록</button>
-				</div>
+			<a type="button" class="btn btn-success"
+			<c:if test="${empty loginMember.id}">
+			href="login.do"
 			</c:if>
+			<c:if test="${not empty loginMember.id}">
+			href="write-post.do"
+			</c:if>
+			>
+			문의하기</a>
 		</div>
-		<script>
-					function redirectToLogin() {
-						alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-						window.location.href = "login.do";
-					}
-					
-					function updateButtons() {
-				        var buttons = document.getElementsById('btn-rent');
-
-				        for (var i = 0; i < buttons.length; i++) {
-				            var status = buttons[i].getAttribute(${book.status});
-
-				            if (status === '0' ) {
-				                buttons[i].disabled = false; // 대출 가능일 때 버튼 활성화
-				            } else {
-				                buttons[i].disabled = true; // 대출 불가일 때 버튼 비활성화
-				            }
-				        }
-				    }
-				    // 페이지 로드 시 버튼 업데이트
-				    window.onload = function() {
-				        updateButtons();
-				    };
-				</script>
-
-
-
 
 		<%-- 테이블 시작 --%>
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th scope="col">도서번호</th>
-					<th scope="col">도서명</th>
-					<th scope="col">저자</th>
-					<th scope="col">출판사</th>
-					<c:choose>
-						<c:when test="${loginMember.memberCode == '9' }">
-							<th scope="col">대출 상태</th>
-							<th scope="col">도서 관리</th>
-						</c:when>
-						<c:otherwise>
-							<th scope="col">도서 대출</th>
-						</c:otherwise>
-					</c:choose>
+					<th scope="col">번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">글쓴이</th>
+					<th scope="col">등록일</th>
+					<th scope="col">조회수</th>
+					<c:if test="${loginMember.memberCode == '9' }">
+						<th scope="col">상단고정</th>
+					</c:if>
 				</tr>
 			</thead>
 			<%-- 테이블 내용 --%>
 			<tbody>
-				<c:forEach var="book" items="${books}">
+				<c:forEach var="post" items="${ board }">
 					<tr>
-						<td><a href="#" onclick="bookDetails{'$book.manageNo}'">${book.manageNo}</a>
-						</td>
-						<td class="book-title">${book.title}</td>
-						<td class="book-author">${book.author}</td>
-						<td class="book-publisher">${book.publisher}</td>
-						<td>
-							<%-- 로그인정보가 없을때에도 보이도록. --%>
-							<c:choose>
-								<c:when test="${empty loginMember}">
-									<div class="btn-group">
-										<button type="button" class="btn btn-success"
-											data-toggle="modal" data-target="#rentBook"
-											aria-expanded="false" id="rent-btn"
-											onclick="redirectToLogin()"
-											${book.status=='0'
-																? 'disabled' : '' }>
-											${book.status == '0' ? '대출불가' : '로그인 후 대출'}</button>
-									</div>
-								</c:when>
-								<c:otherwise>
-									<c:if test="${loginMember.memberCode == '9' }">
-										<span style="color:red">${book.status == '0' ? '대출중' : ''}</span>
-									</c:if>
-									<c:if test="${loginMember.memberCode == '1' }">
-									<div class="btn-group">
-										<button type="submit" class="btn btn-success"
-											data-toggle="modal" data-target="#rentBook"
-											aria-expanded="false" data-book="${book}"
-											data-bookNo="${book.manageNo}" data-bookTitle="${book.title}"
-											data-bookAuthor="${book.author}" id="rent-btn"
-											onclick="rentBook(this)"
-											${book.status == '0' ? 'disabled' : ''}>
-											${book.status == '0' ? '대출불가' : '대출가능'}</button>
-									</div>
-									</c:if>
-									<c:if test="${loginMember.memberCode == '9' }">
-										<td>
-											<div class="btn-group">
-												<button type="button" class="btn btn-danger"
-													data-toggle="modal" data-target="#deleteBook"
-													data-bookNo="${book.manageNo}"
-													data-bookTitle="${book.title}"
-													data-bookAuthor="${book.author}" aria-expanded="false"
-													id="delete-btn" onclick="deleteBook(this)"
-													${book.status=='0' ? 'disabled' : '' }>
-													${book.status == '0' ? '삭제' : '삭제'}</button>
-											</div>
-										</td>
-									</c:if>
-								</c:otherwise>
-							</c:choose>
-
-						</td>
+						<td>${post.no}</td>
+						<td><a href="post-detail.do?no=${post.no}">${post.title}[${post.replyCnt}]</a></td>
+						<td>${post.writer}</td>
+						<td>${post.regDate}</td>
+						<td>${post.hit}</td>
+						<td><c:if test="${loginMember.memberCode == '9' }">
+								<div class="btn-group">
+									<button type="submit" class="btn btn-success"
+										data-toggle="modal" data-target="#fixNotice"
+										aria-expanded="false" data-post="${board}"
+										data-postNo="${book.manageNo}" id="fix-btn"
+										onclick="fixOnTop(this)"
+										${post.status == '0' ? 'disabled' : ''}></button>
+								</div>
+							</c:if>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -154,53 +79,11 @@
 	</div>
 
 	<script>
-	
-	<%-- 도서 대출 --%>
-function rentBook(button) {
-	//data-bookNo의 속성을 가져옴
-	var book = button.getAttribute("data-book");
-	var bookNo = button.getAttribute("data-bookNo");
-	var bookTitle = button.getAttribute("data-bookTitle");
-	var bookAuthor = button.getAttribute("data-bookAuthor");
-
-	document.getElementById("bookNo").innerText = bookNo;
-	document.getElementById("bookTitle").innerText = bookTitle;
-	document.getElementById("bookAuthor").innerText = bookAuthor;
-	
-	document.getElementById("bookNoInput").value = bookNo;
-
-	console.log("도서: ", book);
-	console.log("도서번호: ", bookNo);
-	console.log("도서명: ", bookTitle);
-	console.log("저자: ", bookAuthor);
-	
-}
-
-
-	<%-- 도서 삭제 --%>
-function deleteBook(button) {
-	//data-bookNo의 속성을 가져옴
-	var bookNo = button.getAttribute("data-bookNo");
-	var bookTitle = button.getAttribute("data-bookTitle");
-	var bookAuthor = button.getAttribute("data-bookAuthor");
-
-	document.getElementById("bookNo2").innerText = bookNo;
-	document.getElementById("bookTitle2").innerText = bookTitle;
-	document.getElementById("bookAuthor2").innerText = bookAuthor;
-	
-	document.getElementById("bookNoToDelete").value = bookNo;
-
-	console.log("도서번호: ", bookNo);
-	console.log("도서명: ", bookTitle);
-	console.log("저자: ", bookAuthor);
-}
-	
-</script>
-
-
-
-
-
+			function redirectToLogin() {
+				alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+				window.location.href = "login.do";
+			}
+		</script>
 
 
 	<%-- 도서대출 모달 --%>

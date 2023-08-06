@@ -106,13 +106,10 @@ public class MemberVO {
 		this.email = email;
 	}
 
-
-
-
 	@Override
 	public String toString() {
-		System.out.printf("%-10s\t\t%-10s\t\t%s\t\t%s\n",
-							id, pw, name, phone);
-		return "";
+		return "MemberVO [memberNo=" + memberNo + ", memberCode=" + memberCode + ", id=" + id + ", pw=" + pw + ", name="
+				+ name + ", phone=" + phone + ", email=" + email + ", regDate=" + regDate + "]";
 	}
+
 }

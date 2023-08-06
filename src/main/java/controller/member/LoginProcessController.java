@@ -31,8 +31,8 @@ public class LoginProcessController extends BaseController {
 
 			// 그리고 이 mem을 session에 MemberVO형태 고대로 넘겨줌.
 			session.setAttribute("loginMember", mem);
-			
-			System.out.println("회원정보 존재. by LoginController");
+			System.out.println("loginMember : " + mem);
+//			System.out.println("회원정보 존재. by LoginController");
 			return "main.do";
 		} else if (dao.isDuplicatedId(id)) {
 			// 아이디는 존재, 비밀번호가 틀린 경우.

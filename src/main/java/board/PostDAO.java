@@ -43,7 +43,8 @@ public class PostDAO {
 		List<PostVO> postList = new ArrayList<>();
 
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM L_BOARD ORDER BY NO DESC");
+		sql.append("SELECT NO, WRITER, TITLE, CONTENT, TO_CHAR(REG_DATE, 'yy-mm-dd') REG_DATE ");
+		sql.append(" , HIT, REF, LEV, STEP FROM L_BOARD ORDER BY NO DESC ");
 
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
@@ -71,6 +72,78 @@ public class PostDAO {
 		}
 
 		return postList;
+	}
+
+	public PostVO getPostDetail(int postNo) {
+		PostVO post = new PostVO();
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM L_BOARD WHERE NO = ? ");
+		
+		try(
+			Connection conn = new ConnectionFactory().getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
+			
+			pstmt.setInt(1, postNo);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int no = rs.getInt("NO");
+				String writer = rs.getString("WRITER");
+				String title = rs.getString("TITLE");
+				String content = rs.getString("CONTENT");
+				String regDate = rs.getString("REG_DATE");
+				int hit = rs.getInt("HIT");
+				int ref = rs.getInt("REF");
+				int lev = rs.getInt("LEV");
+				int step = rs.getInt("STEP");
+
+				post = new PostVO(no, writer, title, content, regDate, hit, ref, lev, step);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return post;
+	}
+
+	public void deletePost(int no) {
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("DELETE FROM L_BOARD WHERE NO = ? ");
+
+		try (
+			Connection conn = new ConnectionFactory().getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
+
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 게시글 수정용
+	public void modifyPost(PostVO post) {
+		int idx = 1;
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE L_BOARD SET TITLE = ?, CONTENT = ? WHERE NO = ? ");
+
+		try (
+			 Connection conn = new ConnectionFactory().getConnection();
+			 PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
+			pstmt.setString(idx++, post.getTitle());
+			pstmt.setString(idx++, post.getContent());
+			pstmt.setInt(idx++, post.getNo());
+
+			if (pstmt.executeUpdate() == 0) {
+				System.out.println("postDAO, 게시글 수정 실패");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 //	// 3. 관리번호로 검색
@@ -105,28 +178,6 @@ public class PostDAO {
 //
 //		return book;
 //	}
-//
-//	// 관리번호로 찾아서 삭제
-//	public BookVO deleteBook(String manageNo) {
-//
-//		BookVO book = null;
-//
-//		StringBuilder sql = new StringBuilder();
-//		sql.append("DELETE FROM BOOKLIST ");
-//		sql.append("	WHERE NO = ? ");
-//
-//		try (Connection conn = new ConnectionFactory().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-//			// 물음표 자리에 매개변수로 들어오는 int를 날려~
-//			pstmt.setString(1, manageNo);
-//			pstmt.executeUpdate();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return book;
-//	}
-//	
 //	
 //	
 //	//혹시 대출중인지 확인
@@ -159,46 +210,6 @@ public class PostDAO {
 //				
 //	}
 //
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//	// 4. 다중 수정!!!! 타이틀/저자/출판사
-//	public BookVO modifyBook(int menu, String manageNo, String str) {
-//		BookVO book = null;
-//		StringBuilder sql = new StringBuilder();
-//
-//		switch (menu) {
-//		case 1: // 타이틀 수정
-//			sql.append("UPDATE BOOKLIST SET TITLE = ? ");
-//			sql.append(" WHERE NO = ? ");
-//			break;
-//		case 2: // 저자
-//			sql.append("UPDATE BOOKLIST SET AUTHOR = ? ");
-//			sql.append(" WHERE NO = ? ");
-//			break;
-//		case 3: // 출판사
-//			sql.append("UPDATE BOOKLIST SET PUBLISHER = ? ");
-//			sql.append(" WHERE NO = ? ");
-//			break;
-//		}
-//
-//
-//		try (Connection conn = new ConnectionFactory().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-//			pstmt.setString(1, str);
-//			pstmt.setString(2, manageNo);
-//
-//			pstmt.executeUpdate();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return book;
-//	}
 //
 //	// 3-2 다중 검색!!!! 1=통합 2=제목 3=저자 4=출판사
 //	public List<BookVO> searchBooks(int menu, String str) {
@@ -317,111 +328,6 @@ public class PostDAO {
 //		}
 //		return bookList;
 //	}
-//	// 출판사 검색
-//	public List<BookVO> searchBookByPublisher(String str) {
-//		List<BookVO> bookList = new ArrayList<>();
-//		
-//		StringBuilder sql = new StringBuilder();
-//		sql.append("SELECT * FROM BOOKLIST WHERE INSTR(PUBLISHER, ?) != 0 ");
-//		
-//		try (Connection conn = new ConnectionFactory().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-//			pstmt.setString(1, str);
-//			ResultSet rs = pstmt.executeQuery();
-//			
-//			while (rs.next()) {
-//				String no = rs.getString("NO");
-//				String title = rs.getString("TITLE");
-//				String author = rs.getString("AUTHOR");
-//				String publisher = rs.getString("PUBLISHER");
-//				int status = rs.getInt("STATUS");
-//				int pop = rs.getInt("POP");
-//				
-//				BookVO book = new BookVO(no, title, author, publisher, status, pop);
-//				bookList.add(book);
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return bookList;
-//	}
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//
-//	// 도서번호로 도서명 가져오기
-//	public String getTitle(String bookNo) {
-//		StringBuilder sql = new StringBuilder();
-//		sql.append("SELECT TITLE FROM BOOKLIST WHERE NO = ?");
-//		try (Connection conn = new ConnectionFactory().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-//			pstmt.setString(1, bookNo);
-//			ResultSet rs = pstmt.executeQuery();
-//			if (rs.next())
-//				return rs.getString(1);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "";
-//	}
-//
-//	// 도서번호로 저자명 가져오기
-//	public String getAuthor(String bookNo) {
-//		StringBuilder sql = new StringBuilder();
-//		sql.append("SELECT AUTHOR FROM BOOKLIST WHERE NO = ?");
-//		try (Connection conn = new ConnectionFactory().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-//			pstmt.setString(1, bookNo);
-//			ResultSet rs = pstmt.executeQuery();
-//			if (rs.next())
-//				return rs.getString(1);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "";
-//	}
-//
-//	// 도서번호로 출판사 가져오기
-//	public String getPublisher(String bookNo) {
-//		StringBuilder sql = new StringBuilder();
-//		sql.append("SELECT PUBLISHER FROM BOOKLIST WHERE NO = ?");
-//		try (Connection conn = new ConnectionFactory().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-//			pstmt.setString(1, bookNo);
-//			ResultSet rs = pstmt.executeQuery();
-//			if (rs.next())
-//				return rs.getString(1);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "";
-//	}
-//
-//	// 대출 또는 반납시 상태코드 변경
-//	public void changeStatus(int status, String bookNo) {
-//		StringBuilder sql = new StringBuilder();
-//		sql.append("UPDATE BOOKLIST SET STATUS = ? ");
-//		sql.append(" WHERE NO = ? ");
-//
-//		try (Connection conn = new ConnectionFactory().getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-//			pstmt.setInt(1, status);
-//			pstmt.setString(2, bookNo);
-//
-//			if (pstmt.executeUpdate() == 0) {
-//				System.out.println("여기는 BookDAO, changeStatus 반영안됨");
-//			}
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+
 
 }// end of class

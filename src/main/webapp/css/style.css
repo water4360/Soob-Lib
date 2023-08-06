@@ -44,7 +44,8 @@ body {
 	margin: 0;
 	display : flex;
 	flex-direction : column;
-	justify-content : space-between;
+/* 	justify-content : space-between; */
+	justify-content : flex-start;
 	
 	min-width: 800px;
 	font-family: "S-CoreDream-5Medium";
@@ -56,10 +57,15 @@ body {
 	margin-right: 5%;
 }
 
+
 .container {
 	display: flex;
+	flex-direction: column;
+}
+
+.main-contents {
+	display: flex;
 	flex-direction: row;
-	
 }
 
 header {

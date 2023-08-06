@@ -6,6 +6,12 @@ import java.util.Map;
 import controller.admin.DeleteBookController;
 import controller.admin.ManageBoardController;
 import controller.admin.ManageMemberController;
+import controller.board.AddPostController;
+import controller.board.BoardListController;
+import controller.board.DeletePostController;
+import controller.board.ModifyPostController;
+import controller.board.PostDetailController;
+import controller.board.WritePostController;
 import controller.book.AddBookProcessController;
 import controller.book.AllBooksController;
 import controller.book.RentBookController;
@@ -64,6 +70,13 @@ public class HandlerMapping {
 		
 		//공지사항 게시판
 		mappings.put("/board.do", new BoardListController());
+		mappings.put("/post-detail.do", new PostDetailController());
+		mappings.put("/write-post.do", new WritePostController());
+		mappings.put("/add-post.do", new AddPostController());
+		mappings.put("/modify-post.do", new ModifyPostController());
+		mappings.put("/delete-post.do", new DeletePostController());
+		
+		
 		
 		//이거 memberService 팩토리 어쩌구 있어야 자꾸 새로 mem객체 생성안하고 유지될듯!
 		mappings.put("/myPage.do", new MyPageController());

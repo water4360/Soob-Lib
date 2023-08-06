@@ -11,7 +11,7 @@ public class PostVO {
 	private int hit;
 	private int replyCnt;
 
-	//원글, 답or답답, 순서 
+	// 원글, 답or답답, 순서
 	private int ref;
 	private int lev;
 	private int step;
@@ -19,7 +19,16 @@ public class PostVO {
 	public PostVO() {
 		super();
 	}
-	
+
+	// 작성정보 받아오기
+	public PostVO(String writer, String title, String content) {
+		super();
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+	}
+
+	// 게시글 등록용
 	public PostVO(int no, String writer, String title, String content, String regDate, int hit, int replyCnt, int ref,
 			int lev, int step) {
 		super();
@@ -34,8 +43,29 @@ public class PostVO {
 		this.lev = lev;
 		this.step = step;
 	}
+	// 게시글 상세 불러오기용
+	public PostVO(int no, String writer, String title, String content, String regDate, int hit, int ref,
+			int lev, int step) {
+		super();
+		this.no = no;
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+		this.regDate = regDate;
+		this.hit = hit;
+		this.ref = ref;
+		this.lev = lev;
+		this.step = step;
+	}
 
 
+	//게시글 수정용
+	public PostVO(int no, String title, String content) {
+		super();
+		this.no = no;
+		this.title = title;
+		this.content = content;
+	}
 
 	public int getNo() {
 		return no;
@@ -123,5 +153,5 @@ public class PostVO {
 				+ regDate + ", hit=" + hit + ", replyCnt=" + replyCnt + ", ref=" + ref + ", lev=" + lev + ", step="
 				+ step + "]";
 	}
-	
+
 }
